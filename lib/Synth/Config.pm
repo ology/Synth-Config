@@ -116,7 +116,8 @@ sub BUILD {
 
   my $id = $synth->make_setting(%args);
 
-Save a setting with a db "upsert" operation and return the record id.
+Save a setting with a db "update or insert" operation and return the
+record id.
 
 Example:
 
