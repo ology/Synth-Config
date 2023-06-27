@@ -1,0 +1,5 @@
+Revision history for Synth-Config
+
+{{$NEXT}}
+    - Shoe-horn the basics into place.
+    - Mint with Dist::Zilla.
