@@ -92,13 +92,16 @@ has verbose => (
 
 =head1 METHODS
 
-=for Pod::Coverage BUILD
-
 =head2 new
 
-  $synth = Synth::Config->new(%args);
+  $synth = Synth::Config->new(model => $model);
 
 Create a new C<Synth::Config> object.
+
+This automatically makes an SQLite database with a table named for the
+given B<model>.
+
+=for Pod::Coverage BUILD
 
 =cut
 
@@ -160,9 +163,9 @@ sub make_setting {
 
 =head2 recall_setting
 
-  my $setting = $synth->recall_setting(%args);
+  my $setting = $synth->recall_setting(id => $id);
 
-Return the parameters of a setting.
+Return the parameters of a setting for the given B<id>.
 
 =cut
 
@@ -186,6 +189,10 @@ __END__
 =head1 SEE ALSO
 
 L<Moo>
+
+L<Mojo::JSON>
+
+L<Mojo::SQLite>
 
 Knob: L<https://codepen.io/jhnsnc/pen/KXYayG>
 
