@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0004 2023-06-27 13:57:50
     - WIP: Add a name column!
     - Improve documentation.
 
