@@ -17,10 +17,10 @@ use namespace::clean;
 
   my $synth = Synth::Config->new(model => 'Moog Matriarch');
 
-  my $id = $synth->make_setting(foo => 'bar', etc => '...');
+  my $id = $synth->make_setting(name => 'Foo!', etc => '...');
 
   my $setting = $synth->recall_setting(id => $id);
-  # { foo => 'bar', etc => '...' }
+  # { name => 'Foo!', etc => '...' }
 
   #my $result = $synth->render_setting(...); # TODO
 
@@ -123,8 +123,10 @@ sub BUILD {
 
   my $id = $synth->make_setting(%args);
 
-Save a named setting with a db "update or insert" operation and return
-the record id.
+Save a named setting and return the record id.
+
+The B<name> is required. If an B<id> is given, an update is performed.
+Otherwise, a database insert is made.
 
 Example:
 
@@ -138,7 +140,7 @@ Example:
 sub make_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
-  my $name = delete $args{name};
+  my $name = delete $args{name}; # TODO search by name
   croak 'No columns given' unless keys %args;
   if ($id) {
     my $setting = $self->_sqlite->select(
@@ -177,7 +179,7 @@ Return the parameters of a setting for the given B<id>.
 sub recall_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
-  my $name = delete $args{name};
+  my $name = delete $args{name}; # TODO search by name
   croak 'No id given' unless $id;
   my $setting = $self->_sqlite->select(
     $self->model,
