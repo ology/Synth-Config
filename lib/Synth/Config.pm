@@ -159,7 +159,6 @@ sub make_setting {
     $id = $self->_sqlite->insert(
       $self->model,
       {
-        id       => $id,
         name     => $name,
         settings => to_json(\%args),
       },
