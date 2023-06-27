@@ -183,9 +183,7 @@ sub recall_setting {
   my $setting = $self->_sqlite->select(
     $self->model,
     ['settings'],
-    {
-      id => $id,
-    },
+    { id => $id },
   )->expand(json => 'settings')->hash;
   return $setting;
 }
