@@ -140,7 +140,7 @@ Example:
 sub make_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
-  my $name = delete $args{name}; # TODO search by name
+  my $name = delete $args{name};
   croak 'No columns given' unless keys %args;
   if ($id) {
     my $setting = $self->_sqlite->select(
