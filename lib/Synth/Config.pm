@@ -79,7 +79,7 @@ sub _build__sqlite {
 
 =head2 verbose
 
-  $verbose = $x->verbose;
+  $verbose = $synth->verbose;
 
 Show progress.
 
