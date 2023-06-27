@@ -115,7 +115,7 @@ sub BUILD {
   $self->_sqlite->query(
     'create table if not exists '
     . $self->model
-    . ' (id integer primary key autoincrement, settings text not null)'
+    . ' (id integer primary key autoincrement, settings text not null, name text not null)'
   );
 }
 
@@ -123,19 +123,22 @@ sub BUILD {
 
   my $id = $synth->make_setting(%args);
 
-Save a setting with a db "update or insert" operation and return the
-record id.
+Save a named setting with a db "update or insert" operation and return
+the record id.
 
 Example:
 
-  group  parameter control bottom top   value unit is_default
-  filter cutoff    knob    20     20000 200   Hz   true
+  name: 'My Best Setting!'
+  settings:
+    group  parameter control bottom top   value unit is_default
+    filter cutoff    knob    20     20000 200   Hz   true
 
 =cut
 
 sub make_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
+  my $name = delete $args{name};
   croak 'No columns given' unless keys %args;
   if ($id) {
     my $setting = $self->_sqlite->select(
@@ -155,6 +158,7 @@ sub make_setting {
       $self->model,
       {
         id       => $id,
+        name     => $name,
         settings => to_json(\%args),
       },
     )->last_insert_id;
@@ -173,6 +177,7 @@ Return the parameters of a setting for the given B<id>.
 sub recall_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
+  my $name = delete $args{name};
   croak 'No id given' unless $id;
   my $setting = $self->_sqlite->select(
     $self->model,

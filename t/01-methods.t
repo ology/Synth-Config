@@ -18,6 +18,7 @@ subtest defaults => sub {
 };
 
 subtest settings => sub {
+  my $name   = 'Test setting!',
   my $expect = {
     group      => 'filter',
     parameter  => 'cutoff',
@@ -29,7 +30,7 @@ subtest settings => sub {
     is_default => 0,
   };
   # make an initial setting
-  my $id = $obj->make_setting(%$expect);
+  my $id = $obj->make_setting(%$expect, name => $name);
   ok $id, "id: $id";
   # recall that setting
   my $setting = $obj->recall_setting(id => $id);
@@ -54,7 +55,7 @@ subtest settings => sub {
     is_default => 0,
   };
   # make a second setting
-  my $id2 = $obj->make_setting(%$expect);
+  my $id2 = $obj->make_setting(%$expect, name => $name);
   is $id2, $id + 1, "id: $id2";
   # recall that setting
   $setting = $obj->recall_setting(id => $id2);
