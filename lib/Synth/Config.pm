@@ -7,7 +7,7 @@ our $VERSION = '0.0004';
 use Moo;
 use strictures 2;
 use Carp qw(croak);
-use Mojo::JSON qw(to_json);
+use Mojo::JSON qw(from_json to_json);
 use Mojo::SQLite ();
 use namespace::clean;
 
@@ -178,7 +178,6 @@ Return the parameters of a setting for the given B<id>.
 sub recall_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
-  my $name = delete $args{name}; # TODO search by name
   croak 'No id given' unless $id;
   my $setting = $self->_sqlite->select(
     $self->model,
@@ -186,6 +185,28 @@ sub recall_setting {
     { id => $id },
   )->expand(json => 'settings')->hash;
   return $setting;
+}
+
+=head2 recall_settings
+
+  my $settings = $synth->recall_settings(name => $name);
+
+Return all the settings for a given B<name>.
+
+=cut
+
+sub recall_settings {
+  my ($self, %args) = @_;
+  my $name = delete $args{name};
+  croak 'No name given' unless $name;
+  my $results = $self->_sqlite->query(
+    'select id,settings from ' . $self->model . " where name='$name'"
+  );
+  my @settings;
+  while (my $next = $results->hash) {
+    push @settings, { $next->{id} => from_json($next->{settings}) };
+  }
+  return \@settings;
 }
 
 1;

@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Add the recall_settings() method.
     - Improve documentation.
 
 0.0004 2023-06-27 13:57:50
