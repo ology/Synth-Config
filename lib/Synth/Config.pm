@@ -36,9 +36,12 @@ settings in an SQLite database. It is a "librarian", if you will.
 
 =head2 model
 
-$model = $synth->model;
+  $model = $synth->model;
 
-Show progress.
+The B<required> model name of the synthesizer.
+
+This is turned into lowercase and all non-alpha-num characters are
+converted to an underline character (C<_>).
 
 =cut
 
