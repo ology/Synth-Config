@@ -1,0 +1,31 @@
+{
+    group      => [qw(arp_seq modulation utilities_1 oscillators mixer filters utilities_2 envelop_gens delay output)],
+    parameter  => {
+        arp_seq      => [qw(rate-in cv-out vel-out gate-out rate mode direction oct sequence rest tie ratchet)],
+        modulation   => [qw(rate-in sync-in noise-out s/h-out wave-out)],
+        utilities_1  => [qw(mult attenuator-1 input-1 output-1 cv-in-1 attenuator-2 input-2 output-2 cv-in-2)],
+        oscillators  => [qw(
+            pitch-in-1 wave-out-1 pwm-in-1 lin-fm-in-1 octave-1 sync-enable waveform-1
+            pitch-in-2 wave-out-2 pwm-in-2 lin-fm-in-2 octave-2 frequency-2 sync-1 waveform-2
+            pitch-in-3 wave-out-3 pwm-in-3 lin-fm-in-3 octave-3 frequency-3 sync-2 waveform-3
+            pitch-in-4 wave-out-4 pwm-in-4 lin-fm-in-4 octave-4 frequency-4 sync-3 waveform-4
+        )],
+        mixer        => [qw(noise-in osc-1-in osc-2-in osc-3-in osc-4-in output noise oscillator-1 oscillator-2 oscillator-3 oscillator-4)],
+        filters      => [qw(vcf-1-in vcf-2-in vcf-1-out vcf-2-out cutoff-1-in cutoff-2-in env-amt-in cutoff resonance-1 resonance-2 filter-mode spacing envelope-amt kb-tracking)],
+        utilities_2  => [qw(mult attenuator input output cv-in lfo-rate rate-in tri-out square-out)],
+        envelop_gens => [qw(
+            filter-trigger-in filter-env-out filter-env-end-out filter-attack filter-decay filter-release filter-sustain
+            amplitude-trigger-in amplitude-env-out amplitude-env-end-out amplitude-attack amplitude-decay amplitude-release amplitude-sustain
+        )],
+        delay        => [qw(delay-1-in delay-2-in fb-cv-in time-1-in time-2-in mix-in time spacing feedback mix sync-tap ping-pong)],
+        output       => [qw(vca-1-in vca-1-cv-in vca-2-in vca-2-cv-in main-volume vca-mode voice-mode multi-trig)],
+    },
+    control    => [qw(knob switch slider patch)],
+    group_to   => [], # if control = patch
+    param_to   => [], # if control = patch
+    bottom     => [qw(0   1 7AM 16' off 20)],
+    top        => [qw(4 5 7 5PM 2'  on  20_000)],
+    value      => [],
+    unit       => [qw(none boolean Hz o'clock)],
+    is_default => [0, 1],
+};
