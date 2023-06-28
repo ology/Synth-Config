@@ -29,7 +29,10 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
 
 my $synth = Synth::Config->new(model => $opts{model});
 
-my @keys = qw(name group parameter control bottom top value unit is_default);
+my $name = prompt('What is the name of this setting?', 'required');
+die 'No name given' unless $name;
+
+my @keys = qw(group parameter control bottom top value unit is_default);
 
 my $response;
 
