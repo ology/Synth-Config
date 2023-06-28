@@ -71,9 +71,7 @@ has dbname => (
   default  => sub { 'synth-config.db' },
 );
 
-has _sqlite => (
-  is => 'lazy',
-);
+has _sqlite => (is => 'lazy');
 
 sub _build__sqlite {
   my ($self) = @_;
