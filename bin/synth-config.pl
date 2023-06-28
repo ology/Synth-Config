@@ -40,7 +40,7 @@ my $counter = 0;
 
 OUTER: while (1) {
     $counter++;
-    my %parameters;
+    my %parameters = (name => $name);
     INNER: for my $key (@keys) {
         $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
         if ($response eq 'q') {
@@ -53,7 +53,7 @@ OUTER: while (1) {
             $parameters{$key} = $response;
         }
     }
-    if ($parameters{name} && keys(%parameters) > 1) {
+    if (keys(%parameters) > 1) {
         my $id = $synth->make_setting(%parameters);
     }
     $response = prompt('Enter for another setting (q to quit)', 'enter');
