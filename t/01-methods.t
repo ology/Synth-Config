@@ -68,7 +68,7 @@ subtest settings => sub {
   is keys(%$setting2), keys(%$expect), 'settings all there';
   # check the updated field
   ok $setting2->{is_default}, 'is_default';
-  # recall_settings
+  # recall named settings
   my $settings = $obj->recall_settings(name => $name);
   is_deeply $settings,
     [ { $id => $setting }, { $id2 => $setting2 } ],
