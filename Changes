@@ -1,6 +1,9 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve documentation.
+
+0.0007 2023-06-27 21:26:38
     - Add the recall_names() method.
 
 0.0006 2023-06-27 17:40:08
