@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0006 2023-06-27 17:40:08
     - Clean code, tests, and docs.
 
 0.0005 2023-06-27 15:54:01
