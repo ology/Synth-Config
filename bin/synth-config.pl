@@ -27,6 +27,8 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
     die 'Missing: ' . join(', ', @missing);
 }
 
+my $synth = Synth::Config->new(model => $opts{model});
+
 my @keys = qw(name group parameter control bottom top value unit is_default);
 
 my $response;
@@ -35,6 +37,7 @@ my $counter = 0;
 
 OUTER: while (1) {
     $counter++;
+    my %parameters;
     INNER: for my $key (@keys) {
         $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
         if ($response eq 'q') {
@@ -44,8 +47,11 @@ OUTER: while (1) {
             next INNER;
         }
         else {
-            print "You said, $response\n";
+            $parameters{$key} = $response;
         }
+    }
+    if ($parameters{name} && keys(%parameters) > 1) {
+        my $id = $synth->make_setting(%parameters);
     }
     $response = prompt('Enter for another setting (q to quit)', 'enter');
     if ($response eq 'q') {
