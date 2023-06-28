@@ -34,6 +34,10 @@ use namespace::clean;
   my $settings = $synth->recall_settings(name => $names->[0]);
   # [ 1 => { etc => '!!!' }, 2 => { etc => '???' } ]
 
+  $synth->remove_setting(id => $id1);
+
+  $synth->remove_settings(name => $name);
+
 =head1 DESCRIPTION
 
 C<Synth::Config> provides a way to save and recall synthesizer control
@@ -231,6 +235,42 @@ sub recall_names {
     'select distinct name from ' . $self->model
   )->array;
   return $results;
+}
+
+=head2 remove_setting
+
+  $synth->remove_setting(id => $id);
+
+Remove a setting given an B<id>.
+
+=cut
+
+sub remove_setting {
+  my ($self, %args) = @_;
+  my $id = delete $args{id};
+  croak 'No id given' unless $id;
+  $self->_sqlite->delete(
+    $self->model,
+    { id => $id }
+  );
+}
+
+=head2 remove_settings
+
+  $synth->remove_settings(name => $name);
+
+Remove all settings for a given B<name>.
+
+=cut
+
+sub remove_settings {
+  my ($self, %args) = @_;
+  my $name = delete $args{name};
+  croak 'No name given' unless $name;
+  $self->_sqlite->delete(
+    $self->model,
+    { name => $name }
+  );
 }
 
 1;

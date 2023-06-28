@@ -76,7 +76,14 @@ subtest settings => sub {
   # recall names
   my $names = $obj->recall_names;
   $expect = [ $name ];
-  is_deeply $names, $expect, 'recall_names'
+  is_deeply $names, $expect, 'recall_names';
+  # remove a setting
+  $obj->remove_setting(id => $id);
+  $settings = $obj->recall_settings(name => $name);
+  is_deeply $settings, [ { $id2 => $setting2 } ], 'removed setting';
+  $obj->remove_settings(name => $name);
+  $settings = $obj->recall_settings(name => $name);
+  is_deeply $settings, [], 'removed settings';
 };
 
 subtest cleanup => sub {
