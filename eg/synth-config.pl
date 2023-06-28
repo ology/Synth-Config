@@ -8,6 +8,7 @@ use warnings;
 use Getopt::Long qw(GetOptions);
 use Pod::Usage;
 use IO::Prompt::Tiny qw(prompt);
+use Term::Choose ();
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
@@ -45,17 +46,30 @@ if ($specs) {
     @keys = $order ? @$order : sort keys %$specs;
 }
 
+my $tc = Term::Choose->new;
+
 my $response;
+my $group;
 
 my $counter = 0;
 
 OUTER: while (1) {
     $counter++;
     my %parameters = (name => $name);
-    if ($specs) {
-    }
-    else {
-        INNER: for my $key (@keys) {
+    INNER: for my $key (@keys) {
+        if ($specs) {
+            my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
+            my $choice;
+            if ($key eq 'group') {
+                $group = $tc->choose($things, { prompt => $key });
+                print "\tGroup set to: $group\n";
+            }
+            else {
+                $choice = $tc->choose($things, { prompt => $key });
+                print "\tYou chose: $choice\n";
+            }
+        }
+        else {
             $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
             if ($response eq 'q') {
                 last OUTER;
@@ -69,7 +83,7 @@ OUTER: while (1) {
         }
     }
     if (keys(%parameters) > 1) {
-        my $id = $synth->make_setting(%parameters);
+#        my $id = $synth->make_setting(%parameters);
     }
     $response = prompt('Enter for another setting (q to quit)', 'enter');
     if ($response eq 'q') {
