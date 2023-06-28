@@ -32,6 +32,9 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
 
 my $synth = Synth::Config->new(model => $opts{model});
 
+my $set = './eg/' . $synth->model . '.set';
+my $specs = -e $set ? do $set : undef;
+
 my $name = prompt('What is the name of this setting?', 'required');
 die 'No name given' unless $name;
 
