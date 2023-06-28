@@ -71,7 +71,7 @@ subtest settings => sub {
   # recall_settings
   my $settings = $obj->recall_settings(name => $name);
   is_deeply $settings,
-    [ { 1 => $setting }, { 2 => $setting2 } ],
+    [ { $id => $setting }, { $id2 => $setting2 } ],
     'settings';
 };
 
