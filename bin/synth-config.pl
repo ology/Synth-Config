@@ -66,7 +66,7 @@ __END__
 
 =head1 NAME
 
-synth-config.pl - Save and recall synth settings
+synth-config.pl - Save synth settings
 
 =head1 SYNOPSIS
 
