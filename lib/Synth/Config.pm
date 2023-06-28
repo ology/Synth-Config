@@ -25,11 +25,14 @@ use namespace::clean;
   my $setting = $synth->recall_setting(id => $id1);
   # { etc => '...' }
 
-  my $settings = $synth->recall_settings(name => $name);
-  # [ 1 => { etc => '...' }, 2 => { etc => '???' } ]
+  # update the etc key only
+  $synth->make_setting(id => $id1, etc => '!!!');
 
   my $names = $synth->recall_names;
   # [ 'Foo!' ]
+
+  my $settings = $synth->recall_settings(name => $names->[0]);
+  # [ 1 => { etc => '!!!' }, 2 => { etc => '???' } ]
 
 =head1 DESCRIPTION
 
