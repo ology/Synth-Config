@@ -25,7 +25,7 @@ use namespace::clean;
   # { etc => '...' }
 
   my $settings = $synth->recall_settings(name => $name);
-  # { etc => '...' }, { etc => '???' }, etc.
+  # [ 1 => { etc => '...' }, 2 => { etc => '???' }, ]
 
 =head1 DESCRIPTION
 
