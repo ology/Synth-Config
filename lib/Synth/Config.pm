@@ -149,8 +149,8 @@ sub make_setting {
       $self->model,
       ['settings'],
       { id => $id },
-    )->expand(json => 'settings')->hash;
-    my $params = { %{ $result->{settings} }, %args };
+    )->expand(json => 'settings')->hash->{settings};
+    my $params = { %$result, %args };
     $self->_sqlite->update(
       $self->model,
       { settings => to_json($params) },
