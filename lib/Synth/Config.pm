@@ -185,7 +185,7 @@ sub recall_setting {
     $self->model,
     ['settings'],
     { id => $id },
-  )->expand(json => 'settings')->hash;
+  )->expand(json => 'settings')->hash->{settings};
   return $result;
 }
 
