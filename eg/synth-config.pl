@@ -30,15 +30,20 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
     die 'Missing: ' . join(', ', @missing);
 }
 
-my $synth = Synth::Config->new(model => $opts{model});
-
-my $set = './eg/' . $synth->model . '.set';
-my $specs = -e $set ? do $set : undef;
-
 my $name = prompt('What is the name of this setting?', 'required');
 die 'No name given' unless $name;
 
-my @keys = qw(group parameter control group_to param_to bottom top value unit is_default);
+my $synth = Synth::Config->new(model => $opts{model});
+
+# get a specs config file for the synth model
+my $set = './eg/' . $synth->model . '.set';
+my $specs = -e $set ? do $set : undef;
+
+my @keys = qw(group parameter control bottom top value unit is_default);
+if ($specs) {
+    my $order = delete $specs->{order};
+    @keys = @$order;
+}
 
 my $response;
 
@@ -47,16 +52,20 @@ my $counter = 0;
 OUTER: while (1) {
     $counter++;
     my %parameters = (name => $name);
-    INNER: for my $key (@keys) {
-        $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
-        if ($response eq 'q') {
-            last OUTER;
-        }
-        elsif ($response eq 'enter') {
-            next INNER;
-        }
-        else {
-            $parameters{$key} = $response;
+    if ($specs) {
+    }
+    else {
+        INNER: for my $key (@keys) {
+            $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
+            if ($response eq 'q') {
+                last OUTER;
+            }
+            elsif ($response eq 'enter') {
+                next INNER;
+            }
+            else {
+                $parameters{$key} = $response;
+            }
         }
     }
     if (keys(%parameters) > 1) {
