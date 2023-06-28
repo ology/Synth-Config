@@ -145,12 +145,12 @@ sub make_setting {
   my $name = delete $args{name};
   croak 'No columns given' unless keys %args;
   if ($id) {
-    my $setting = $self->_sqlite->select(
+    my $result = $self->_sqlite->select(
       $self->model,
       ['settings'],
       { id => $id },
     )->expand(json => 'settings')->hash;
-    my $params = { %{ $setting->{settings} }, %args };
+    my $params = { %{ $result->{settings} }, %args };
     $self->_sqlite->update(
       $self->model,
       { settings => to_json($params) },
@@ -181,12 +181,12 @@ sub recall_setting {
   my ($self, %args) = @_;
   my $id = delete $args{id};
   croak 'No id given' unless $id;
-  my $setting = $self->_sqlite->select(
+  my $result = $self->_sqlite->select(
     $self->model,
     ['settings'],
     { id => $id },
   )->expand(json => 'settings')->hash;
-  return $setting;
+  return $result;
 }
 
 =head2 recall_settings
