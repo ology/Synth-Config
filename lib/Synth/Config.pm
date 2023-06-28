@@ -19,9 +19,10 @@ use namespace::clean;
 
   my $name = 'Foo!';
 
-  my $id = $synth->make_setting(name => $name, etc => '...'); # 1
+  my $id1 = $synth->make_setting(name => $name, etc => '...');
+  my $id2 = $synth->make_setting(name => $name, etc => '???');
 
-  my $setting = $synth->recall_setting(id => $id);
+  my $setting = $synth->recall_setting(id => $id1);
   # { etc => '...' }
 
   my $settings = $synth->recall_settings(name => $name);
