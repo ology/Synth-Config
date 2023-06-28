@@ -17,12 +17,15 @@ use namespace::clean;
 
   my $synth = Synth::Config->new(model => 'Moog Matriarch');
 
-  my $id = $synth->make_setting(name => 'Foo!', etc => '...');
+  my $name = 'Foo!';
+
+  my $id = $synth->make_setting(name => $name, etc => '...');
 
   my $setting = $synth->recall_setting(id => $id);
-  # { name => 'Foo!', etc => '...' }
+  # { etc => '...' }
 
-  #my $result = $synth->render_setting(...); # TODO
+  my $settings = $synth->recall_settings(name => $name);
+  # { etc => '...' }, { etc => '???' }, etc.
 
 =head1 DESCRIPTION
 
