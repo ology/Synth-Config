@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+
+# PODNAME: synth-config.pl
+
 use strict;
 use warnings;
 
