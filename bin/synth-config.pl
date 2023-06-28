@@ -4,6 +4,7 @@ use warnings;
 
 use Getopt::Long qw(GetOptions);
 use Pod::Usage;
+use IO::Prompt::Tiny qw(prompt);
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
@@ -24,6 +25,32 @@ pod2usage(-exitval => 0, -verbose => 2) if $opts{man};
 
 if (my @missing = grep !defined($opts{$_}), qw(model)) {
     die 'Missing: ' . join(', ', @missing);
+}
+
+my @keys = qw(group parameter control bottom top value unit is_default);
+
+my $response;
+
+my $counter = 0;
+
+OUTER: while (1) {
+    $counter++;
+    INNER: for my $key (@keys) {
+        $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
+        if ($response eq 'q') {
+            last OUTER;
+        }
+        elsif ($response eq 'enter') {
+            next INNER;
+        }
+        else {
+            print "You said, $response\n";
+        }
+    }
+    $response = prompt('Enter for another setting (q to quit)', 'enter');
+    if ($response eq 'q') {
+        last OUTER;
+    }
 }
 
 __END__
