@@ -27,7 +27,7 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
     die 'Missing: ' . join(', ', @missing);
 }
 
-my @keys = qw(group parameter control bottom top value unit is_default);
+my @keys = qw(name group parameter control bottom top value unit is_default);
 
 my $response;
 
