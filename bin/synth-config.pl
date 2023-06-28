@@ -20,7 +20,7 @@ GetOptions( \%opts,
 ) or pod2usage(2);
 
 pod2usage(1) if $opts{help};
-pod2usage( -exitval => 0, -verbose => 2 ) if $opts{man};
+pod2usage(-exitval => 0, -verbose => 2) if $opts{man};
 
 if (my @missing = grep !defined($opts{$_}), qw(model)) {
     die 'Missing: ' . join(', ', @missing);
