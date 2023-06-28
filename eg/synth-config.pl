@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 use Getopt::Long qw(GetOptions);
-use Pod::Usage;
+use Pod::Usage ();
 use IO::Prompt::Tiny qw(prompt);
 use Term::Choose ();
 
