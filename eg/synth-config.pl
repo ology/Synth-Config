@@ -42,7 +42,7 @@ my $specs = -e $set ? do $set : undef;
 my @keys = qw(group parameter control bottom top value unit is_default);
 if ($specs) {
     my $order = delete $specs->{order};
-    @keys = @$order;
+    @keys = $order ? @$order : sort keys %$specs;
 }
 
 my $response;
