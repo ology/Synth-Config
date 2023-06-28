@@ -35,7 +35,7 @@ my $synth = Synth::Config->new(model => $opts{model});
 my $name = prompt('What is the name of this setting?', 'required');
 die 'No name given' unless $name;
 
-my @keys = qw(group parameter control bottom top value unit is_default);
+my @keys = qw(group parameter control group_to param_to bottom top value unit is_default);
 
 my $response;
 
