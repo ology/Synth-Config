@@ -28,6 +28,9 @@ use namespace::clean;
   my $settings = $synth->recall_settings(name => $name);
   # [ 1 => { etc => '...' }, 2 => { etc => '???' } ]
 
+  my $names = $synth->recall_names;
+  # [ 'Foo!' ]
+
 =head1 DESCRIPTION
 
 C<Synth::Config> provides a way to save and recall synthesizer control
@@ -209,6 +212,22 @@ sub recall_settings {
     push @settings, { $next->{id} => from_json($next->{settings}) };
   }
   return \@settings;
+}
+
+=head2 recall_names
+
+  my $names = $synth->recall_names;
+
+Return all the setting names.
+
+=cut
+
+sub recall_names {
+  my ($self) = @_;
+  my $results = $self->_sqlite->query(
+    'select distinct name from ' . $self->model
+  )->array;
+  return $results;
 }
 
 1;

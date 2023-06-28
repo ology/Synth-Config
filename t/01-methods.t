@@ -73,6 +73,10 @@ subtest settings => sub {
   is_deeply $settings,
     [ { $id => $setting }, { $id2 => $setting2 } ],
     'settings';
+  # recall names
+  my $names = $obj->recall_names;
+  $expect = [ $name ];
+  is_deeply $names, $expect, 'recall_names'
 };
 
 subtest cleanup => sub {
