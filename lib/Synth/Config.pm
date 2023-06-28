@@ -216,6 +216,8 @@ __END__
 
 =head1 SEE ALSO
 
+The F<t/01-methods.t> file
+
 L<Moo>
 
 L<Mojo::JSON>
