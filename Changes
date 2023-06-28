@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0009 2023-06-28 00:38:45
     - Add the remove_setting() and remove_settings() methods.
 
 0.0008 2023-06-27 21:34:54
