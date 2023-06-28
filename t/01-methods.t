@@ -34,15 +34,15 @@ subtest settings => sub {
   ok $id, "id: $id";
   # recall that setting
   my $setting = $obj->recall_setting(id => $id);
-  is_deeply $setting, { settings => $expect }, 'settings';
+  is_deeply $setting, $expect, 'settings';
   # update a single field in the setting
   my $got = $obj->make_setting(id => $id, is_default => 1);
   is $got, $id, 'updated setting';
   # recall that same setting
   $setting = $obj->recall_setting(id => $id);
-  is keys(%{ $setting->{settings} }), keys(%$expect), 'settings all there';
+  is keys(%$setting), keys(%$expect), 'settings all there';
   # check the updated field
-  ok $setting->{settings}{is_default}, 'is_default';
+  ok $setting->{is_default}, 'is_default';
   # another!
   $expect = {
     group      => 'modulation',
@@ -59,19 +59,19 @@ subtest settings => sub {
   is $id2, $id + 1, "id: $id2";
   # recall that setting
   my $setting2 = $obj->recall_setting(id => $id2);
-  is_deeply $setting2, { settings => $expect }, 'settings';
+  is_deeply $setting2, $expect, 'settings';
   # update a single field in the setting
   my $got2 = $obj->make_setting(id => $id2, is_default => 1);
   is $got2, $id + 1, 'updated setting';
   # recall that same setting
   $setting2 = $obj->recall_setting(id => $got2);
-  is keys(%{ $setting2->{settings} }), keys(%$expect), 'settings all there';
+  is keys(%$setting2), keys(%$expect), 'settings all there';
   # check the updated field
-  ok $setting2->{settings}{is_default}, 'is_default';
+  ok $setting2->{is_default}, 'is_default';
   # recall_settings
   my $settings = $obj->recall_settings(name => $name);
   is_deeply $settings,
-    [ { 1 => $setting->{settings} }, { 2 => $setting2->{settings} } ],
+    [ { 1 => $setting }, { 2 => $setting2 } ],
     'settings';
 };
 
