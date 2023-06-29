@@ -19,11 +19,13 @@ get '/' => sub ($c) {
   my $specs = -e $set ? do $set : undef;
   my $groups = $specs ? $specs->{group} : undef;
   $groups = [ sort @$groups ] if $groups;
+  my $settings = $synth->search_settings(group => $group);
   $c->render(
     template => 'index',
     model    => $model,
     group    => $group,
     groups   => $groups,
+    settings => ddc $settings,
   );
 } => 'index';
 
@@ -43,6 +45,7 @@ __DATA__
 % }
   </select>
 </form>
+<pre><%= $settings %></pre>
 
 @@ layouts/default.html.ep
 <!DOCTYPE html>
