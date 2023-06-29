@@ -109,6 +109,7 @@ OUTER: while (1) {
             }
         }
         else {
+            # prompt for a value
             $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
             if ($response eq 'q') {
                 last OUTER;
