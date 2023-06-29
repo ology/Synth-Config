@@ -231,6 +231,8 @@ $(document).ready(function() {
     const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
     const params = JSON.parse(json);
     const obj = params[selected];
+    dropdown.empty();
+    dropdown.append($('<option></option>').val("").text('Select...'));
     obj.forEach((i) => {
       let text = i.replace(/-/g, ' ');
       text = text.charAt(0).toUpperCase() + text.substring(1);
@@ -243,6 +245,8 @@ $(document).ready(function() {
     const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
     const params = JSON.parse(json);
     const obj = params[selected];
+    dropdown.empty();
+    dropdown.append($('<option></option>').val("").text('Select...'));
     obj.forEach((i) => {
       let text = i.replace(/-/g, ' ');
       text = text.charAt(0).toUpperCase() + text.substring(1);
