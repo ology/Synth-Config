@@ -89,6 +89,7 @@ post '/update' => sub ($c) {
   $v->optional('value');
   $v->optional('unit');
   $v->optional('is_default');
+  $v->optional('id');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not update');
     return $c->redirect_to('edit');
@@ -97,8 +98,35 @@ post '/update' => sub ($c) {
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
   my $specs = -e $set ? do $set : undef;
-  my $settings = $synth->search_settings(group => $v->param('group'));
-  $c->redirect_to('index');
+  my $id = $synth->make_setting(
+    id         => $v->param('id'),
+    name       => $v->param('name'),
+    group      => $v->param('group'),
+    parameter  => $v->param('parameter'),
+    control    => $v->param('control'),
+    group_to   => $v->param('group_to'),
+    param_to   => $v->param('param_to'),
+    bottom     => $v->param('bottom'),
+    top        => $v->param('top'),
+    value      => $v->param('value'),
+    unit       => $v->param('unit'),
+    is_default => $v->param('is_default'),
+  );
+  $c->redirect_to($c->url_for('edit')->query(
+    id         => $v->param('id'),
+    name       => $v->param('name'),
+    model      => $v->param('model'),
+    group      => $v->param('group'),
+    parameter  => $v->param('parameter'),
+    control    => $v->param('control'),
+    group_to   => $v->param('group_to'),
+    param_to   => $v->param('param_to'),
+    bottom     => $v->param('bottom'),
+    top        => $v->param('top'),
+    value      => $v->param('value'),
+    unit       => $v->param('unit'),
+    is_default => $v->param('is_default'),
+  ));
 } => 'update';
 
 helper to_json => sub ($c, $data) {
@@ -141,10 +169,11 @@ __DATA__
 % layout 'default';
 % title 'Synth::Config Update';
 <form action="<%= url_for('update') %>" method="post">
+  <input type=hidden" name="id" value="<%= $id %>">
   <label for="model">Model:</label>
-  <input name="model" id="model" value="<%= $model %>">
+  <input type="text" name="model" id="model" value="<%= $model %>">
   <label for="name">Name:</label>
-  <input name="name" id="name" value="<%= $name %>">
+  <input type="text" name="name" id="name" value="<%= $name %>">
 % for my $key ($specs->{order}->@*) {
   <%== $key eq 'value' || $key eq 'parameter' ? '<p></p>' : '' %>
   <select name="<%= $key %>" id="<%= $key %>">
