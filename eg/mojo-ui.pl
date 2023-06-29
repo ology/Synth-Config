@@ -140,7 +140,7 @@ __DATA__
 @@ index.html.ep
 % layout 'default';
 % title 'Synth::Config';
-<foLinkrm action="<%= url_for('index') %>" method="get">
+<form action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
   <label for="name">Name:</label>
@@ -154,18 +154,9 @@ __DATA__
   <input type="submit" value="Submit">
 </form>
 % my $edit_url = url_for('edit')->query(
-%   name       => $name,
-%   model      => $model,
-%   group      => $group,
-%   parameter  => $parameter,
-%   control    => $control,
-%   group_to   => $group_to,
-%   param_to   => $param_to,
-%   bottom     => $bottom,
-%   top        => $top,
-%   value      => $value,
-%   unit       => $unit,
-%   is_default => $is_default,
+%   name  => $name,
+%   model => $model,
+%   group => $group,
 % );
 <a href="<%= $edit_url %>">Edit</a>
 <p></p>
