@@ -57,10 +57,12 @@ my ($response, $choice, $group, $group_to, $control);
 # outer loop counter
 my $counter = 0;
 
+# add setting until the userr quits
 OUTER: while (1) {
     $counter++;
     # initialize the parameters to commit
     my %parameters = (name => $name);
+    # loop over the setting keys
     INNER: for my $key (@keys) {
         my $prompt = { prompt => "$counter. $key:" };
         # if there is a known synth...
