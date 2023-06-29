@@ -45,6 +45,7 @@ __DATA__
     <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
   </select>
+  <input type="submit" value="Submit">
 </form>
 <pre><%= $settings %></pre>
 
