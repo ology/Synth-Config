@@ -172,6 +172,16 @@ $(document).ready(function() {
       dropdown.append($('<option></option>').val(i).text(i));
     });
   });
+  $("select#group_to").on('change', function() {
+    const selected = $("select#group_to").find(":selected").val();
+    const dropdown = $("select#param_to");
+    const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
+    const params = JSON.parse(json);
+    const obj = params[selected];
+    obj.forEach((i) => {
+      dropdown.append($('<option></option>').val(i).text(i));
+    });
+  });
 });
 </script>
 
