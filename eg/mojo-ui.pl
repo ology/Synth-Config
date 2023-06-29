@@ -38,7 +38,7 @@ __DATA__
 <form action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
-  <label for="group">Modual:</label>
+  <label for="group">Module:</label>
   <select name="group" id="group">
 % for my $g (@$groups) {
     <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
