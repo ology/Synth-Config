@@ -71,6 +71,11 @@ subtest settings => sub {
   # recall names
   my $names = $obj->recall_names;
   is_deeply $names, [ $name ], 'recall_names';
+  # recall all for model
+  $settings = $obj->recall_all;
+  is_deeply $settings,
+    [ { $id => $setting }, { $id2 => $setting2 } ],
+    'recall_all';
   # remove a setting
   $obj->remove_setting(id => $id);
   $settings = $obj->recall_settings(name => $name);

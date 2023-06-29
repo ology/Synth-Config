@@ -27,8 +27,11 @@ get '/' => sub ($c) {
     if ($name) {
       $settings = $synth->recall_settings(name => $name);
     }
-    else {
+    elsif ($group) {
       $settings = $synth->search_settings(group => $group);
+    }
+    elsif ($name) {
+      $settings = $synth->recall_all;
     }
   }
   $c->render(

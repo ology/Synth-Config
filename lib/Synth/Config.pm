@@ -225,6 +225,27 @@ sub recall_settings {
   return \@settings;
 }
 
+=head2 recall_all
+
+  my $settings = $synth->recall_all;
+
+Return all the settings for the synth model.
+
+=cut
+
+sub recall_all {
+  my ($self) = @_;
+  my $sql = q/select id,settings,json_extract(settings, '$.group') as mygroup from /
+    . $self->model
+    . ' order by mygroup';
+  my $results = $self->_sqlite->query($sql);
+  my @settings;
+  while (my $next = $results->hash) {
+    push @settings, { $next->{id} => from_json($next->{settings}) };
+  }
+  return \@settings;
+}
+
 =head2 search_settings
 
   my $settings = $synth->search_settings(some_setting => $value);
