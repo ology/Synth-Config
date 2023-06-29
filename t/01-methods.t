@@ -43,6 +43,9 @@ subtest settings => sub {
   is keys(%$setting), keys(%$expect), 'settings all there';
   # check the updated field
   ok $setting->{is_default}, 'is_default';
+  # search the settings for a particular key
+  my $settings = $obj->search_settings(group => $expect->{group});
+  is_deeply $settings, [ { $id => $setting } ], 'search_settings';
   # another!
   $expect = {
     group      => 'modulation',
@@ -61,7 +64,7 @@ subtest settings => sub {
   my $setting2 = $obj->recall_setting(id => $id2);
   is_deeply $setting2, $expect, 'settings';
   # recall named settings
-  my $settings = $obj->recall_settings(name => $name);
+  $settings = $obj->recall_settings(name => $name);
   is_deeply $settings,
     [ { $id => $setting }, { $id2 => $setting2 } ],
     'settings';

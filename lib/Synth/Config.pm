@@ -34,6 +34,9 @@ use namespace::clean;
   my $settings = $synth->recall_settings(name => $names->[0]);
   # [ 1 => { etc => '!!!' }, 2 => { etc => '???' } ]
 
+  $settings = $synth->search_settings(etc => '???');
+  [ 2 => { etc => '???' } ]
+
   $synth->remove_setting(id => $id1);
 
   $synth->remove_settings(name => $name);
@@ -127,7 +130,7 @@ sub BUILD {
   $self->_sqlite->query(
     'create table if not exists '
     . $self->model
-    . ' (id integer primary key autoincrement, settings text not null, name text not null)'
+    . ' (id integer primary key autoincrement, settings json not null, name text not null)'
   );
 }
 
@@ -213,6 +216,27 @@ sub recall_settings {
   croak 'No name given' unless $name;
   my $results = $self->_sqlite->query(
     'select id,settings from ' . $self->model . " where name='$name'"
+  );
+  my @settings;
+  while (my $next = $results->hash) {
+    push @settings, { $next->{id} => from_json($next->{settings}) };
+  }
+  return \@settings;
+}
+
+=head2 search_settings
+
+  my $settings = $synth->search_settings(some_setting => $value);
+
+Return all the settings given a search query.
+
+=cut
+
+sub search_settings {
+  my ($self, %args) = @_;
+  my $key = (keys %args)[0];
+  my $results = $self->_sqlite->query(
+    'select id,settings from ' . $self->model . q/ where json_extract(settings, '$./ . $key . q/') = / . "'$args{$key}'"
   );
   my @settings;
   while (my $next = $results->hash) {
