@@ -52,7 +52,7 @@ if ($specs) {
 my $tc = $specs ? Term::Choose->new : undef;
 
 # declare loop variables
-my ($response, $choice, $group, $group_to, $control);
+my ($choice, $group, $group_to, $control);
 
 # outer loop counter
 my $counter = 0;
@@ -103,10 +103,18 @@ OUTER: while (1) {
             }
             # prompt for a value
             elsif ($key eq 'value') {
-                $response = prompt("$counter. Value for $key? (enter to skip)", 'enter');
-                unless ($response eq 'enter') {
-                    print "\t$key set to: $response\n";
-                    $parameters{$key} = $response;
+                $choice = prompt("$counter. Value for $key? (enter to skip)", 'enter');
+                unless ($choice eq 'enter') {
+                    print "\t$key set to: $choice\n";
+                    $parameters{$key} = $choice;
+                }
+            }
+            # prompt for a unit
+            elsif ($key eq 'unit') {
+                $choice = $tc->choose($things, $prompt);
+                unless ($choice eq 'none') {
+                    print "\t$key set to: $choice\n";
+                    $parameters{$key} = $choice;
                 }
             }
             # handle all other keys
@@ -118,15 +126,15 @@ OUTER: while (1) {
         }
         # otherwise just ask for values
         else {
-            $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
-            if ($response eq 'q') {
+            $choice = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
+            if ($choice eq 'q') {
                 last OUTER;
             }
-            elsif ($response eq 'enter') {
+            elsif ($choice eq 'enter') {
                 next INNER;
             }
             else {
-                $parameters{$key} = $response;
+                $parameters{$key} = $choice;
             }
         }
     }
@@ -136,8 +144,8 @@ OUTER: while (1) {
         my $id = $synth->make_setting(%parameters);
     }
     # to proceed or not to proceed?
-    $response = prompt('Enter for another setting (q to quit)', 'enter');
-    if ($response eq 'q') {
+    $choice = prompt('Enter for another setting (q to quit)', 'enter');
+    if ($choice eq 'q') {
         last OUTER;
     }
 }
