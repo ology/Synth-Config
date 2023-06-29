@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Fix the search_settings() logic.
 
 0.0012 2023-06-29 00:45:33
     - Make SQLite use the JSON datatype in db creation.
