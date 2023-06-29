@@ -31,16 +31,16 @@ subtest settings => sub {
   };
   # make an initial setting
   my $id = $obj->make_setting(%$expect, name => $name);
-  ok $id, "id: $id";
+  ok $id, "make_setting (id: $id)";
   # recall that setting
   my $setting = $obj->recall_setting(id => $id);
-  is_deeply $setting, $expect, 'settings';
+  is_deeply $setting, $expect, 'recall_setting';
   # update a single field in the setting
   my $got = $obj->make_setting(id => $id, is_default => 1);
-  is $got, $id, 'updated setting';
+  is $got, $id, 'make_setting update';
   # recall that same setting
   $setting = $obj->recall_setting(id => $id);
-  is keys(%$setting), keys(%$expect), 'settings all there';
+  is keys(%$setting), keys(%$expect), 'recall_setting';
   # check the updated field
   ok $setting->{is_default}, 'is_default';
   # search the settings for a particular key
@@ -48,26 +48,27 @@ subtest settings => sub {
   is_deeply $settings, [ { $id => $setting } ], 'search_settings';
   # another!
   $expect = {
-    group      => 'modulation',
-    parameter  => 'wave out',
+    group      => 'mixer',
+    parameter  => 'output',
     control    => 'patch',
-    bottom     => 0,
-    top        => 1,
-    value      => 1,
-    unit       => 'boolean',
+    group_to   => 'modulation',
+    param_to   => 'rate-in',
     is_default => 0,
   };
   # make a second setting
   my $id2 = $obj->make_setting(%$expect, name => $name);
-  is $id2, $id + 1, "id: $id2";
+  is $id2, $id + 1, "make_setting (id: $id2)";
   # recall that setting
   my $setting2 = $obj->recall_setting(id => $id2);
-  is_deeply $setting2, $expect, 'settings';
+  is_deeply $setting2, $expect, 'recall_setting';
   # recall named settings
   $settings = $obj->recall_settings(name => $name);
   is_deeply $settings,
     [ { $id => $setting }, { $id2 => $setting2 } ],
-    'settings';
+    'recall_settings';
+  # search the settings for two keys
+  $settings = $obj->search_settings(group => $expect->{group}, name => $name);
+  is_deeply $settings, [ { $id2 => $setting2 } ], 'search_settings';
   # recall names
   my $names = $obj->recall_names;
   is_deeply $names, [ $name ], 'recall_names';
@@ -80,10 +81,10 @@ subtest settings => sub {
   # remove a setting
   $obj->remove_setting(id => $id);
   $settings = $obj->recall_settings(name => $name);
-  is_deeply $settings, [ { $id2 => $setting2 } ], 'removed setting';
+  is_deeply $settings, [ { $id2 => $setting2 } ], 'remove_setting';
   $obj->remove_settings(name => $name);
   $settings = $obj->recall_settings(name => $name);
-  is_deeply $settings, [], 'removed settings';
+  is_deeply $settings, [], 'remove_settings';
 };
 
 subtest cleanup => sub {

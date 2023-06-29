@@ -258,7 +258,9 @@ Return all the settings given a search query.
 
 sub search_settings {
   my ($self, %args) = @_;
+  my $name = delete $args{name};
   my @where;
+  push @where, "name = '$name'" if $name;
   for my $arg (keys %args) {
     next unless $args{$arg};
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
@@ -268,6 +270,7 @@ sub search_settings {
     . $self->model
     . ' where ' . join(' and ', @where)
     . ' order by mygroup';
+  print "SQL: $sql\n" if $self->verbose;
   my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {

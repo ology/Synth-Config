@@ -24,11 +24,11 @@ get '/' => sub ($c) {
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
     $groups = [ sort @$groups ] if $groups;
-    if ($name) {
-      $settings = $synth->recall_settings(name => $name);
+    if ($group) {
+      $settings = $synth->search_settings(group => $group, name => $name);
     }
-    elsif ($group) {
-      $settings = $synth->search_settings(group => $group);
+    elsif ($name) {
+      $settings = $synth->recall_settings(name => $name);
     }
     elsif ($synth->model) {
       $settings = $synth->recall_all;
