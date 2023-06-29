@@ -158,7 +158,7 @@ synth-config.pl - Save synth settings
 
 =head1 SYNOPSIS
 
-  synth-config.pl --model=Something [--dbname=something.db]
+  synth-config.pl --model=Something [--dbname=synth.db]
 
 =head1 OPTIONS
 
