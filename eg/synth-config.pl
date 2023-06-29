@@ -59,25 +59,35 @@ OUTER: while (1) {
     INNER: for my $key (@keys) {
         my $prompt = { prompt => "$counter. $key:" };
         if ($specs) {
+            # use either a group parameter or the key list
             my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
+            # set the group
             if ($key eq 'group') {
                 $group = $tc->choose($things, $prompt);
                 print "\tGroup set to: $group\n";
                 $parameters{$key} = $group;
             }
+            # set the control
             elsif ($key eq 'control') {
                 $control = $tc->choose($things, $prompt);
                 print "\tControl set to: $control\n";
                 $parameters{$key} = $control;
             }
+            # skip these keys unless control is patch
             elsif (($key eq 'group_to' || $key eq 'param_to') && $control ne 'patch') {
                 next INNER;
             }
+            # skip these keys if a group_to is set
+            elsif (($key eq 'bottom' || $key eq 'top' || $key eq 'value' || $key eq 'unit') && $group_to) {
+                next INNER;
+            }
+            # set a group_to patch
             elsif ($key eq 'group_to' && $control eq 'patch') {
                 $group_to = $tc->choose($specs->{group}, $prompt);
                 print "\t$key set to: $group_to\n";
                 $parameters{$key} = $group_to;
             }
+            # set a param_to patch with the group_to parameter list
             elsif ($key eq 'param_to' && $control eq 'patch') {
                 $choice = $tc->choose($specs->{parameter}{$group_to}, $prompt);
                 print "\t$key set to: $choice\n";
