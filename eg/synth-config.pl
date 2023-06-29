@@ -46,7 +46,7 @@ if ($specs) {
     @keys = $order ? @$order : sort keys %$specs;
 }
 
-my $tc = Term::Choose->new;
+my $tc = $specs ? Term::Choose->new : undef;
 
 my $response;
 my $group;
