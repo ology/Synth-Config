@@ -132,8 +132,8 @@ OUTER: while (1) {
     }
     # commit if there are more parameters than just name
     if (keys(%parameters) > 1) {
-warn __PACKAGE__,' L',__LINE__,' ',ddc(\%parameters, {max_width=>128});
-#        my $id = $synth->make_setting(%parameters);
+#        print ddc \%parameters;
+        my $id = $synth->make_setting(%parameters);
     }
     # to proceed or not to proceed?
     $response = prompt('Enter for another setting (q to quit)', 'enter');
