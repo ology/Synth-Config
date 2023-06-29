@@ -81,6 +81,12 @@ OUTER: while (1) {
                 print "\t$key set to: $control\n";
                 $parameters{$key} = $control;
             }
+            # set a group_to patch
+            elsif ($key eq 'group_to' && $control eq 'patch') {
+                $group_to = $tc->choose($specs->{group}, $prompt);
+                print "\t$key set to: $group_to\n";
+                $parameters{$key} = $group_to;
+            }
             # skip these keys unless control is patch
             elsif (($key eq 'group_to' || $key eq 'param_to') && $control ne 'patch') {
                 next INNER;
@@ -88,12 +94,6 @@ OUTER: while (1) {
             # skip these keys if a group_to is set
             elsif (($key eq 'bottom' || $key eq 'top' || $key eq 'value' || $key eq 'unit') && $group_to) {
                 next INNER;
-            }
-            # set a group_to patch
-            elsif ($key eq 'group_to' && $control eq 'patch') {
-                $group_to = $tc->choose($specs->{group}, $prompt);
-                print "\t$key set to: $group_to\n";
-                $parameters{$key} = $group_to;
             }
             # set a param_to patch with the group_to parameter list
             elsif ($key eq 'param_to' && $control eq 'patch') {
