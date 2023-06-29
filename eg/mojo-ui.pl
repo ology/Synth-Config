@@ -69,6 +69,7 @@ get '/edit' => sub ($c) {
     is_default => $is_default,
   );
 } => 'edit';
+
 post '/update' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
@@ -95,6 +96,7 @@ post '/update' => sub ($c) {
 } => 'update';
 
 app->start;
+
 __DATA__
 
 @@ index.html.ep
