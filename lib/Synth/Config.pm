@@ -236,8 +236,10 @@ sub search_settings {
   my ($self, %args) = @_;
   my @where;
   for my $arg (keys %args) {
+    next unless $args{$arg};
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
   }
+  return [] unless @where;
   my $sql = 'select id,settings from ' . $self->model . ' where ' . join(' and ', @where);
   my $results = $self->_sqlite->query($sql);
   my @settings;
