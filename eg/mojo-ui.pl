@@ -211,7 +211,7 @@ __DATA__
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
-%   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $specs->{$my_key}->@*;
+%   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
 %     for my $i (@things) {
 %       next if $i eq 'none';
     <option value="<%= $i %>" <%= $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
