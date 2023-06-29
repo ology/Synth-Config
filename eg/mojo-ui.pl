@@ -65,11 +65,7 @@ get '/edit' => sub ($c) {
     $c->flash(error => 'No known model');
     return $c->redirect_to('index');
   }
-  $c->render(
-    template   => 'edit',
-    specs      => $specs,
-    name       => $name,
-    model      => $model,
+  my $selected = {
     group      => $group,
     parameter  => $parameter,
     control    => $control,
@@ -80,6 +76,13 @@ get '/edit' => sub ($c) {
     value      => $value,
     unit       => $unit,
     is_default => $is_default,
+  };
+  $c->render(
+    template => 'edit',
+    specs    => $specs,
+    name     => $name,
+    model    => $model,
+    selected => $selected,
   );
 } => 'edit';
 
@@ -199,11 +202,11 @@ __DATA__
   <%== $key eq 'value' || $key eq 'parameter' ? '<p></p>' : '' %>
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
-%   $key = 'group' if $key eq 'group_to';
-%   my @things = $key eq 'parameter' ? () : $specs->{$key}->@*;
+%   my $group_key = $key eq 'group_to' ? 'group' : $key;
+%   my @things = $key eq 'parameter' ? () : $specs->{$group_key}->@*;
 %   for my $i (@things) {
 %     next if $i eq 'none';
-    <option value="<%= $i %>"><%= ucfirst $i %></option>
+    <option value="<%= $i %>" <%= $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
 %   }
   </select>
 % }
