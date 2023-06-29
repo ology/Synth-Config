@@ -171,7 +171,8 @@ __DATA__
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
 %   if ($setting->{bottom} && $setting->{top}) {
-<b>Group</b>: <%= $setting->{group} %>, <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
+<b>Group</b>: <%= $setting->{group} %>,
+<b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
 <b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>,
 <b>Default</b>: <%= $setting->{is_default} %>
 %   }
