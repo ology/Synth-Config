@@ -1,7 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
-    - Improve the eg/mojo-ui.pl program.
+    - Improve the eg/mojo-ui.pl program significantly.
 
 0.0013 2023-06-29 01:20:32
     - Fix the search_settings() logic.
