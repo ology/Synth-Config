@@ -187,8 +187,9 @@ __DATA__
 %     unit       => $setting->{unit},
 %     is_default => $setting->{is_default},
 %   );
+%   my $myname = $setting->{name} || $name;
 <a href="<%= $edit_url %>">Edit</a>
-<b>Name</b>: <%= $setting->{name} %>,
+<b>Name</b>: <%= $myname %>,
 <b>Group</b>: <%= $setting->{group} %>,
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
 <b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>
