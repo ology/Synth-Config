@@ -110,7 +110,7 @@ __DATA__
   <input name="model" id="model" value="<%= $model %>">
   <select name="group" id="group">
 % for my $g (@$groups) {
-    <option value="">Module...</option>
+    <option value="">Group...</option>
     <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
   </select>
