@@ -34,6 +34,7 @@ get '/' => sub ($c) {
 } => 'index';
 
 get '/edit' => sub ($c) {
+  my $name       = $c->param('name');
   my $model      = $c->param('model');
   my $group      = $c->param('group');
   my $parameter  = $c->param('parameter');
@@ -56,6 +57,7 @@ get '/edit' => sub ($c) {
   $c->render(
     template   => 'edit',
     specs      => $specs,
+    name       => $name,
     model      => $model,
     group      => $group,
     parameter  => $parameter,
@@ -72,6 +74,7 @@ get '/edit' => sub ($c) {
 
 post '/update' => sub ($c) {
   my $v = $c->validation;
+  $v->required('name');
   $v->required('model');
   $v->required('group');
   $v->required('parameter');
@@ -131,9 +134,11 @@ __DATA__
 <form action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
-  <label for="group">Module:</label>
+  <label for="name">Name:</label>
+  <input name="name" id="name" value="<%= $name %>">
 % for my $key ($specs->{order}->@*) {
 %   next if $key eq 'parameter';
+  <%== $key eq 'value' || $key eq 'control' ? '<p></p>' : '' %>
   <label for="<%= $key %>"><%= ucfirst $key %>:</label>
   <select name="<%= $key %>" id="<%= $key %>">
 %   for my $i ($specs->{$key}->@*) {
