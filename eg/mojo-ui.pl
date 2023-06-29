@@ -67,7 +67,6 @@ get '/edit' => sub ($c) {
     return $c->redirect_to('index');
   }
   my $selected = {
-    id         => $id,
     group      => $group,
     parameter  => $parameter,
     control    => $control,
@@ -82,6 +81,7 @@ get '/edit' => sub ($c) {
   $c->render(
     template => 'edit',
     specs    => $specs,
+    id       => $id,
     name     => $name,
     model    => $model,
     selected => $selected,
