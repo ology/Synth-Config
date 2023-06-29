@@ -234,10 +234,12 @@ Return all the settings given a search query.
 
 sub search_settings {
   my ($self, %args) = @_;
-  my $key = (keys %args)[0];
-  my $results = $self->_sqlite->query(
-    'select id,settings from ' . $self->model . q/ where json_extract(settings, '$./ . $key . q/') = / . "'$args{$key}'"
-  );
+  my @where;
+  for my $arg (keys %args) {
+    push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
+  }
+  my $sql = 'select id,settings from ' . $self->model . ' where ' . join(' and ', @where);
+  my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {
     push @settings, { $next->{id} => from_json($next->{settings}) };
