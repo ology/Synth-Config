@@ -113,7 +113,7 @@ post '/update' => sub ($c) {
     is_default => $v->param('is_default'),
   );
   $c->redirect_to($c->url_for('edit')->query(
-    id         => $v->param('id'),
+    id         => $id,
     name       => $v->param('name'),
     model      => $v->param('model'),
     group      => $v->param('group'),
@@ -140,7 +140,7 @@ __DATA__
 @@ index.html.ep
 % layout 'default';
 % title 'Synth::Config';
-<form action="<%= url_for('index') %>" method="get">
+<foLinkrm action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
   <label for="name">Name:</label>
@@ -153,7 +153,21 @@ __DATA__
   </select>
   <input type="submit" value="Submit">
 </form>
-<a href="<%= url_for('edit')->query(model => $model, name => $name) %>">Edit</a>
+% my $edit_url = url_for('edit')->query(
+%   name       => $name,
+%   model      => $model,
+%   group      => $group,
+%   parameter  => $parameter,
+%   control    => $control,
+%   group_to   => $group_to,
+%   param_to   => $param_to,
+%   bottom     => $bottom,
+%   top        => $top,
+%   value      => $value,
+%   unit       => $unit,
+%   is_default => $is_default,
+% );
+<a href="<%= $edit_url %>">Edit</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
