@@ -62,6 +62,7 @@ OUTER: while (1) {
     my %parameters = (name => $name);
     INNER: for my $key (@keys) {
         my $prompt = { prompt => "$counter. $key:" };
+        # if there is a known synth...
         if ($specs) {
             # use either a group parameter or the key list
             my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
@@ -112,8 +113,8 @@ OUTER: while (1) {
                 $parameters{$key} = $choice;
             }
         }
+        # otherwise just as for values
         else {
-            # prompt for a value
             $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
             if ($response eq 'q') {
                 last OUTER;
