@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improved the eg/synth-config.pl program.
 
 0.0010 2023-06-28 17:15:48
     - Fixed tests.
