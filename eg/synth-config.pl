@@ -59,6 +59,7 @@ my $counter = 0;
 
 OUTER: while (1) {
     $counter++;
+    # initialize the parameters to commit
     my %parameters = (name => $name);
     INNER: for my $key (@keys) {
         my $prompt = { prompt => "$counter. $key:" };
