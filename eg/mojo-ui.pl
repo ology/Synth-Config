@@ -140,7 +140,7 @@ __DATA__
 @@ edit.html.ep
 % layout 'default';
 % title 'Synth::Config Update';
-<form action="<%= url_for('index') %>" method="get">
+<form action="<%= url_for('update') %>" method="post">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
   <label for="name">Name:</label>
