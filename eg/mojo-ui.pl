@@ -26,7 +26,7 @@ get '/' => sub ($c) {
     model    => $model,
     group    => $group,
     groups   => $groups,
-    settings => ddc $settings,
+    settings => $settings,
   );
 } => 'index';
 
@@ -47,7 +47,16 @@ __DATA__
   </select>
   <input type="submit" value="Submit">
 </form>
-<pre><%= $settings %></pre>
+<p></p>
+% for my $s (@$settings) {
+%   my $setting = (values(%$s))[0];
+%   if ($setting->{bottom} && $setting->{top}) {
+<b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
+<b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>,
+<b>Default</b>: <%= $setting->{is_default} %>
+%   }
+<br>
+% }
 
 @@ layouts/default.html.ep
 <!DOCTYPE html>
