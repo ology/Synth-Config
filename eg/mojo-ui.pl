@@ -170,7 +170,9 @@ $(document).ready(function() {
     const params = JSON.parse(json);
     const obj = params[selected];
     obj.forEach((i) => {
-      dropdown.append($('<option></option>').val(i).text(i));
+      let text = i.replace(/-/g, ' ');
+      text = text.charAt(0).toUpperCase() + text.substring(1);
+      dropdown.append($('<option></option>').val(i).text(text));
     });
   });
   $("select#group_to").on('change', function() {
@@ -180,7 +182,9 @@ $(document).ready(function() {
     const params = JSON.parse(json);
     const obj = params[selected];
     obj.forEach((i) => {
-      dropdown.append($('<option></option>').val(i).text(i));
+      let text = i.replace(/-/g, ' ');
+      text = text.charAt(0).toUpperCase() + text.substring(1);
+      dropdown.append($('<option></option>').val(i).text(text));
     });
   });
 });
