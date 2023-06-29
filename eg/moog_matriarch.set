@@ -2,7 +2,7 @@
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
     group      => [qw(arp_seq modulation utilities_1 oscillators mixer filters utilities_2 envelop_gens delay output)],
     parameter  => {
-        arp_seq      => [qw(rate-in cv-out vel-out gate-out rate mode direction oct sequence rest tie ratchet)],
+        arp_seq      => [qw(rate-div-in cv-out vel-out gate-out rate-div mode direction oct sequence rest tie ratchet)],
         modulation   => [qw(rate-in sync-in noise-out s/h-out wave-out)],
         utilities_1  => [qw(mult attenuator-1 input-1 output-1 cv-in-1 attenuator-2 input-2 output-2 cv-in-2)],
         oscillators  => [qw(
