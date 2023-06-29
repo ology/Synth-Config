@@ -24,7 +24,12 @@ get '/' => sub ($c) {
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
     $groups = [ sort @$groups ] if $groups;
-    $settings = $synth->search_settings(group => $group);
+    if ($name) {
+      $settings = $synth->recall_settings(name => $name);
+    }
+    else {
+      $settings = $synth->search_settings(group => $group);
+    }
   }
   $c->render(
     template => 'index',
