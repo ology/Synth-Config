@@ -60,12 +60,12 @@ OUTER: while (1) {
         if ($specs) {
             my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
             if ($key eq 'group') {
-                $group = $tc->choose($things, { prompt => "$counter. $key" });
+                $group = $tc->choose($things, { prompt => "$counter. $key:" });
                 print "\tGroup set to: $group\n";
                 $parameters{$key} = $group;
             }
             elsif ($key eq 'control') {
-                $control = $tc->choose($things, { prompt => "$counter. $key" });
+                $control = $tc->choose($things, { prompt => "$counter. $key:" });
                 print "\tControl set to: $control\n";
                 $parameters{$key} = $control;
             }
@@ -80,7 +80,7 @@ OUTER: while (1) {
                 }
             }
             else {
-                $choice = $tc->choose($things, { prompt => "$counter. $key" });
+                $choice = $tc->choose($things, { prompt => "$counter. $key:" });
                 print "\t$key set to: $choice\n";
                 $parameters{$key} = $choice;
             }
