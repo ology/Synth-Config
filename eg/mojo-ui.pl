@@ -161,21 +161,22 @@ __DATA__
   </select>
   <input type="submit" value="Submit">
 </form>
-% my $edit_url = url_for('edit')->query(
-%   name  => $name,
-%   model => $model,
-%   group => $group,
-% );
-<a href="<%= $edit_url %>">Edit</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
-%   if ($setting->{bottom} && $setting->{top}) {
+%   my $edit_url = url_for('edit')->query(
+%     model => $model,
+%     name  => $setting->{name},
+%     group => $setting->{group},
+%   );
+<a href="<%= $edit_url %>">Edit</a>
+<b>Name</b>: <%= $setting->{name} %>,
 <b>Group</b>: <%= $setting->{group} %>,
+%   if ($setting->{bottom} && $setting->{top}) {
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
 <b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>,
-<b>Default</b>: <%= $setting->{is_default} %>
 %   }
+<b>Default</b>: <%= $setting->{is_default} %>
 <br>
 % }
 
