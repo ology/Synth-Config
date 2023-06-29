@@ -221,6 +221,7 @@ __DATA__
 % }
   <p></p>
   <input type="submit" value="Submit">
+  <input type="button" value="Cancel">
 </form>
 
 <script>
