@@ -49,7 +49,7 @@ if ($specs) {
 
 my $tc = $specs ? Term::Choose->new : undef;
 
-my ($response, $choice, $group, $control);
+my ($response, $choice, $group, $group_to, $control);
 
 my $counter = 0;
 
@@ -57,20 +57,31 @@ OUTER: while (1) {
     $counter++;
     my %parameters = (name => $name);
     INNER: for my $key (@keys) {
+        my $prompt = { prompt => "$counter. $key:" };
         if ($specs) {
             my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
             if ($key eq 'group') {
-                $group = $tc->choose($things, { prompt => "$counter. $key:" });
+                $group = $tc->choose($things, $prompt);
                 print "\tGroup set to: $group\n";
                 $parameters{$key} = $group;
             }
             elsif ($key eq 'control') {
-                $control = $tc->choose($things, { prompt => "$counter. $key:" });
+                $control = $tc->choose($things, $prompt);
                 print "\tControl set to: $control\n";
                 $parameters{$key} = $control;
             }
             elsif (($key eq 'group_to' || $key eq 'param_to') && $control ne 'patch') {
                 next INNER;
+            }
+            elsif ($key eq 'group_to' && $control eq 'patch') {
+                $group_to = $tc->choose($specs->{group}, $prompt);
+                print "\t$key set to: $group_to\n";
+                $parameters{$key} = $group_to;
+            }
+            elsif ($key eq 'param_to' && $control eq 'patch') {
+                $choice = $tc->choose($specs->{parameter}{$group_to}, $prompt);
+                print "\t$key set to: $choice\n";
+                $parameters{$key} = $choice;
             }
             elsif ($key eq 'value') {
                 $response = prompt("$counter. Value for $key? (enter to skip)", 'enter');
@@ -80,7 +91,7 @@ OUTER: while (1) {
                 }
             }
             else {
-                $choice = $tc->choose($things, { prompt => "$counter. $key:" });
+                $choice = $tc->choose($things, $prompt);
                 print "\t$key set to: $choice\n";
                 $parameters{$key} = $choice;
             }
