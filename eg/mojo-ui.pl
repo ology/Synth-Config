@@ -141,12 +141,12 @@ __DATA__
   <label for="name">Name:</label>
   <input name="name" id="name" value="<%= $name %>">
 % for my $key ($specs->{order}->@*) {
-%   next if $key eq 'parameter';
-  <%== $key eq 'value' || $key eq 'control' ? '<p></p>' : '' %>
+  <%== $key eq 'value' || $key eq 'parameter' ? '<p></p>' : '' %>
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
 %   $key = 'group' if $key eq 'group_to';
-%   for my $i ($specs->{$key}->@*) {
+%   my @things = $key eq 'parameter' ? () : $specs->{$key}->@*;
+%   for my $i (@things) {
     <option value="<%= $i %>"><%= ucfirst $i %></option>
 %   }
   </select>
@@ -155,9 +155,26 @@ __DATA__
   <input type="submit" value="Submit">
 </form>
 
+<script>
+$(document).ready(function() {
+  $("select#group").on('change', function() {
+    const dropdown = $("select#parameter");
+    $("select#group option").each(function() {
+        const option = $(this).val()
+        if (option) {
+          dropdown.append($('<option></option>').val(option).text(option))
+        }
+    });
+  });
+});
+</script>
+
 @@ layouts/default.html.ep
 <!DOCTYPE html>
 <html>
-  <head><title><%= title %></title></head>
+  <head>
+    <title><%= title %></title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  </head>
   <body><%= content %></body>
 </html>
