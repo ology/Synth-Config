@@ -204,6 +204,7 @@ __DATA__
   <input type="text" name="name" id="name" value="<%= $name %>">
 % for my $key ($specs->{order}->@*) {
   <%== $key eq 'value' || $key eq 'parameter' ? '<p></p>' : '' %>
+  <label for="<%= $key %>"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
   <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
 %   } else {
