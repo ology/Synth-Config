@@ -113,6 +113,7 @@ __DATA__
   </select>
   <input type="submit" value="Submit">
 </form>
+<a href="<%= url_for('edit')->query(model => $model) %>">Edit</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
@@ -131,21 +132,16 @@ __DATA__
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
   <label for="group">Module:</label>
-  <select name="group" id="group">
-% for my $g (@$groups) {
-    <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
-% }
+% for my $key ($specs->{order}->@*) {
+%   next if $key eq 'parameter';
+  <label for="<%= $key %>"><%= ucfirst $key %>:</label>
+  <select name="<%= $key %>" id="<%= $key %>">
+%   for my $i ($specs->{$key}->@*) {
+    <option value="<%= $i %>" <%= $i eq $group ? 'selected' : '' %>><%= ucfirst $i %></option>
+%   }
   </select>
+% }
   <input type="submit" value="Submit">
-parameter
-control
-group_to
-param_to
-bottom
-top
-value
-unit
-is_default
 </form>
 
 @@ layouts/default.html.ep
