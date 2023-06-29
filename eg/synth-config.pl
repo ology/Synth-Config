@@ -112,7 +112,7 @@ OUTER: while (1) {
             # prompt for a unit
             elsif ($key eq 'unit') {
                 $choice = $tc->choose($things, $prompt);
-                unless ($choice eq 'none') {
+                if ($choice ne 'none') {
                     print "\t$key set to: $choice\n";
                     $parameters{$key} = $choice;
                 }
