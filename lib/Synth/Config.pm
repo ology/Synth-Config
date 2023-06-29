@@ -35,7 +35,7 @@ use namespace::clean;
   # [ 1 => { etc => '!!!' }, 2 => { etc => '???' } ]
 
   $settings = $synth->search_settings(etc => '???');
-  [ 2 => { etc => '???' } ]
+  # [ 2 => { etc => '???' } ]
 
   $synth->remove_setting(id => $id1);
 
