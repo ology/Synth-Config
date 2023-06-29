@@ -242,6 +242,8 @@ sub recall_all {
   my @settings;
   while (my $next = $results->hash) {
     push @settings, { $next->{id} => from_json($next->{settings}) };
+    # add the setting name to the settings data
+    $settings[-1]->{ $next->{id} }{name} = $next->{name};
   }
   return \@settings;
 }
