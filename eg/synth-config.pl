@@ -72,13 +72,13 @@ OUTER: while (1) {
             # set the group
             if ($key eq 'group') {
                 $group = $tc->choose($things, $prompt);
-                print "\tGroup set to: $group\n";
+                print "\t$key set to: $group\n";
                 $parameters{$key} = $group;
             }
             # set the control
             elsif ($key eq 'control') {
                 $control = $tc->choose($things, $prompt);
-                print "\tControl set to: $control\n";
+                print "\t$key set to: $control\n";
                 $parameters{$key} = $control;
             }
             # skip these keys unless control is patch
