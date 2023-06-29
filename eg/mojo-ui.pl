@@ -6,6 +6,7 @@ use Getopt::Long qw(GetOptions);
 use Pod::Usage qw(pod2usage);
 use IO::Prompt::Tiny qw(prompt);
 use Term::Choose ();
+use Mojo::JSON qw(to_json);
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
@@ -100,6 +101,10 @@ post '/update' => sub ($c) {
   $c->redirect_to('index');
 } => 'update';
 
+helper to_json => sub ($c, $data) {
+  return to_json $data;
+};
+
 app->start;
 
 __DATA__
@@ -158,12 +163,13 @@ __DATA__
 <script>
 $(document).ready(function() {
   $("select#group").on('change', function() {
+    const selected = $("select#group").find(":selected").val();
     const dropdown = $("select#parameter");
-    $("select#group option").each(function() {
-        const option = $(this).val()
-        if (option) {
-          dropdown.append($('<option></option>').val(option).text(option))
-        }
+    const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
+    const params = JSON.parse(json);
+    const obj = params[selected];
+    obj.forEach((i) => {
+      dropdown.append($('<option></option>').val(i).text(i));
     });
   });
 });
