@@ -152,6 +152,7 @@ __DATA__
 %   $key = 'group' if $key eq 'group_to';
 %   my @things = $key eq 'parameter' ? () : $specs->{$key}->@*;
 %   for my $i (@things) {
+%     next if $i eq 'none';
     <option value="<%= $i %>"><%= ucfirst $i %></option>
 %   }
   </select>
