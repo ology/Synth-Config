@@ -12,6 +12,7 @@ use Synth::Config ();
 
 get '/' => sub ($c) {
   my $model = $c->param('model');
+  my $name = $c->param('name');
   my $group = $c->param('group');
   my ($groups, $settings);
   if ($model) {
@@ -27,6 +28,7 @@ get '/' => sub ($c) {
   $c->render(
     template => 'index',
     model    => $model,
+    name     => $name,
     group    => $group,
     groups   => $groups,
     settings => $settings,
@@ -108,6 +110,8 @@ __DATA__
 <form action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
+  <label for="name">Name:</label>
+  <input name="name" id="name" value="<%= $name %>">
   <select name="group" id="group">
 % for my $g (@$groups) {
     <option value="">Group...</option>
@@ -116,7 +120,7 @@ __DATA__
   </select>
   <input type="submit" value="Submit">
 </form>
-<a href="<%= url_for('edit')->query(model => $model) %>">Edit</a>
+<a href="<%= url_for('edit')->query(model => $model, name => $name) %>">Edit</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
@@ -139,13 +143,14 @@ __DATA__
 % for my $key ($specs->{order}->@*) {
 %   next if $key eq 'parameter';
   <%== $key eq 'value' || $key eq 'control' ? '<p></p>' : '' %>
-  <label for="<%= $key %>"><%= ucfirst $key %>:</label>
   <select name="<%= $key %>" id="<%= $key %>">
+    <option value=""><%= ucfirst $key %>...</option>
 %   for my $i ($specs->{$key}->@*) {
     <option value="<%= $i %>" <%= $i eq $group ? 'selected' : '' %>><%= ucfirst $i %></option>
 %   }
   </select>
 % }
+  <p></p>
   <input type="submit" value="Submit">
 </form>
 
