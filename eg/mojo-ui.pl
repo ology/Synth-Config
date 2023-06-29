@@ -145,8 +145,9 @@ __DATA__
   <%== $key eq 'value' || $key eq 'control' ? '<p></p>' : '' %>
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
+%   $key = 'group' if $key eq 'group_to';
 %   for my $i ($specs->{$key}->@*) {
-    <option value="<%= $i %>" <%= $i eq $group ? 'selected' : '' %>><%= ucfirst $i %></option>
+    <option value="<%= $i %>"><%= ucfirst $i %></option>
 %   }
   </select>
 % }
