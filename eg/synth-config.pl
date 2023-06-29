@@ -57,7 +57,7 @@ my ($choice, $group, $group_to, $control);
 # outer loop counter
 my $counter = 0;
 
-# add setting until the userr quits
+# add setting until the user quits
 OUTER: while (1) {
     $counter++;
     # initialize the parameters to commit
