@@ -67,6 +67,7 @@ get '/edit' => sub ($c) {
     return $c->redirect_to('index');
   }
   my $selected = {
+    id         => $id,
     group      => $group,
     parameter  => $parameter,
     control    => $control,
@@ -81,7 +82,6 @@ get '/edit' => sub ($c) {
   $c->render(
     template => 'edit',
     specs    => $specs,
-    id       => $id,
     name     => $name,
     model    => $model,
     selected => $selected,
@@ -168,9 +168,11 @@ __DATA__
 </form>
 <p></p>
 % for my $s (@$settings) {
+%   my $id = (keys(%$s))[0];
 %   my $setting = (values(%$s))[0];
 %   my $edit_url = url_for('edit')->query(
 %     model      => $model,
+%     id         => $id,
 %     name       => $setting->{name},
 %     group      => $setting->{group},
 %     parameter  => $setting->{parameter},
