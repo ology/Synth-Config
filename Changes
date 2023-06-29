@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0012 2023-06-29 00:45:33
     - Make SQLite use the JSON datatype in db creation.
     - Add the search_settings() method.
     - Add the very much WIP eg/mojo-ui.pl program.
