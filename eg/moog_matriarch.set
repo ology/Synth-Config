@@ -4,7 +4,7 @@
     parameter  => {
         arp_seq      => [qw(rate-div-in cv-out vel-out gate-out rate-div mode direction oct-bank sequence rest tie ratchet)],
         modulation   => [qw(rate-in sync-in noise-out s/h-out wave-out rate waveforem pitch-amt pitch-mod-assign cutoff-amt pulse-width-amt)],
-        utilities_1  => [qw(mult attenuator-1 input-1 output-1 cv-in-1 attenuator-2 input-2 output-2 cv-in-2)],
+        utilities_1  => [qw(mult-1 mult-2 mult-3 mult-4 attenuator-1 input-1 output-1 cv-in-1 attenuator-2 input-2 output-2 cv-in-2)],
         oscillators  => [qw(
             pitch-in-1 wave-out-1 pwm-in-1 lin-fm-in-1 octave-1 sync-enable waveform-1
             pitch-in-2 wave-out-2 pwm-in-2 lin-fm-in-2 octave-2 frequency-2 sync-1 waveform-2
@@ -13,7 +13,7 @@
         )],
         mixer        => [qw(noise-in osc-1-in osc-2-in osc-3-in osc-4-in output noise oscillator-1 oscillator-2 oscillator-3 oscillator-4)],
         filters      => [qw(vcf-1-in vcf-2-in vcf-1-out vcf-2-out cutoff-1-in cutoff-2-in env-amt-in cutoff resonance-1 resonance-2 filter-mode spacing envelope-amt kb-tracking)],
-        utilities_2  => [qw(mult attenuator input output cv-in lfo-rate rate-in tri-out square-out)],
+        utilities_2  => [qw(mult-1 mult-2 mult-3 mult-4 attenuator input output cv-in lfo-rate rate-in tri-out square-out)],
         envelop_gens => [qw(
             filter-trigger-in filter-env-out filter-env-end-out filter-attack filter-decay filter-release filter-sustain
             amplitude-trigger-in amplitude-env-out amplitude-env-end-out amplitude-attack amplitude-decay amplitude-release amplitude-sustain
