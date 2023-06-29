@@ -113,7 +113,7 @@ OUTER: while (1) {
                 $parameters{$key} = $choice;
             }
         }
-        # otherwise just as for values
+        # otherwise just ask for values
         else {
             $response = prompt("$counter. Value for $key? (enter to skip, q to quit)", 'enter');
             if ($response eq 'q') {
