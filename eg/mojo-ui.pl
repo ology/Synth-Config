@@ -181,10 +181,8 @@ __DATA__
 <a href="<%= $edit_url %>">Edit</a>
 <b>Name</b>: <%= $setting->{name} %>,
 <b>Group</b>: <%= $setting->{group} %>,
-%   if ($setting->{bottom} && $setting->{top}) {
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
 <b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>
-%   }
 <br>
 % }
 
