@@ -41,16 +41,20 @@ my $synth = Synth::Config->new(model => $opts{model});
 my $set = './eg/' . $synth->model . '.set';
 my $specs = -e $set ? do $set : undef;
 
+# get the setting keys to loop over
 my @keys = qw(group parameter control bottom top value unit is_default);
 if ($specs) {
     my $order = delete $specs->{order};
     @keys = $order ? @$order : sort keys %$specs;
 }
 
+# instantiate a chooser if needed
 my $tc = $specs ? Term::Choose->new : undef;
 
+# declare loop variables
 my ($response, $choice, $group, $group_to, $control);
 
+# outer loop counter
 my $counter = 0;
 
 OUTER: while (1) {
@@ -122,10 +126,12 @@ OUTER: while (1) {
             }
         }
     }
+    # commit if there are more parameters than just name
     if (keys(%parameters) > 1) {
 warn __PACKAGE__,' L',__LINE__,' ',ddc(\%parameters, {max_width=>128});
 #        my $id = $synth->make_setting(%parameters);
     }
+    # to proceed or not to proceed?
     $response = prompt('Enter for another setting (q to quit)', 'enter');
     if ($response eq 'q') {
         last OUTER;
