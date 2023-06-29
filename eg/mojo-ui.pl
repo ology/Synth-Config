@@ -165,9 +165,18 @@ __DATA__
 % for my $s (@$settings) {
 %   my $setting = (values(%$s))[0];
 %   my $edit_url = url_for('edit')->query(
-%     model => $model,
-%     name  => $setting->{name},
-%     group => $setting->{group},
+%     model      => $model,
+%     name       => $setting->{name},
+%     group      => $setting->{group},
+%     parameter  => $setting->{parameter},
+%     control    => $setting->{control},
+%     group_to   => $setting->{group_to},
+%     param_to   => $setting->{param_to},
+%     bottom     => $setting->{bottom},
+%     top        => $setting->{top},
+%     value      => $setting->{value},
+%     unit       => $setting->{unit},
+%     is_default => $setting->{is_default},
 %   );
 <a href="<%= $edit_url %>">Edit</a>
 <b>Name</b>: <%= $setting->{name} %>,
