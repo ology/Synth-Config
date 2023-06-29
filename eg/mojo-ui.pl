@@ -45,6 +45,7 @@ get '/' => sub ($c) {
 } => 'index';
 
 get '/edit' => sub ($c) {
+  my $id         = $c->param('id');
   my $name       = $c->param('name');
   my $model      = $c->param('model');
   my $group      = $c->param('group');
@@ -80,6 +81,7 @@ get '/edit' => sub ($c) {
   $c->render(
     template => 'edit',
     specs    => $specs,
+    id       => $id,
     name     => $name,
     model    => $model,
     selected => $selected,
@@ -193,7 +195,7 @@ __DATA__
 % layout 'default';
 % title 'Synth::Config Update';
 <form action="<%= url_for('update') %>" method="post">
-  <input type=hidden" name="id" value="<%= $id %>">
+  <input type="hidden" name="id" value="<%= $id %>">
   <label for="model">Model:</label>
   <input type="text" name="model" id="model" value="<%= $model %>">
   <label for="name">Name:</label>
