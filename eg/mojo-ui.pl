@@ -183,9 +183,8 @@ __DATA__
 <b>Group</b>: <%= $setting->{group} %>,
 %   if ($setting->{bottom} && $setting->{top}) {
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>),
-<b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>,
+<b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>
 %   }
-<b>Default</b>: <%= $setting->{is_default} %>
 <br>
 % }
 
