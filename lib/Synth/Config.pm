@@ -235,9 +235,9 @@ Return all the settings for the synth model.
 
 sub recall_all {
   my ($self) = @_;
-  my $sql = q/select id,settings,json_extract(settings, '$.group') as mygroup from /
+  my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup from /
     . $self->model
-    . ' order by mygroup';
+    . ' order by name,mygroup';
   my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {
