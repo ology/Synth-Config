@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Fix the search_settings() logic.
+    - Improve the eg/mojo-ui.pl program.
 
 0.0012 2023-06-29 00:45:33
     - Make SQLite use the JSON datatype in db creation.
@@ -9,10 +10,10 @@ Revision history for Synth-Config
     - Add the very much WIP eg/mojo-ui.pl program.
 
 0.0011 2023-06-28 21:16:56
-    - Improved the eg/synth-config.pl program.
+    - Improve the eg/synth-config.pl program.
 
 0.0010 2023-06-28 17:15:48
-    - Fixed tests.
+    - Fix tests.
     - Partially fleshed-out the eg/synth-config.pl program.
 
 0.0009 2023-06-28 00:38:45
