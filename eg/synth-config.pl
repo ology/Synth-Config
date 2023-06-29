@@ -5,8 +5,9 @@
 use strict;
 use warnings;
 
+use Data::Dumper::Compact qw(ddc);
 use Getopt::Long qw(GetOptions);
-use Pod::Usage ();
+use Pod::Usage qw(pod2usage);
 use IO::Prompt::Tiny qw(prompt);
 use Term::Choose ();
 
@@ -32,7 +33,7 @@ if (my @missing = grep !defined($opts{$_}), qw(model)) {
 }
 
 my $name = prompt('What is the name of this setting?', 'required');
-die 'No name given' unless $name;
+die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
 
@@ -48,8 +49,7 @@ if ($specs) {
 
 my $tc = $specs ? Term::Choose->new : undef;
 
-my $response;
-my $group;
+my ($response, $choice, $group, $control);
 
 my $counter = 0;
 
@@ -59,14 +59,30 @@ OUTER: while (1) {
     INNER: for my $key (@keys) {
         if ($specs) {
             my $things = $key eq 'parameter' ? $specs->{$key}{$group} : $specs->{$key};
-            my $choice;
             if ($key eq 'group') {
-                $group = $tc->choose($things, { prompt => $key });
+                $group = $tc->choose($things, { prompt => "$counter. $key" });
                 print "\tGroup set to: $group\n";
+                $parameters{$key} = $group;
+            }
+            elsif ($key eq 'control') {
+                $control = $tc->choose($things, { prompt => "$counter. $key" });
+                print "\tControl set to: $control\n";
+                $parameters{$key} = $control;
+            }
+            elsif (($key eq 'group_to' || $key eq 'param_to') && $control ne 'patch') {
+                next INNER;
+            }
+            elsif ($key eq 'value') {
+                $response = prompt("$counter. Value for $key? (enter to skip)", 'enter');
+                unless ($response eq 'enter') {
+                    print "\t$key set to: $response\n";
+                    $parameters{$key} = $response;
+                }
             }
             else {
-                $choice = $tc->choose($things, { prompt => $key });
-                print "\tYou chose: $choice\n";
+                $choice = $tc->choose($things, { prompt => "$counter. $key" });
+                print "\t$key set to: $choice\n";
+                $parameters{$key} = $choice;
             }
         }
         else {
@@ -83,6 +99,7 @@ OUTER: while (1) {
         }
     }
     if (keys(%parameters) > 1) {
+warn __PACKAGE__,' L',__LINE__,' ',ddc(\%parameters, {max_width=>128});
 #        my $id = $synth->make_setting(%parameters);
     }
     $response = prompt('Enter for another setting (q to quit)', 'enter');
