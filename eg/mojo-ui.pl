@@ -17,6 +17,7 @@ get '/' => sub ($c) {
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
   my $specs = -e $set ? do $set : undef;
+  # get the known groups if there are specs
   my $groups = $specs ? $specs->{group} : undef;
   $groups = [ sort @$groups ] if $groups;
   my $settings = $synth->search_settings(group => $group);
