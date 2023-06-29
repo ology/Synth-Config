@@ -30,7 +30,7 @@ get '/' => sub ($c) {
     elsif ($group) {
       $settings = $synth->search_settings(group => $group);
     }
-    elsif ($name) {
+    elsif ($synth->model) {
       $settings = $synth->recall_all;
     }
   }
