@@ -215,7 +215,7 @@ sub recall_settings {
   my $name = delete $args{name};
   croak 'No name given' unless $name;
   my $results = $self->_sqlite->query(
-    'select id,settings from ' . $self->model . " where name='$name'"
+    q/select id,settings,json_extract(settings, '$.group') as mygroup from / . $self->model . " where name='$name' order by mygroup"
   );
   my @settings;
   while (my $next = $results->hash) {
@@ -240,7 +240,7 @@ sub search_settings {
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
   }
   return [] unless @where;
-  my $sql = 'select id,settings from ' . $self->model . ' where ' . join(' and ', @where);
+  my $sql = q/select id,settings,json_extract(settings, '$.group') as mygroup from / . $self->model . ' where ' . join(' and ', @where) . ' order by mygroup';
   my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {
