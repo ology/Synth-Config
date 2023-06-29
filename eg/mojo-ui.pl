@@ -223,7 +223,7 @@ __DATA__
 % }
   <p></p>
   <input type="submit" value="Submit">
-  <input type="button" value="Cancel">
+  <a href="<%= url_for('index')->query(model => $model, name => $name) %>">Cancel</a>
 </form>
 
 <script>
