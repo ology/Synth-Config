@@ -93,6 +93,7 @@ OUTER: while (1) {
                 print "\t$key set to: $choice\n";
                 $parameters{$key} = $choice;
             }
+            # prompt for a value
             elsif ($key eq 'value') {
                 $response = prompt("$counter. Value for $key? (enter to skip)", 'enter');
                 unless ($response eq 'enter') {
@@ -100,6 +101,7 @@ OUTER: while (1) {
                     $parameters{$key} = $response;
                 }
             }
+            # handle all other keys
             else {
                 $choice = $tc->choose($things, $prompt);
                 print "\t$key set to: $choice\n";
