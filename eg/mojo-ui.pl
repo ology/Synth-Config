@@ -159,13 +159,15 @@ __DATA__
   <label for="name">Name:</label>
   <input name="name" id="name" value="<%= $name %>">
   <select name="group" id="group">
-% for my $g (@$groups) {
     <option value="">Group...</option>
+% for my $g (@$groups) {
     <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
   </select>
   <input type="submit" value="Submit">
 </form>
+<p></p>
+<a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>">New setting</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
