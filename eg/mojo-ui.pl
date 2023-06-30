@@ -254,7 +254,9 @@ __DATA__
 % for my $key ($specs->{order}->@*) {
 %   $j++;
 %   if ($j != 1) {
+%     unless ($key eq 'parameter' || $key eq 'param_to' || $key eq 'top' || $key eq 'unit') {
 <div class="row">
+%     }
   <div class="col">
 %   }
     <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
@@ -282,7 +284,9 @@ __DATA__
     </select>
 %   if ($j != $specs->{order}->@*) {
   </div>
+%     unless ($key eq 'group' || $key eq 'group_to' || $key eq 'bottom' || $key eq 'value') {
 </div>
+%     }
 %   }
 % }
   </div>
