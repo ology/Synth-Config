@@ -195,7 +195,7 @@ __DATA__
 <div class="row">
   <div class="col">
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-    <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success">New setting</a>
+    <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
   </div>
 </div>
 </form>
@@ -293,9 +293,9 @@ __DATA__
   </div>
 </div>
   <p></p>
-  <input type="submit" value="Submit" class="btn btn-primary">
-  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;">Remove</a>
-  <a href="<%= url_for('index')->query(model => $model, name => $name) %>" class="btn btn-warning">Cancel</a>
+  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
+  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
+  <a href="<%= url_for('index')->query(model => $model, name => $name) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
 </form>
 
 <script>
