@@ -5,8 +5,8 @@ use Data::Dumper::Compact qw(ddc);
 use Getopt::Long qw(GetOptions);
 use Pod::Usage qw(pod2usage);
 use IO::Prompt::Tiny qw(prompt);
-use Term::Choose ();
 use Mojo::JSON qw(to_json);
+use Term::Choose ();
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
