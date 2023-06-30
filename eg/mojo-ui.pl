@@ -249,6 +249,15 @@ __DATA__
   <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
   <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
+%   } elsif ($key eq 'is_default') {
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="is_default" id="is_default_false">
+    <label class="form-check-label" for="is_default_false">False</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="is_default" id="is_default_true">
+    <label class="form-check-label" for="is_default_true">True</label>
+  </div>
 %   } else {
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
