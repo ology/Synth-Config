@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Improve documentation.
+    - Do not require a model.
 
 0.0018 2023-06-30 11:44:11
     - Add the remove_model() method.
