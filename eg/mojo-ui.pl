@@ -307,6 +307,29 @@ $(document).ready(function() {
   $("select#group_to").on('change', function() {
     populate("group_to", "param_to");
   });
+  $("select#control").on('change', function() {
+    const selected = $("select#control").find(":selected").val();
+    if (selected === 'patch') {
+      $('label[for="group_to"]').show();
+      $("#group_to").show();
+      $('label[for="param_to"]').show();
+      $("#param_to").show();
+      $('label[for="bottom"]').hide();
+      $("#bottom").hide();
+      $('label[for="top"]').hide();
+      $("#top").hide();
+    }
+    else {
+      $('label[for="group_to"]').hide();
+      $("#group_to").hide();
+      $('label[for="param_to"]').hide();
+      $("#param_to").hide();
+      $('label[for="bottom"]').show();
+      $("#bottom").show();
+      $('label[for="top"]').show();
+      $("#top").show();
+    }
+  });
 });
 </script>
 
