@@ -232,12 +232,20 @@ __DATA__
 <p></p>
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
+<div class="row">
+  <div class="col-6">
   <label for="model" class="form-label">Model:</label>
   <input type="text" name="model" id="model" value="<%= $model %>">
+  </div>
+  <div class="col-6">
   <label for="name" class="form-label">Name:</label>
   <input type="text" name="name" id="name" value="<%= $name %>">
+  </div>
+</div>
+<div class="row">
 % for my $key ($specs->{order}->@*) {
-  <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' ? '<p></p>' : '' %>
+  <div class="col">
+  <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' ? '</div></div><div class="row"><div class="col">' : '' %>
   <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
   <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
@@ -252,7 +260,9 @@ __DATA__
 %     }
 %   }
   </select>
+  </div>
 % }
+</div>
   <p></p>
   <input type="submit" value="Submit" class="btn btn-primary">
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;">Remove</a>
