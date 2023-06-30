@@ -373,13 +373,13 @@ $(document).ready(function() {
   </head>
   <body>
     <div class="container">
+      <p></p>
 % if (flash('error')) {
     %= tag h3 => (style => 'color:red') => flash('error')
 % }
 % if (flash('message')) {
     %= tag h3 => (style => 'color:green') => flash('message')
 % }
-      <p></p>
       <h1><a href="<%= url_for('index') %>"><%= title %></a></h1>
       <%= content %>
       <p></p>
