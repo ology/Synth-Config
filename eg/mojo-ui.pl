@@ -235,11 +235,11 @@ __DATA__
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
-  <div class="col-6">
+  <div class="col">
   <label for="model" class="form-label">Model:</label>
   <input type="text" name="model" id="model" value="<%= $model %>">
   </div>
-  <div class="col-6">
+  <div class="col">
   <label for="name" class="form-label">Name:</label>
   <input type="text" name="name" id="name" value="<%= $name %>">
   </div>
