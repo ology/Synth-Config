@@ -45,7 +45,7 @@ subtest settings => sub {
   ok $setting->{is_default}, 'is_default';
   # search the settings for a particular key
   my $settings = $obj->search_settings(group => $expect->{group});
-  is_deeply $settings, [ { $id => $setting } ], 'search_settings';
+  is_deeply $settings, [ { $id => { %$setting, name => $name } } ], 'search_settings';
   # another!
   $expect = {
     group      => 'mixer',
@@ -68,7 +68,7 @@ subtest settings => sub {
     'recall_settings';
   # search the settings for two keys
   $settings = $obj->search_settings(group => $expect->{group}, name => $name);
-  is_deeply $settings, [ { $id2 => $setting2 } ], 'search_settings';
+  is_deeply $settings, [ { $id2 => { %$setting2, name => $name } } ], 'search_settings';
   # recall names
   my $names = $obj->recall_names;
   is_deeply $names, [ $name ], 'recall_names';
