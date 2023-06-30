@@ -64,10 +64,10 @@ subtest settings => sub {
   my $setting2 = $obj->recall_setting(id => $id2);
   is_deeply $setting2, $expect, 'recall_setting';
   # recall named settings
-  $settings = $obj->recall_settings(name => $name);
+  $settings = $obj->search_settings(name => $name);
   is_deeply $settings,
     [ { $id => $setting }, { $id2 => $setting2 } ],
-    'recall_settings';
+    'search_settings';
   # search the settings for two keys
   $settings = $obj->search_settings(group => $expect->{group}, name => $name);
   is_deeply $settings, [ { $id2 => $setting2 } ], 'search_settings';
@@ -82,10 +82,10 @@ subtest settings => sub {
   ], 'recall_all';
   # remove a setting
   $obj->remove_setting(id => $id);
-  $settings = $obj->recall_settings(name => $name);
+  $settings = $obj->search_settings(name => $name);
   is_deeply $settings, [ { $id2 => $setting2 } ], 'remove_setting';
   $obj->remove_settings(name => $name);
-  $settings = $obj->recall_settings(name => $name);
+  $settings = $obj->search_settings(name => $name);
   is_deeply $settings, [], 'remove_settings';
 };
 
