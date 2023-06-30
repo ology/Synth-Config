@@ -131,7 +131,7 @@ sub BUILD {
         id integer primary key autoincrement,
         settings json not null,
         name text not null
-    )'
+      )'
   );
 }
 
