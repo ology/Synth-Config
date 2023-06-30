@@ -263,12 +263,12 @@ __DATA__
 %   } elsif ($key eq 'is_default') {
     Is default:
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="<%= $key %>" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
-      <label class="form-check-label" for="is_default_false">False</label>
-    </div>
-    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="<%= $key %>" id="is_default_true" value="1" <%= $selected->{is_default} ? 'checked' : '' %>>
       <label class="form-check-label" for="is_default_true">True</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="<%= $key %>" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
+      <label class="form-check-label" for="is_default_false">False</label>
     </div>
 %   } else {
     <select name="<%= $key %>" id="<%= $key %>" class="form-select">
