@@ -239,9 +239,9 @@ __DATA__
 &nbsp;
 <b>Name</b>: <%= $setting->{name} %> ,
 <b>Group</b>: <%= $setting->{group} %> ,
-<b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %>
+<b>Param</b>: <%= $setting->{parameter} %> <i><%= $setting->{control} %></i>
 %   if ($setting->{group_to}) {
-<b>To</b>: <i><%= $setting->{param_to} %></i> of <%= $setting->{group_to} %>
+<b>To</b>: <%= $setting->{param_to} %> of <%= $setting->{group_to} %>
 %   }
 %   if ($setting->{value}) {
 ,
