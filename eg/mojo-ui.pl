@@ -135,6 +135,7 @@ post '/update' => sub ($c) {
     unit       => $v->param('unit'),
     is_default => $v->param('is_default'),
   );
+  $c->flash(message => 'Update successful');
   $c->redirect_to($c->url_for('edit')->query(
     id         => $id,
     name       => $v->param('name'),
