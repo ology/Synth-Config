@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Add the recall_models() method.
 
 0.0019 2023-06-30 13:45:17
     - Improve documentation.
