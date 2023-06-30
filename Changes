@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Add the remove_model() method.
 
 0.0017 2023-06-30 11:29:15
     - Do not require a model name in the constructor.
