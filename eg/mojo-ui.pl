@@ -281,11 +281,11 @@ __DATA__
 %     }
     </select>
 %   }
-    <p></p>
 %   if ($j != $specs->{order}->@*) {
   </div>
 %     unless ($key eq 'group' || $key eq 'group_to' || $key eq 'bottom' || $key eq 'value') {
 </div>
+<p></p>
 %     }
 %   }
 % }
