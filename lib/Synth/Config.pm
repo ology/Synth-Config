@@ -30,6 +30,9 @@ use namespace::clean;
   # update the etc key only
   $synth->make_setting(id => $id1, etc => '!!!');
 
+  my $models = $synth->recall_models;
+  # [ 'moog_matriarch' ]
+
   my $names = $synth->recall_names;
   # [ 'Foo!' ]
 
@@ -271,6 +274,22 @@ sub search_settings {
     $settings[-1]->{ $next->{id} }{name} = $next->{name};
   }
   return \@settings;
+}
+
+=head2 recall_models
+
+  my $models = $synth->recall_models;
+
+Return all the models.
+
+=cut
+
+sub recall_models {
+  my ($self) = @_;
+  my $results = $self->_sqlite->query(
+    "select name from sqlite_schema where type='table' order by name"
+  )->array;
+  return $results;
 }
 
 =head2 recall_names
