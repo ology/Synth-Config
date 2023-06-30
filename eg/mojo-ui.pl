@@ -261,7 +261,7 @@ __DATA__
 %   if ($key eq 'value') {
     <input type="text" name="<%= $key %>" id="<%= $key %>" value="<%= $selected->{value} %>" class="form-control">
 %   } elsif ($key eq 'is_default') {
-    Is default:
+    Is default: &nbsp;
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="<%= $key %>" id="is_default_true" value="1" <%= $selected->{is_default} ? 'checked' : '' %>>
       <label class="form-check-label" for="is_default_true">True</label>
