@@ -320,6 +320,12 @@ $(document).ready(function() {
       $("#top").val($("#top option:first").val());
       $('label[for="top"]').hide();
       $("#top").hide();
+      $("#value").val('');
+      $('label[for="value"]').hide();
+      $("#value").hide();
+      $("#unit").val($("#unit option:first").val());
+      $('label[for="unit"]').hide();
+      $("#unit").hide();
     }
     else {
       $("#group_to").val($("#group_to option:first").val());
@@ -332,6 +338,10 @@ $(document).ready(function() {
       $("#bottom").show();
       $('label[for="top"]').show();
       $("#top").show();
+      $('label[for="value"]').show();
+      $("#value").show();
+      $('label[for="unit"]').show();
+      $("#unit").show();
     }
   });
 });
