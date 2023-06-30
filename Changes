@@ -3,6 +3,7 @@ Revision history for Synth-Config
 {{$NEXT}}
     - Remove the now redundant recall_settings() method.
     - Fix the make_setting() logic.
+    - Improve documentation.
 
 0.0015 2023-06-29 18:00:09
     - Fix search_settings() again!
