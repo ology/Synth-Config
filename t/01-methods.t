@@ -6,8 +6,10 @@ use Test::More;
 
 use_ok 'Synth::Config';
 
+my $model = 'Moog Matriarch';
+
 my $obj = new_ok 'Synth::Config' => [
-  model   => 'Moog Matriarch',
+  model   => $model,
   dbname  => 'test.db',
   verbose => 1,
 ];
@@ -90,6 +92,11 @@ subtest settings => sub {
 };
 
 subtest cleanup => sub {
+  # remove the model
+  $obj->remove_model(model => $model);
+  my $settings = eval { $obj->recall_all };
+  is $settings, undef, 'remove_model';
+  # remove the database
   ok -e 'test.db', 'db exists';
   unlink 'test.db';
   unlink 'test.db-shm';
