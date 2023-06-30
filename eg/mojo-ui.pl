@@ -249,9 +249,9 @@ __DATA__
   </div>
 </div>
 <div class="row">
-% for my $key ($specs->{order}->@*) {
   <div class="col">
-%   if ($key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
+% for my $key ($specs->{order}->@*) {
+%   if ($key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
   </div>
 </div>
 <div class="row">
@@ -280,8 +280,12 @@ __DATA__
 %     }
 %   }
     </select>
+%   if ($key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
   </div>
+  <div class="col">
+%   }
 % }
+  </div>
 </div>
   <p></p>
   <input type="submit" value="Submit" class="btn btn-primary">
