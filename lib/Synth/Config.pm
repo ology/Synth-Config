@@ -132,7 +132,7 @@ sub BUILD {
         settings json not null,
         name text not null
       )'
-  );
+  ) if $self->model;
 }
 
 =head2 make_setting
