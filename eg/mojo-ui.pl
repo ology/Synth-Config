@@ -264,8 +264,8 @@ __DATA__
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
 %     for my $i (@things) {
-%       next if $i eq 'none' || $i eq '';
-    <option value="<%= $i %>" <%= $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
+%       next if !defined($i) || $i eq 'none' || $i eq '';
+    <option value="<%= $i %>" <%= $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
 %     }
 %   }
   </select>
