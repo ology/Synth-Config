@@ -15,7 +15,9 @@ use namespace::clean;
 
   use Synth::Config ();
 
-  my $synth = Synth::Config->new(model => 'Moog Matriarch');
+  my $model = 'Moog Matriarch';
+
+  my $synth = Synth::Config->new(model => $model);
 
   my $name = 'Foo!';
 
