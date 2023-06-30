@@ -175,7 +175,7 @@ __DATA__
 <div class="row">
   <div class="col">
     <label for="model" class="form-label">Model:</label>
-    <input name="model" id="model" value="<%= $model %>" class="form-control">
+    <input name="model" id="model" value="<%= $model %>" class="form-control" required>
   </div>
   <div class="col">
     <label for="name" class="form-label">Name:</label>
@@ -240,10 +240,10 @@ __DATA__
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control">
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" required>
   </div>
   <div class="col">
-    <input type="text" name="name" id="name" value="<%= $name %>" class="form-control">
+    <input type="text" name="name" id="name" value="<%= $name %>" class="form-control" required>
   </div>
 </div>
 <p></p>
