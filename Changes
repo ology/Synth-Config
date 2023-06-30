@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Work around broken Mojo::SQLite behavior.
     - Add the recall_models() method.
     - Improve the eg/mojo-ui.pl program.
 
