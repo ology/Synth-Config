@@ -20,6 +20,7 @@ subtest defaults => sub {
 subtest settings => sub {
   my $name   = 'Test setting!';
   my $expect = {
+    name       => $name,
     group      => 'filter',
     parameter  => 'cutoff',
     control    => 'knob',
@@ -30,7 +31,7 @@ subtest settings => sub {
     is_default => 0,
   };
   # make an initial setting
-  my $id = $obj->make_setting(%$expect, name => $name);
+  my $id = $obj->make_setting(%$expect);
   ok $id, "make_setting (id: $id)";
   # recall that setting
   my $setting = $obj->recall_setting(id => $id);
@@ -45,9 +46,10 @@ subtest settings => sub {
   ok $setting->{is_default}, 'is_default';
   # search the settings for a particular key
   my $settings = $obj->search_settings(group => $expect->{group});
-  is_deeply $settings, [ { $id => { %$setting, name => $name } } ], 'search_settings';
+  is_deeply $settings, [ { $id => $setting } ], 'search_settings';
   # another!
   $expect = {
+    name       => $name,
     group      => 'mixer',
     parameter  => 'output',
     control    => 'patch',
@@ -56,7 +58,7 @@ subtest settings => sub {
     is_default => 0,
   };
   # make a second setting
-  my $id2 = $obj->make_setting(%$expect, name => $name);
+  my $id2 = $obj->make_setting(%$expect);
   is $id2, $id + 1, "make_setting (id: $id2)";
   # recall that setting
   my $setting2 = $obj->recall_setting(id => $id2);
@@ -68,15 +70,15 @@ subtest settings => sub {
     'recall_settings';
   # search the settings for two keys
   $settings = $obj->search_settings(group => $expect->{group}, name => $name);
-  is_deeply $settings, [ { $id2 => { %$setting2, name => $name } } ], 'search_settings';
+  is_deeply $settings, [ { $id2 => $setting2 } ], 'search_settings';
   # recall names
   my $names = $obj->recall_names;
   is_deeply $names, [ $name ], 'recall_names';
   # recall all for model
   $settings = $obj->recall_all;
   is_deeply $settings, [
-    { $id => { %$setting, name => $name } },
-    { $id2 => { %$setting2, name => $name } }
+    { $id => $setting },
+    { $id2 => $setting2 }
   ], 'recall_all';
   # remove a setting
   $obj->remove_setting(id => $id);
