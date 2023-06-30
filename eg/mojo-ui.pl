@@ -314,14 +314,18 @@ $(document).ready(function() {
       $("#group_to").show();
       $('label[for="param_to"]').show();
       $("#param_to").show();
+      $("#bottom").val($("#bottom option:first").val());
       $('label[for="bottom"]').hide();
       $("#bottom").hide();
+      $("#top").val($("#top option:first").val());
       $('label[for="top"]').hide();
       $("#top").hide();
     }
     else {
+      $("#group_to").val($("#group_to option:first").val());
       $('label[for="group_to"]').hide();
       $("#group_to").hide();
+      $("#param_to").val($("#param_to option:first").val());
       $('label[for="param_to"]').hide();
       $("#param_to").hide();
       $('label[for="bottom"]').show();
