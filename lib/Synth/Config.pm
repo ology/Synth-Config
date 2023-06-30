@@ -127,7 +127,11 @@ sub BUILD {
   $self->_sqlite->query(
     'create table if not exists '
     . $self->model
-    . ' (id integer primary key autoincrement, settings json not null, name text not null)'
+    . ' (
+        id integer primary key autoincrement,
+        settings json not null,
+        name text not null
+    )'
   );
 }
 
