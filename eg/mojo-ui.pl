@@ -163,6 +163,12 @@ __DATA__
 @@ index.html.ep
 % layout 'default';
 % title 'Synth::Config';
+% if (flash('error')) {
+    %= tag h3 => (style => 'color:red') => flash('error')
+% }
+% if (flash('message')) {
+    %= tag h3 => (style => 'color:green') => flash('message')
+% }
 <form action="<%= url_for('index') %>" method="get">
   <label for="model">Model:</label>
   <input name="model" id="model" value="<%= $model %>">
@@ -208,6 +214,12 @@ __DATA__
 @@ edit.html.ep
 % layout 'default';
 % title 'Synth::Config Update';
+% if (flash('error')) {
+    %= tag h3 => (style => 'color:red') => flash('error')
+% }
+% if (flash('message')) {
+    %= tag h3 => (style => 'color:green') => flash('message')
+% }
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
   <label for="model">Model:</label>
