@@ -157,6 +157,8 @@ helper to_json => sub ($c, $data) {
   return to_json $data;
 };
 
+app->secrets(['yabbadabbadoo']);
+
 app->start;
 
 __DATA__
