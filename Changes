@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0017 2023-06-30 11:29:15
     - Do not require a model name in the constructor.
     - Improve the eg/mojo-ui.pl program.
 
