@@ -12,9 +12,11 @@ get '/' => sub ($c) {
   my $model = $c->param('model');
   my $name = $c->param('name');
   my $group = $c->param('group');
+  my $fields = $c->param('fields');
   my ($models, $names, $groups, $settings);
   $model = trim($model);
   $name = trim($name);
+  $fields = trim($fields);
   my $synth = Synth::Config->new(model => $model);
   if ($model) {
     # get a specs config file for the synth model
@@ -23,11 +25,17 @@ get '/' => sub ($c) {
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
     $groups = [ sort @$groups ] if $groups;
-    if ($group) {
-      $settings = $synth->search_settings(group => $group, name => $name);
-    }
-    elsif ($name) {
-      $settings = $synth->search_settings(name => $name);
+    # fetch the things!
+    if ($group || $name || $fields) {
+      my %parameters;
+      $parameters{group} = $group if $group;
+      $parameters{name}  = $name  if $name;
+      my @fields = split /\s*,\s*/, $fields;
+      for my $f (@fields) {
+        my ($x, $y) = split /\s*:\s*/, $f;
+        $parameters{$x} = $y;
+      }
+      $settings = $synth->search_settings(%parameters);
     }
     elsif ($synth->model) {
       $settings = $synth->recall_all;
