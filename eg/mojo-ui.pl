@@ -166,20 +166,33 @@ __DATA__
 % title 'Synth::Config';
 <p></p>
 <form action="<%= url_for('index') %>" method="get">
-  <label for="model" class="form-label">Model:</label>
-  <input name="model" id="model" value="<%= $model %>" class="form-control">
-  <label for="name" class="form-label">Name:</label>
-  <input name="name" id="name" value="<%= $name %>" class="form-control">
-  <select name="group" id="group" class="form-select">
-    <option value="">Group...</option>
+<div class="row">
+  <div class="col">
+    <label for="model" class="form-label">Model:</label>
+    <input name="model" id="model" value="<%= $model %>" class="form-control">
+  </div>
+  <div class="col">
+    <label for="name" class="form-label">Name:</label>
+    <input name="name" id="name" value="<%= $name %>" class="form-control">
+  </div>
+  <div class="col">
+    <label for="group" class="form-label">Group:</label>
+    <select name="group" id="group" class="form-select">
+      <option value="">Group...</option>
 % for my $g (@$groups) {
-    <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
+      <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
-  </select>
-  <input type="submit" value="Submit" class="btn btn-primary">
-</form>
+    </select>
+  </div>
+</div>
 <p></p>
-<a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success">New setting</a>
+<div class="row">
+  <div class="col">
+    <input type="submit" value="Submit" class="btn btn-primary">
+    <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success">New setting</a>
+  </div>
+</div>
+</form>
 <p></p>
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
