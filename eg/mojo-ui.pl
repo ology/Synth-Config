@@ -12,11 +12,11 @@ get '/' => sub ($c) {
   my $model = $c->param('model');
   my $name = $c->param('name');
   my $group = $c->param('group');
-  my ($models, $groups, $settings);
+  my ($models, $names, $groups, $settings);
   $model = trim($model);
   $name = trim($name);
+  my $synth = Synth::Config->new(model => $model);
   if ($model) {
-    my $synth = Synth::Config->new(model => $model);
     # get a specs config file for the synth model
     my $set = './eg/' . $synth->model . '.set';
     my $specs = -e $set ? do $set : undef;
@@ -32,16 +32,18 @@ get '/' => sub ($c) {
     elsif ($synth->model) {
       $settings = $synth->recall_all;
     }
-    $models = $synth->recall_models;
-    for my $m (@$models) {
-      $m =~ s/_/ /g;
-    }
+    $names = $synth->recall_names;
+  }
+  $models = $synth->recall_models;
+  for my $m (@$models) {
+    $m =~ s/_/ /g;
   }
   $c->render(
     template => 'index',
     model    => $model,
     models   => $models,
     name     => $name,
+    names    => $names,
     group    => $group,
     groups   => $groups,
     settings => $settings,
@@ -189,7 +191,12 @@ __DATA__
   </div>
   <div class="col">
     <label for="name" class="form-label">Name:</label>
-    <input name="name" id="name" value="<%= $name %>" class="form-control">
+    <select name="name" id="name" class="form-select">
+      <option value="">Name...</option>
+% for my $n (@$names) {
+      <option value="<%= $n %>" <%= $names && $n eq $name ? 'selected' : '' %>><%= ucfirst $n %></option>
+% }
+    </select>
   </div>
   <div class="col">
     <label for="group" class="form-label">Group:</label>
