@@ -17,7 +17,7 @@ get '/' => sub ($c) {
   $model = trim($model);
   $name = trim($name);
   $fields = trim($fields);
-  my $synth = Synth::Config->new(model => $model);
+  my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
     # get a specs config file for the synth model
     my $set = './eg/' . $synth->model . '.set';
@@ -54,6 +54,7 @@ get '/' => sub ($c) {
     names    => $names,
     group    => $group,
     groups   => $groups,
+    fields   => $fields,
     settings => $settings,
   );
 } => 'index';
@@ -214,6 +215,13 @@ __DATA__
       <option value="<%= $g %>" <%= $group && $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
     </select>
+  </div>
+</div>
+<p></p>
+<div class="row">
+  <div class="col">
+    <label for="fields" class="form-label">Field:</label>
+    <input type="text" name="fields" id="fields" value="<%= $fields %>" class="form-control" placeholder="field1:value1, field2:value2, etc.">
   </div>
 </div>
 <p></p>
