@@ -233,16 +233,16 @@ __DATA__
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
   <label for="model" class="form-label">Model:</label>
-  <input type="text" name="model" id="model" value="<%= $model %>" class="form-control">
+  <input type="text" name="model" id="model" value="<%= $model %>">
   <label for="name" class="form-label">Name:</label>
-  <input type="text" name="name" id="name" value="<%= $name %>" class="form-control">
+  <input type="text" name="name" id="name" value="<%= $name %>">
 % for my $key ($specs->{order}->@*) {
   <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' ? '<p></p>' : '' %>
   <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
-  <input type="text" name="value" id="value" value="<%= $selected->{value} %>" class="form-control">
+  <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
 %   } else {
-  <select name="<%= $key %>" id="<%= $key %>" class="form-select">
+  <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
