@@ -248,29 +248,29 @@ __DATA__
 % for my $key ($specs->{order}->@*) {
   <div class="col">
   <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control' ? '</div></div><div class="row"><div class="col">' : '' %>
-  <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
+    <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
-  <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
+    <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
 %   } elsif ($key eq 'is_default') {
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="is_default" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
-    <label class="form-check-label" for="is_default_false">False</label>
-  </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="is_default" id="is_default_true" value="1" <%= $selected->{is_default} ? 'checked' : '' %>>
-    <label class="form-check-label" for="is_default_true">True</label>
-  </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="is_default" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
+      <label class="form-check-label" for="is_default_false">False</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="is_default" id="is_default_true" value="1" <%= $selected->{is_default} ? 'checked' : '' %>>
+      <label class="form-check-label" for="is_default_true">True</label>
+    </div>
 %   } else {
-  <select name="<%= $key %>" id="<%= $key %>">
-    <option value=""><%= ucfirst $key %>...</option>
+    <select name="<%= $key %>" id="<%= $key %>">
+      <option value=""><%= ucfirst $key %>...</option>
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
 %     for my $i (@things) {
 %       next if !defined($i) || $i eq 'none' || $i eq '';
-    <option value="<%= $i %>" <%= $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
+      <option value="<%= $i %>" <%= $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
 %     }
 %   }
-  </select>
+    </select>
   </div>
 % }
 </div>
