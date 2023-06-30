@@ -234,7 +234,7 @@ __DATA__
 
 @@ edit.html.ep
 % layout 'default';
-% title 'Synth::Config Update';
+% title 'Synth::Config';
 <p></p>
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
@@ -373,6 +373,8 @@ $(document).ready(function() {
 % if (flash('message')) {
     %= tag h3 => (style => 'color:green') => flash('message')
 % }
+      <p></p>
+      <h1><a href="<%= url_for('index') %>"><%= title %></a></h1>
       <%= content %>
       <p></p>
       <div id="footer" class="text-muted small">
