@@ -253,11 +253,11 @@ __DATA__
   <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
 %   } elsif ($key eq 'is_default') {
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="is_default" id="is_default_false" value="0">
+    <input class="form-check-input" type="radio" name="is_default" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
     <label class="form-check-label" for="is_default_false">False</label>
   </div>
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="is_default" id="is_default_true" value="1">
+    <input class="form-check-input" type="radio" name="is_default" id="is_default_true" value="1" <%= $selected->{is_default} ? 'checked' : '' %>>
     <label class="form-check-label" for="is_default_true">True</label>
   </div>
 %   } else {
