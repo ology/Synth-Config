@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Fix search_settings() again!
+    - Further adjust name column handling.
 
 0.0014 2023-06-29 15:50:05
     - Add the recall_all() method.
