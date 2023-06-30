@@ -290,7 +290,6 @@ __DATA__
 % }
   </div>
 </div>
-  <p></p>
   <input type="submit" value="Submit" class="btn btn-primary">
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;">Remove</a>
   <a href="<%= url_for('index')->query(model => $model, name => $name) %>" class="btn btn-warning">Cancel</a>
