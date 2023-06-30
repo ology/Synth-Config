@@ -31,9 +31,6 @@ use namespace::clean;
   my $names = $synth->recall_names;
   # [ 'Foo!' ]
 
-  my $settings = $synth->recall_settings(name => $names->[0]);
-  # [ 1 => { etc => '!!!' }, 2 => { etc => '???' } ]
-
   $settings = $synth->search_settings(etc => '???');
   # [ 2 => { etc => '???' } ]
 
@@ -202,31 +199,6 @@ sub recall_setting {
   my $setting = $result->{settings};
   $setting->{name} = $result->{name};
   return $setting;
-}
-
-=head2 recall_settings
-
-  my $settings = $synth->recall_settings(name => $name);
-
-Return all the settings for a given B<name>.
-
-=cut
-
-sub recall_settings {
-  my ($self, %args) = @_;
-  my $name = delete $args{name};
-  croak 'No name given' unless $name;
-  my $sql = q/select id,settings,json_extract(settings, '$.group') as mygroup from /
-    . $self->model
-    . " where name='$name' order by mygroup";
-  my $results = $self->_sqlite->query($sql);
-  my @settings;
-  while (my $next = $results->hash) {
-    push @settings, { $next->{id} => from_json($next->{settings}) };
-    # add the setting name to the settings data
-    $settings[-1]->{ $next->{id} }{name} = $name;
-  }
-  return \@settings;
 }
 
 =head2 recall_all
