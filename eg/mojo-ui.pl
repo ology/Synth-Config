@@ -12,7 +12,7 @@ get '/' => sub ($c) {
   my $model = $c->param('model');
   my $name = $c->param('name');
   my $group = $c->param('group');
-  my ($groups, $settings);
+  my ($models, $groups, $settings);
   $model = trim($model);
   $name = trim($name);
   if ($model) {
@@ -32,10 +32,12 @@ get '/' => sub ($c) {
     elsif ($synth->model) {
       $settings = $synth->recall_all;
     }
+    $models = $synth->recall_models;
   }
   $c->render(
     template => 'index',
     model    => $model,
+    models   => $models,
     name     => $name,
     group    => $group,
     groups   => $groups,
@@ -175,7 +177,12 @@ __DATA__
 <div class="row">
   <div class="col">
     <label for="model" class="form-label">Model:</label>
-    <input name="model" id="model" value="<%= $model %>" class="form-control" required>
+    <select name="model" id="model" class="form-select" required>
+      <option value="">Model...</option>
+% for my $m (@$models) {
+      <option value="<%= $m %>" <%= $models && $m eq $model ? 'selected' : '' %>><%= ucfirst $m %></option>
+% }
+    </select>
   </div>
   <div class="col">
     <label for="name" class="form-label">Name:</label>
