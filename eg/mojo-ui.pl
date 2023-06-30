@@ -3,6 +3,7 @@ use Mojolicious::Lite -signatures;
 
 use Data::Dumper::Compact qw(ddc);
 use Mojo::JSON qw(to_json);
+use Mojo::Util qw(trim);
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
@@ -12,6 +13,8 @@ get '/' => sub ($c) {
   my $name = $c->param('name');
   my $group = $c->param('group');
   my ($groups, $settings);
+  $model = trim($model);
+  $name = trim($name);
   if ($model) {
     my $synth = Synth::Config->new(model => $model);
     # get a specs config file for the synth model
@@ -64,6 +67,8 @@ get '/edit' => sub ($c) {
   my $value      = $c->param('value');
   my $unit       = $c->param('unit');
   my $is_default = $c->param('is_default');
+  $model = trim($model);
+  $name = trim($name);
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
@@ -113,13 +118,16 @@ post '/update' => sub ($c) {
     $c->flash(error => 'Could not update');
     return $c->redirect_to('edit');
   }
-  my $synth = Synth::Config->new(model => $v->param('model'));
+  my $model = trim($v->param('model'));
+  my $name = trim($v->param('name'));
+  my $value = trim($v->param('value'));
+  my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
   my $specs = -e $set ? do $set : undef;
   my $id = $synth->make_setting(
     id         => $v->param('id'),
-    name       => $v->param('name'),
+    name       => $name,
     group      => $v->param('group'),
     parameter  => $v->param('parameter'),
     control    => $v->param('control'),
@@ -127,7 +135,7 @@ post '/update' => sub ($c) {
     param_to   => $v->param('param_to'),
     bottom     => $v->param('bottom'),
     top        => $v->param('top'),
-    value      => $v->param('value'),
+    value      => $value,
     unit       => $v->param('unit'),
     is_default => $v->param('is_default'),
   );
