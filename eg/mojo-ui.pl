@@ -118,9 +118,9 @@ post '/update' => sub ($c) {
     $c->flash(error => 'Could not update');
     return $c->redirect_to('edit');
   }
-  my $model = trim($v->param('model'));
-  my $name = trim($v->param('name'));
-  my $value = trim($v->param('value'));
+  my $model = trim $v->param('model');
+  my $name = trim $v->param('name');
+  my $value = trim $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
