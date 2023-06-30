@@ -286,10 +286,15 @@ Return all the models.
 
 sub recall_models {
   my ($self) = @_;
+  my @models;
   my $results = $self->_sqlite->query(
     "select name from sqlite_schema where type='table' order by name"
-  )->array;
-  return $results;
+  );
+  while (my $next = $results->array) {
+    next if $next->[0] =~ /^sqlite/;
+    push @models, $next->[0];
+  }
+  return \@models;
 }
 
 =head2 recall_names
@@ -302,10 +307,14 @@ Return all the setting names.
 
 sub recall_names {
   my ($self) = @_;
+  my @names;
   my $results = $self->_sqlite->query(
     'select distinct name from ' . $self->model
-  )->array;
-  return $results;
+  );
+  while (my $next = $results->array) {
+    push @names, $next->[0];
+  }
+  return \@names;
 }
 
 =head2 remove_setting
