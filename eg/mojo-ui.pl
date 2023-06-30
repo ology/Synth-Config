@@ -164,21 +164,22 @@ __DATA__
 @@ index.html.ep
 % layout 'default';
 % title 'Synth::Config';
+<p></p>
 <form action="<%= url_for('index') %>" method="get">
-  <label for="model">Model:</label>
-  <input name="model" id="model" value="<%= $model %>">
-  <label for="name">Name:</label>
-  <input name="name" id="name" value="<%= $name %>">
-  <select name="group" id="group">
+  <label for="model" class="form-label">Model:</label>
+  <input name="model" id="model" value="<%= $model %>" class="form-control">
+  <label for="name" class="form-label">Name:</label>
+  <input name="name" id="name" value="<%= $name %>" class="form-control">
+  <select name="group" id="group" class="form-select">
     <option value="">Group...</option>
 % for my $g (@$groups) {
     <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
   </select>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" class="btn btn-primary">
 </form>
 <p></p>
-<a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>">New setting</a>
+<a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success">New setting</a>
 <p></p>
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
@@ -198,7 +199,7 @@ __DATA__
 %     unit       => $setting->{unit},
 %     is_default => $setting->{is_default},
 %   );
-<a href="<%= $edit_url %>">Edit</a>
+<a href="<%= $edit_url %>" class="btn btn-info">Edit</a>
 <b>Name</b>: <%= $setting->{name} %> ,
 <b>Group</b>: <%= $setting->{group} %> ,
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %>
@@ -215,17 +216,18 @@ __DATA__
 @@ edit.html.ep
 % layout 'default';
 % title 'Synth::Config Update';
+<p></p>
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
-  <label for="model">Model:</label>
-  <input type="text" name="model" id="model" value="<%= $model %>">
-  <label for="name">Name:</label>
-  <input type="text" name="name" id="name" value="<%= $name %>">
+  <label for="model" class="form-label">Model:</label>
+  <input type="text" name="model" id="model" value="<%= $model %>" class="form-control">
+  <label for="name" class="form-label">Name:</label>
+  <input type="text" name="name" id="name" value="<%= $name %>" class="form-control">
 % for my $key ($specs->{order}->@*) {
   <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' ? '<p></p>' : '' %>
-  <label for="<%= $key %>"><%= ucfirst $key %>:</label>
+  <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
-  <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
+  <input type="text" name="value" id="value" value="<%= $selected->{value} %>" class="form-control">
 %   } else {
   <select name="<%= $key %>" id="<%= $key %>">
     <option value=""><%= ucfirst $key %>...</option>
@@ -239,9 +241,9 @@ __DATA__
   </select>
 % }
   <p></p>
-  <input type="submit" value="Submit">
-  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;">Remove</a>
-  <a href="<%= url_for('index')->query(model => $model, name => $name) %>">Cancel</a>
+  <input type="submit" value="Submit" class="btn btn-primary">
+  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;">Remove</a>
+  <a href="<%= url_for('index')->query(model => $model, name => $name) %>" class="btn btn-warning">Cancel</a>
 </form>
 
 <script>
@@ -280,6 +282,7 @@ $(document).ready(function() {
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
   </head>
   <body>
+    <div class="container">
 % if (flash('error')) {
     %= tag h3 => (style => 'color:red') => flash('error')
 % }
@@ -287,5 +290,6 @@ $(document).ready(function() {
     %= tag h3 => (style => 'color:green') => flash('message')
 % }
     <%= content %>
+    </div>
   </body>
 </html>
