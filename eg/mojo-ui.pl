@@ -247,7 +247,12 @@ __DATA__
 <div class="row">
 % for my $key ($specs->{order}->@*) {
   <div class="col">
-  <%== $key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control' ? '</div></div><div class="row"><div class="col">' : '' %>
+%   if ($key eq 'group' || $key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+%   }
     <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
     <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
