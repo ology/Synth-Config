@@ -200,7 +200,7 @@ __DATA__
 <a href="<%= $edit_url %>">Edit</a>
 <b>Name</b>: <%= $setting->{name} %>,
 <b>Group</b>: <%= $setting->{group} %>,
-<b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %> (<%= $setting->{bottom} %>-<%= $setting->{top} %>)
+<b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %>
 %   if ($setting->{group_to}) {
 <b>To</b>: <i><%= $setting->{param_to} %></i> of <%= $setting->{group_to} %>
 %   }
