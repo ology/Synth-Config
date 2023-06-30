@@ -144,8 +144,13 @@ Example:
 
   name: 'My Best Setting!'
   settings:
-    group  parameter control bottom top   value unit is_default
-    filter cutoff    knob    20     20000 200   Hz   true
+    group   parameter control bottom top   value unit is_default
+    filters cutoff    knob    20     20000 200   Hz   true
+
+  name: 'My Other Best Setting!'
+  settings:
+    group parameter control group_to param_to is_default
+    mixer output    patch   filters  vcf-1-in true
 
 =cut
 
