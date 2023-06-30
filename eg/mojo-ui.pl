@@ -28,7 +28,7 @@ get '/' => sub ($c) {
       $settings = $synth->search_settings(group => $group, name => $name);
     }
     elsif ($name) {
-      $settings = $synth->recall_settings(name => $name);
+      $settings = $synth->search_settings(name => $name);
     }
     elsif ($synth->model) {
       $settings = $synth->recall_all;
@@ -43,6 +43,16 @@ get '/' => sub ($c) {
     settings => $settings,
   );
 } => 'index';
+
+get '/remove' => sub ($c) {
+  my $id    = $c->param('id');
+  my $name  = $c->param('name');
+  my $model = $c->param('model');
+  my $synth = Synth::Config->new(model => $model);
+  $synth->remove_setting(id => $id);
+  $c->flash(message => 'Delete successful');
+  return $c->redirect_to($c->url_for('index')->query(model => $model, name => $name));
+} => 'remove';
 
 get '/edit' => sub ($c) {
   my $id         = $c->param('id');
@@ -223,6 +233,7 @@ __DATA__
 % }
   <p></p>
   <input type="submit" value="Submit">
+  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>">Remove</a>
   <a href="<%= url_for('index')->query(model => $model, name => $name) %>">Cancel</a>
 </form>
 
