@@ -31,7 +31,7 @@ use namespace::clean;
   my $names = $synth->recall_names;
   # [ 'Foo!' ]
 
-  $settings = $synth->search_settings(etc => '???');
+  my $settings = $synth->search_settings(etc => '???');
   # [ 2 => { etc => '???' } ]
 
   $synth->remove_setting(id => $id1);
