@@ -240,11 +240,9 @@ __DATA__
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
-    <label for="model" class="form-label">Model:</label>
     <input type="text" name="model" id="model" value="<%= $model %>" class="form-control">
   </div>
   <div class="col">
-    <label for="name" class="form-label">Name:</label>
     <input type="text" name="name" id="name" value="<%= $name %>" class="form-control">
   </div>
 </div>
@@ -260,7 +258,6 @@ __DATA__
 %     }
   <div class="col">
 %   }
-    <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
     <input type="text" name="<%= $key %>" id="<%= $key %>" value="<%= $selected->{value} %>" class="form-control">
 %   } elsif ($key eq 'is_default') {
@@ -281,8 +278,8 @@ __DATA__
 %       next if !defined($i) || $i eq 'none' || $i eq '';
       <option value="<%= $i %>" <%= $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
 %     }
-%   }
     </select>
+%   }
     <p></p>
 %   if ($j != $specs->{order}->@*) {
   </div>
