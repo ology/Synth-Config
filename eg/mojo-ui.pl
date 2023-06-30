@@ -285,7 +285,7 @@ __DATA__
   </div>
 %     unless ($key eq 'group' || $key eq 'group_to' || $key eq 'bottom' || $key eq 'value') {
 </div>
-<p></p>
+<p id="<%= $key . '_p' %>"></p>
 %     }
 %   }
 % }
@@ -338,14 +338,20 @@ $(document).ready(function() {
       $("#unit").val($("#unit option:first").val());
       $('label[for="unit"]').hide();
       $("#unit").hide();
+      $("#bottom_p").hide();
+      $("#top_p").hide();
+      $("#value_p").hide();
+      $("#unit_p").hide();
     }
     else {
       $("#group_to").val($("#group_to option:first").val());
       $('label[for="group_to"]').hide();
       $("#group_to").hide();
+      $("#group_to_p").hide();
       $("#param_to").val($("#param_to option:first").val());
       $('label[for="param_to"]').hide();
       $("#param_to").hide();
+      $("#param_to_p").hide();
       $('label[for="bottom"]').show();
       $("#bottom").show();
       $('label[for="top"]').show();
@@ -354,6 +360,10 @@ $(document).ready(function() {
       $("#value").show();
       $('label[for="unit"]').show();
       $("#unit").show();
+      $("#bottom_p").show();
+      $("#top_p").show();
+      $("#value_p").show();
+      $("#unit_p").show();
     }
   });
 });
