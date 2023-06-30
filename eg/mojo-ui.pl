@@ -33,6 +33,9 @@ get '/' => sub ($c) {
       $settings = $synth->recall_all;
     }
     $models = $synth->recall_models;
+    for my $m (@$models) {
+      $m =~ s/_/ /g;
+    }
   }
   $c->render(
     template => 'index',
