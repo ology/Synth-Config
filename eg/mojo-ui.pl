@@ -373,7 +373,17 @@ $(document).ready(function() {
 % if (flash('message')) {
     %= tag h3 => (style => 'color:green') => flash('message')
 % }
-    <%= content %>
+      <%= content %>
+      <p></p>
+      <div id="footer" class="text-muted small">
+        <hr>
+        Copyright © 2023 All rights reserved
+        <br>
+        Built by <a href="http://gene.ology.net/">Gene</a>
+        with <a href="https://www.perl.org/">Perl</a> and
+        <a href="https://mojolicious.org/">Mojolicious</a>
+      </div>
+      <p></p>
     </div>
   </body>
 </html>
