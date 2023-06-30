@@ -67,8 +67,8 @@ get '/edit' => sub ($c) {
   my $value      = $c->param('value');
   my $unit       = $c->param('unit');
   my $is_default = $c->param('is_default');
-  $model = trim($model);
-  $name = trim($name);
+  $model = trim $model;
+  $name = trim $name;
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
