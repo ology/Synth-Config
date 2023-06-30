@@ -266,7 +266,7 @@ sub search_settings {
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
   }
   return [] unless @where;
-  my $sql = q/select id,settings,json_extract(settings, '$.group') as mygroup from /
+  my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup from /
     . $self->model
     . ' where ' . join(' and ', @where)
     . ' order by mygroup';
@@ -275,6 +275,8 @@ sub search_settings {
   my @settings;
   while (my $next = $results->hash) {
     push @settings, { $next->{id} => from_json($next->{settings}) };
+    # add the setting name to the settings data
+    $settings[-1]->{ $next->{id} }{name} = $next->{name};
   }
   return \@settings;
 }
