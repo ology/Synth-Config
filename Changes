@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Doubleplusugh. Include public/!
 
 0.0021 2023-06-30 15:27:11
     - Ugh. Exclude public/.
