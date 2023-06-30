@@ -240,12 +240,12 @@ __DATA__
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
-  <label for="model" class="form-label">Model:</label>
-  <input type="text" name="model" id="model" value="<%= $model %>">
+    <label for="model" class="form-label">Model:</label>
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control">
   </div>
   <div class="col">
-  <label for="name" class="form-label">Name:</label>
-  <input type="text" name="name" id="name" value="<%= $name %>">
+    <label for="name" class="form-label">Name:</label>
+    <input type="text" name="name" id="name" value="<%= $name %>" class="form-control">
   </div>
 </div>
 <div class="row">
@@ -259,7 +259,7 @@ __DATA__
 %   }
     <label for="<%= $key %>" class="form-label"><%= ucfirst $key %>:</label>
 %   if ($key eq 'value') {
-    <input type="text" name="value" id="value" value="<%= $selected->{value} %>">
+    <input type="text" name="value" id="value" value="<%= $selected->{value} %>" class="form-control">
 %   } elsif ($key eq 'is_default') {
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="is_default" id="is_default_false" value="0" <%= $selected->{is_default} ? '' : 'checked' %>>
@@ -270,7 +270,7 @@ __DATA__
       <label class="form-check-label" for="is_default_true">True</label>
     </div>
 %   } else {
-    <select name="<%= $key %>" id="<%= $key %>">
+    <select name="<%= $key %>" id="<%= $key %>" class="form-select">
       <option value=""><%= ucfirst $key %>...</option>
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
