@@ -250,10 +250,10 @@ __DATA__
 </div>
 <div class="row">
   <div class="col">
+% my $j = 0;
 % for my $key ($specs->{order}->@*) {
-%   if ($key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
-  </div>
-</div>
+%   $j++;
+%   if ($j != 1) {
 <div class="row">
   <div class="col">
 %   }
@@ -280,9 +280,9 @@ __DATA__
 %     }
 %   }
     </select>
-%   if ($key eq 'group_to' || $key eq 'value' || $key eq 'bottom' || $key eq 'is_default' || $key eq 'control') {
+%   if ($j != $specs->{order}->@*) {
   </div>
-  <div class="col">
+</div>
 %   }
 % }
   </div>
