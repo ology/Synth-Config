@@ -196,10 +196,12 @@ sub recall_setting {
   croak 'No id given' unless $id;
   my $result = $self->_sqlite->select(
     $self->model,
-    ['settings'],
+    ['name', 'settings'],
     { id => $id },
-  )->expand(json => 'settings')->hash->{settings};
-  return $result;
+  )->expand(json => 'settings')->hash;
+  my $setting = $result->{settings};
+  $setting->{name} = $result->{name};
+  return $setting;
 }
 
 =head2 recall_settings
@@ -221,6 +223,8 @@ sub recall_settings {
   my @settings;
   while (my $next = $results->hash) {
     push @settings, { $next->{id} => from_json($next->{settings}) };
+    # add the setting name to the settings data
+    $settings[-1]->{ $next->{id} }{name} = $name;
   }
   return \@settings;
 }
