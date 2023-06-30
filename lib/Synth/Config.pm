@@ -53,7 +53,7 @@ settings in an SQLite database. It is a "librarian", if you will.
 
   $model = $synth->model;
 
-The B<required> model name of the synthesizer.
+The model name of the synthesizer.
 
 This is turned into lowercase and all non-alpha-num characters are
 converted to an underline character (C<_>).
@@ -61,8 +61,7 @@ converted to an underline character (C<_>).
 =cut
 
 has model => (
-  is       => 'rw',
-  required => 1,
+  is => 'rw',
 );
 
 =head2 dbname
@@ -120,6 +119,7 @@ given B<model>.
 
 sub BUILD {
   my ($self, $args) = @_;
+  return unless $args->{model};
   # sanitize the model name
   (my $model = $args->{model}) =~ s/\W/_/g;
   $self->model(lc $model);
@@ -132,7 +132,7 @@ sub BUILD {
         settings json not null,
         name text not null
       )'
-  ) if $self->model;
+  );
 }
 
 =head2 make_setting
