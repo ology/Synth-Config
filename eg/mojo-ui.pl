@@ -324,23 +324,25 @@ $(document).ready(function() {
     if (selected === 'patch') {
       $('label[for="group_to"]').show();
       $("#group_to").show();
+      $("#group_to_p").show();
       $('label[for="param_to"]').show();
       $("#param_to").show();
+      $("#param_to_p").show();
       $("#bottom").val($("#bottom option:first").val());
       $('label[for="bottom"]').hide();
       $("#bottom").hide();
+      $("#bottom_p").hide();
       $("#top").val($("#top option:first").val());
       $('label[for="top"]').hide();
       $("#top").hide();
+      $("#top_p").hide();
       $("#value").val('');
       $('label[for="value"]').hide();
       $("#value").hide();
+      $("#value_p").hide();
       $("#unit").val($("#unit option:first").val());
       $('label[for="unit"]').hide();
       $("#unit").hide();
-      $("#bottom_p").hide();
-      $("#top_p").hide();
-      $("#value_p").hide();
       $("#unit_p").hide();
     }
     else {
@@ -354,15 +356,15 @@ $(document).ready(function() {
       $("#param_to_p").hide();
       $('label[for="bottom"]').show();
       $("#bottom").show();
+      $("#bottom_p").show();
       $('label[for="top"]').show();
       $("#top").show();
+      $("#top_p").show();
       $('label[for="value"]').show();
       $("#value").show();
+      $("#value_p").show();
       $('label[for="unit"]').show();
       $("#unit").show();
-      $("#bottom_p").show();
-      $("#top_p").show();
-      $("#value_p").show();
       $("#unit_p").show();
     }
   });
