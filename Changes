@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0020 2023-06-30 15:08:23
     - Work around broken Mojo::SQLite behavior.
     - Add the recall_models() method.
     - Improve the eg/mojo-ui.pl program.
