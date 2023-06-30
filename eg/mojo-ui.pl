@@ -295,7 +295,7 @@ __DATA__
   <p></p>
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
-  <a href="<%= url_for('index')->query(model => $model, name => $name) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+  <a href="<%= url_for('index')->query(model => $model, name => $name, group => $selected->{group}) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
 </form>
 
 <script>
