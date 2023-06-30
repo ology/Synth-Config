@@ -28,6 +28,6 @@
     bottom     => [qw(off 1 7AM 20)],
     top        => [qw(on 3 4 6 5PM 20_000)],
     value      => [],
-    unit       => [qw(none Hz o'clock)],
+    unit       => [qw(none Hz clock)],
     is_default => [0, 1],
 };
