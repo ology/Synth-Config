@@ -321,6 +321,23 @@ sub remove_settings {
   );
 }
 
+=head2 remove_model
+
+  $synth->remove_model(model => $model);
+
+Remove the database table for a given B<model>.
+
+=cut
+
+sub remove_model {
+  my ($self, %args) = @_;
+  my $model = delete $args{model};
+  croak 'No model given' unless $model;
+  $self->_sqlite->query(
+    'drop table ' . $self->model
+  );
+}
+
 1;
 __END__
 
