@@ -186,7 +186,7 @@ __DATA__
     <select name="group" id="group" class="form-select">
       <option value="">Group...</option>
 % for my $g (@$groups) {
-      <option value="<%= $g %>" <%= $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
+      <option value="<%= $g %>" <%= $group && $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
 % }
     </select>
   </div>
