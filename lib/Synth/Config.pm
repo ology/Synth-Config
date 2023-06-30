@@ -38,6 +38,8 @@ use namespace::clean;
 
   $synth->remove_settings(name => $name);
 
+  $synth->remove_model(model => $model);
+
 =head1 DESCRIPTION
 
 C<Synth::Config> provides a way to save and recall synthesizer control
