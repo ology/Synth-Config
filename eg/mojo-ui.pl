@@ -242,7 +242,7 @@ __DATA__
 %   if ($key eq 'value') {
   <input type="text" name="value" id="value" value="<%= $selected->{value} %>" class="form-control">
 %   } else {
-  <select name="<%= $key %>" id="<%= $key %>">
+  <select name="<%= $key %>" id="<%= $key %>" class="form-select">
     <option value=""><%= ucfirst $key %>...</option>
 %   my $my_key = $key eq 'group_to' ? 'group' : $key;
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
