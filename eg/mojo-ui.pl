@@ -239,9 +239,9 @@ __DATA__
 
 <script>
 $(document).ready(function() {
-  $("select#group").on('change', function() {
-    const selected = $("select#group").find(":selected").val();
-    const dropdown = $("select#parameter");
+  function populate (group, param) {
+    const selected = $("select#" + group).find(":selected").val();
+    const dropdown = $("select#" + param);
     const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
     const params = JSON.parse(json);
     const obj = params[selected];
@@ -252,20 +252,12 @@ $(document).ready(function() {
       text = text.charAt(0).toUpperCase() + text.substring(1);
       dropdown.append($('<option></option>').val(i).text(text));
     });
+  }
+  $("select#group").on('change', function() {
+    populate("group", "parameter");
   });
   $("select#group_to").on('change', function() {
-    const selected = $("select#group_to").find(":selected").val();
-    const dropdown = $("select#param_to");
-    const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
-    const params = JSON.parse(json);
-    const obj = params[selected];
-    dropdown.empty();
-    dropdown.append($('<option></option>').val("").text('Select...'));
-    obj.forEach((i) => {
-      let text = i.replace(/-/g, ' ');
-      text = text.charAt(0).toUpperCase() + text.substring(1);
-      dropdown.append($('<option></option>').val(i).text(text));
-    });
+    populate("group_to", "param_to");
   });
 });
 </script>
