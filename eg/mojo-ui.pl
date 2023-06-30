@@ -219,6 +219,7 @@ __DATA__
 %     is_default => $setting->{is_default},
 %   );
 <a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary">Edit</a>
+&nbsp;
 <b>Name</b>: <%= $setting->{name} %> ,
 <b>Group</b>: <%= $setting->{group} %> ,
 <b>Param</b>: <i><%= $setting->{parameter} %></i> <%= $setting->{control} %>
