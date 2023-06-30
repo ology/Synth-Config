@@ -30,14 +30,14 @@ use namespace::clean;
   # update the etc key only
   $synth->make_setting(id => $id1, etc => '!!!');
 
+  my $settings = $synth->search_settings(etc => '???');
+  # [ 2 => { etc => '???' } ]
+
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
 
   my $names = $synth->recall_names;
   # [ 'Foo!' ]
-
-  my $settings = $synth->search_settings(etc => '???');
-  # [ 2 => { etc => '???' } ]
 
   $synth->remove_setting(id => $id1);
 
