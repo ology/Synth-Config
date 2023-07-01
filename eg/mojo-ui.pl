@@ -77,7 +77,7 @@ post '/new_model' => sub ($c) {
   my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set');
   $set_file->spurt($init_file->slurp);
   $c->flash(message => 'Add model successful');
-  $c->redirect_to('index');
+  $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
 } => 'new_model';
 
 get '/remove' => sub ($c) {
