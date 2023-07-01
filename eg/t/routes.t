@@ -9,6 +9,7 @@ my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
 $t->ua->max_redirects(1);
 
 my $model = 'Testing';
+my $groups = 'a,b,c';
 
 subtest index => sub {
   $t->get_ok($t->app->url_for('index'))
@@ -38,6 +39,18 @@ subtest new_model => sub {
     ->element_exists('a[id="cancel"]', 'has cancel btn')
     ->status_is(200)
   ;
+};
+
+subtest edit_model => sub {
+  $t->get_ok($t->app->url_for('edit_model')->query(model => $model))
+    ->element_exists(qq/input[name="model"][value="$model"]/, 'has model input')
+    ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups input')
+    ->element_exists(qq/input[name="group"][id="a_param"]/, 'has a param input')
+    ->element_exists(qq/input[name="group"][id="b_param"]/, 'has b param input')
+    ->element_exists(qq/input[name="group"][id="c_param"]/, 'has c param input')
+    ->status_is(200)
+  ;
+  $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups })
 };
 
 subtest cleanup => sub {
