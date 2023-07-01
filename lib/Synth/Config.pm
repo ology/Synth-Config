@@ -235,6 +235,7 @@ sub search_settings {
   push @where, "name = '$name'" if $name;
   for my $arg (keys %args) {
     next unless $args{$arg};
+    $args{$arg} =~ s/'/''/g;
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
   }
   return [] unless @where;
