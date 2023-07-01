@@ -47,9 +47,9 @@ subtest new_model => sub {
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model input')
     ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups input')
-    ->element_exists(qq/input[name="group"][id="a"]/, 'has a param input')
-    ->element_exists(qq/input[name="group"][id="b"]/, 'has b param input')
-    ->element_exists(qq/input[name="group"][id="c"]/, 'has c param input')
+    ->element_exists(qq/input[name="group"][id="a"]/, 'has param input')
+    ->element_exists(qq/input[name="group"][id="b"]/, 'has param input')
+    ->element_exists(qq/input[name="group"][id="c"]/, 'has param input')
   ;
 };
 
@@ -58,9 +58,9 @@ subtest edit_model => sub {
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model input')
     ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups input')
-    ->element_exists(qq/input[name="group"][id="a"]/, 'has a param input')
-    ->element_exists(qq/input[name="group"][id="b"]/, 'has b param input')
-    ->element_exists(qq/input[name="group"][id="c"]/, 'has c param input')
+    ->element_exists(qq/input[name="group"][id="a"]/, 'has param input')
+    ->element_exists(qq/input[name="group"][id="b"]/, 'has param input')
+    ->element_exists(qq/input[name="group"][id="c"]/, 'has param input')
   ;
   $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [ sort values %params ] })
     ->content_like(qr/Update parameters successful/)
@@ -70,9 +70,9 @@ subtest edit_model => sub {
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model input')
     ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups input')
-    ->element_exists(qq/input[name="group"][id="a"][value="$params{a}"]/, 'has a param value')
-    ->element_exists(qq/input[name="group"][id="b"][value="$params{b}"]/, 'has b param value')
-    ->element_exists(qq/input[name="group"][id="c"][value="$params{c}"]/, 'has c param value')
+    ->element_exists(qq/input[name="group"][id="a"][value="$params{a}"]/, 'has param value')
+    ->element_exists(qq/input[name="group"][id="b"][value="$params{b}"]/, 'has param value')
+    ->element_exists(qq/input[name="group"][id="c"][value="$params{c}"]/, 'has param value')
   ;
 };
 
