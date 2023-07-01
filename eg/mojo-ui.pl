@@ -372,13 +372,14 @@ __DATA__
 <script>
 $(document).ready(function() {
   function populate (group, param) {
+    const paramUcfirst = param.charAt(0).toUpperCase() + param.substring(1) + '...';
     const selected = $("select#" + group).find(":selected").val();
     const dropdown = $("select#" + param);
     const json = '<%= to_json $specs->{parameter} %>'.replace(/&quot;/g, '"');
     const params = JSON.parse(json);
     const obj = params[selected];
     dropdown.empty();
-    dropdown.append($('<option></option>').val("").text('Select...'));
+    dropdown.append($('<option></option>').val("").text(paramUcfirst));
     obj.forEach((i) => {
       let text = i.replace(/-/g, ' ');
       text = text.charAt(0).toUpperCase() + text.substring(1);
