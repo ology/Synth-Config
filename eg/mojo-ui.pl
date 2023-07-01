@@ -89,22 +89,7 @@ post '/model' => sub ($c) {
   }
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $group_params = $c->every_param('group');
-  my $parameters = $c->every_param('parameter');
-  if (@$parameters) {
-    my $model_file = SETTINGS . $synth->model . '.dat';
-    my @groups = split /\s*,\s*/, $v->param('groups');
-    my $specs = -e $model_file ? retrieve($model_file) : undef;
-    my $i = 0;
-    for my $g (@groups) {
-      my $params = [ split /\s*,\s*/, $parameters->[$i] ];
-      $specs->{parameter}{$g} = $params;
-      $i++;
-    }
-    store($specs, $model_file);
-    $c->flash(message => 'Add parameters successful');
-    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
-  }
-  elsif (@$group_params) {
+  if (@$group_params) {
     my $model_file = SETTINGS . $synth->model . '.dat';
     my @groups = split /\s*,\s*/, $v->param('groups');
     my $specs = -e $model_file ? retrieve($model_file) : undef;
@@ -114,7 +99,7 @@ post '/model' => sub ($c) {
       $i++;
     }
     store($specs, $model_file);
-    $c->flash(message => 'Add parameters successful');
+    $c->flash(message => 'Update parameters successful');
     return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
   }
   else {
@@ -434,7 +419,7 @@ __DATA__
   <input type="hidden" name="model" value="<%= $model %>">
   <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
-  <input type="text" name="parameter" value="<%= $specs->{$g} %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
+  <input type="text" name="group" value="<%= $specs->{$g} %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
   <p></p>
 % }
   <div class="row">
