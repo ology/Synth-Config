@@ -97,6 +97,7 @@ post '/new_model' => sub ($c) {
     }
     store($specs, $model_file);
     $c->flash(message => 'Add parameters successful');
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
   }
   else {
     my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
@@ -110,8 +111,8 @@ post '/new_model' => sub ($c) {
     my $model_file = SETTINGS . $synth->model . '.dat';
     store($specs, $model_file);
     $c->flash(message => 'Add model successful');
+    return $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
   }
-  $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
 } => 'new_model';
 
 get '/remove' => sub ($c) {
