@@ -92,7 +92,7 @@ post '/new_model' => sub ($c) {
     my $specs = -e $model_file ? retrieve($model_file) : undef;
     my $i = 0;
     for my $g (@groups) {
-      $specs->{parameters}{$g} = $group_params->[$i];
+      $specs->{parameters}{$g} = [ split /\s*,\s*/, $group_params->[$i] ];
       $i++;
     }
     store($specs, $model_file);
