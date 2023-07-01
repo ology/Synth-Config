@@ -137,7 +137,7 @@ post '/update' => sub ($c) {
     return $c->redirect_to('edit');
   }
   my $model = trim $v->param('model') if $v->param('model');
-  my $name = trim $v->param('name') if $v->param('name');
+  my $name  = trim $v->param('name')  if $v->param('name');
   my $value = trim $v->param('value') if $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
