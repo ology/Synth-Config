@@ -126,7 +126,8 @@ get '/edit_model' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $model_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $model_file ? retrieve($model_file) : undef;
-  my $groups = join ',', $specs->{group}->@*;
+  my $groups;
+  $groups = join ',', $specs->{group}->@* if exists $specs->{group};
   $c->render(
     template   => 'edit_model',
     model      => $v->param('model'),
@@ -291,7 +292,7 @@ __DATA__
     <select name="name" id="name" class="form-select">
       <option value="">Setting name...</option>
 % for my $n (@$names) {
-      <option value="<%= $n %>" <%= $names && $n eq $name ? 'selected' : '' %>><%= ucfirst $n %></option>
+      <option value="<%= $n %>" <%= $names && $name && $n eq $name ? 'selected' : '' %>><%= ucfirst $n %></option>
 % }
     </select>
   </div>
