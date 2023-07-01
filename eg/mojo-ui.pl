@@ -382,7 +382,7 @@ __DATA__
 % unless ($group_list) {
     <button type="submit" id="new_model" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add model</button>
 % }
-    <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+    <a href="<%= url_for('index') %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
   </div>
 </div>
 </form>
