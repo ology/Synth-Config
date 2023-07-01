@@ -35,6 +35,7 @@ subtest new_model => sub {
     ->element_exists('input[name="model"]', 'has model input')
     ->element_exists('input[name="groups"]', 'has groups input')
     ->element_exists('button[id="new_model"]', 'has new_model btn')
+    ->element_exists('a[id="cancel"]', 'has cancel btn')
     ->status_is(200)
   ;
 };
