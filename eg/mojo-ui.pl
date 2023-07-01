@@ -348,14 +348,7 @@ $(document).ready(function() {
       dropdown.append($('<option></option>').val(i).text(text));
     });
   }
-  $("select#group").on('change', function() {
-    populate("group", "parameter");
-  });
-  $("select#group_to").on('change', function() {
-    populate("group_to", "param_to");
-  });
-  $("select#control").on('change', function() {
-    const selected = $("select#control").find(":selected").val();
+  function toggle_patch (selected) {
     if (selected === 'patch') {
       $('label[for="group_to"]').show();
       $("#group_to").show();
@@ -402,7 +395,23 @@ $(document).ready(function() {
       $("#unit").show();
       $("#unit_p").show();
     }
+  }
+  $("select#group").on('change', function() {
+    populate("group", "parameter");
   });
+  $("select#group_to").on('change', function() {
+    populate("group_to", "param_to");
+  });
+  $("select#control").on('change', function() {
+    const selected = $("select#control").find(":selected").val();
+    toggle_patch(selected);
+  });
+  if ('<%= $selected->{control} %>' === 'patch') {
+    toggle_patch('patch');
+  }
+  else {
+    toggle_patch('not-patch');
+  }
 });
 </script>
 
