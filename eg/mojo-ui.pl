@@ -92,7 +92,7 @@ get '/remove' => sub ($c) {
   $v->optional('name');
   $v->optional('model');
   if ($v->failed->@*) {
-    $c->flash(error => 'Could not remove');
+    $c->flash(error => 'Remove failed');
     return $c->redirect_to('index');
   }
   my $synth = Synth::Config->new(model => $v->param('model'));
