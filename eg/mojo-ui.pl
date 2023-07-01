@@ -360,6 +360,8 @@ __DATA__
 % if ($group_list) {
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
+  <input type="hidden" name="model" value="model">
+  <input type="hidden" name="groups" value="groups">
 %   for my $g (@$group_list) {
   <input type="text" name="group" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
   <p></p>
