@@ -84,19 +84,33 @@ post '/new_model' => sub ($c) {
     $c->flash(error => 'Could not add model');
     return $c->redirect_to('model');
   }
-  my $group_params = $c->every_param('group');
   my $synth = Synth::Config->new(model => $v->param('model'));
-  my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
-  my $specs = -e $init_file ? do $init_file : undef;
-  unless ($specs) {
-    $c->flash(error => 'Invalid init file');
-    return $c->redirect_to('model');
+  my $group_params = $c->every_param('group');
+  if (@$group_params) {
+    my $model_file = SETTINGS . $synth->model . '.dat';
+    my @groups = [ split /\s*,\s*/, $v->param('groups') ];
+    my $specs = -e $model_file ? retrieve($model_file) : undef;
+    my $i = 0;
+    for my $g (@groups) {
+      $specs->{parameters}{$g} = $group_params->[$i];
+      $i++;
+    }
+    store($specs, $model_file);
+    $c->flash(message => 'Add parameters successful');
   }
-  $specs->{group} = [ split /\s*,\s*/, $v->param('groups') ];
-  $specs->{parameter}{$_} = [] for $specs->{group}->@*; # TODO handle population
-  my $model_file = SETTINGS . $synth->model . '.dat';
-  store($specs, $model_file);
-  $c->flash(message => 'Add model successful');
+  else {
+    my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
+    my $specs = -e $init_file ? do $init_file : undef;
+    unless ($specs) {
+      $c->flash(error => 'Invalid init file');
+      return $c->redirect_to('model');
+    }
+    $specs->{group} = [ split /\s*,\s*/, $v->param('groups') ];
+    $specs->{parameter}{$_} = [] for $specs->{group}->@*; # TODO handle population
+    my $model_file = SETTINGS . $synth->model . '.dat';
+    store($specs, $model_file);
+    $c->flash(message => 'Add model successful');
+  }
   $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
 } => 'new_model';
 
