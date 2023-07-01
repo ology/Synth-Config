@@ -132,6 +132,8 @@ get '/remove' => sub ($c) {
   }
   elsif ($synth->model) {
     $synth->remove_model;
+    my $model_file = Mojo::File->new(SETTINGS . $synth->model . '.dat');
+    $model_file->remove;
     $c->flash(message => 'Remove successful');
     return $c->redirect_to('index');
   }
