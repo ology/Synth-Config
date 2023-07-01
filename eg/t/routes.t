@@ -4,6 +4,8 @@ use Mojo::File qw(curfile);
 use Test::Mojo;
 use Test::More;
 
+use constant SETTINGS => './eg/public/settings/';
+
 my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
 
 $t->ua->max_redirects(1);
@@ -68,6 +70,9 @@ subtest cleanup => sub {
   $t->get_ok($t->app->url_for('remove')->query(model => $model))
     ->status_is(200)
   ;
+  (my $model_id = $model) =~ s/\W/_/g;
+  $model_id = lc $model_id;
+  ok !-e SETTINGS . $model_id . '.dat', 'no settings file';
 };
 
 done_testing();
