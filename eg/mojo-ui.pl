@@ -422,8 +422,8 @@ __DATA__
   <input type="hidden" name="model" value="<%= $model %>">
   <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
-  <label for="<%= $g %>_param"><%= $g %>:</label>
-  <input type="text" name="group" id="<%= $g %>_param" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
+  <label for="<%= $g %>"><%= $g %>:</label>
+  <input type="text" name="group" id="<%= $g %>" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
   <p></p>
 % }
   <div class="row">
