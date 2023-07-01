@@ -87,14 +87,19 @@ post '/new_model' => sub ($c) {
 } => 'new_model';
 
 get '/remove' => sub ($c) {
-  my $id    = $c->param('id');
-  my $name  = $c->param('name');
-  my $model = $c->param('model');
-  my $synth = Synth::Config->new(model => $model);
-  if ($id) {
-    $synth->remove_setting(id => $id);
+  my $v = $c->validation;
+  $v->optional('id');
+  $v->optional('name');
+  $v->optional('model');
+  if ($v->failed->@*) {
+    $c->flash(error => 'Could not remove');
+    return $c->redirect_to('index');
+  }
+  my $synth = Synth::Config->new(model => $v->param('model'));
+  if ($v->param('id')) {
+    $synth->remove_setting(id => $v->param('id'));
     $c->flash(message => 'Delete successful');
-    return $c->redirect_to($c->url_for('index')->query(model => $model, name => $name));
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name')));
   }
   elsif ($synth->model) {
     $synth->remove_model;
