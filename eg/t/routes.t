@@ -12,6 +12,8 @@ $t->ua->max_redirects(1);
 
 my $model = 'Testing';
 my $groups = 'a,b,c';
+my %params;
+@params{ split ',', $groups } = ('1,2', '3,4', '5,6');
 
 subtest index => sub {
   $t->get_ok($t->app->url_for('index'))
@@ -60,9 +62,17 @@ subtest edit_model => sub {
     ->element_exists(qq/input[name="group"][id="b"]/, 'has b param input')
     ->element_exists(qq/input[name="group"][id="c"]/, 'has c param input')
   ;
-  $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [qw(1,2 3,4 5,6)] })
+  $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [sort values %params] })
     ->content_like(qr/Update parameters successful/)
     ->status_is(200)
+  ;
+  $t->get_ok($t->app->url_for('edit_model')->query(model => $model))
+    ->status_is(200)
+    ->element_exists(qq/input[name="model"][value="$model"]/, 'has model input')
+    ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups input')
+    ->element_exists(qq/input[name="group"][id="a"][value="$params{a}"]/, 'has a param value')
+    ->element_exists(qq/input[name="group"][id="b"][value="$params{b}"]/, 'has b param value')
+    ->element_exists(qq/input[name="group"][id="c"][value="$params{c}"]/, 'has c param value')
   ;
 };
 
