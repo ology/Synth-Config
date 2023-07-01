@@ -277,7 +277,6 @@ __DATA__
 
 @@ index.html.ep
 % layout 'default';
-% title 'Synth::Config';
 <p></p>
 <form action="<%= url_for('index') %>" method="get">
 <div class="row">
@@ -363,7 +362,6 @@ __DATA__
 
 @@ model.html.ep
 % layout 'default';
-% title 'Synth::Config';
 <p></p>
 <form action="<%= url_for('update_model') %>" method="post">
 <div class="row">
@@ -403,7 +401,6 @@ __DATA__
 
 @@ edit_model.html.ep
 % layout 'default';
-% title 'Synth::Config';
 <p></p>
 <div class="row">
   <div class="col">
@@ -434,7 +431,6 @@ __DATA__
 
 @@ edit.html.ep
 % layout 'default';
-% title 'Synth::Config';
 <p></p>
 <form action="<%= url_for('update') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
@@ -592,6 +588,7 @@ $(document).ready(function() {
 
 
 @@ layouts/default.html.ep
+% title 'Synth::Config';
 <!DOCTYPE html>
 <html lang="en">
   <head>
