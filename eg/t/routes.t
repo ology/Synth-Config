@@ -62,7 +62,7 @@ subtest edit_model => sub {
     ->element_exists(qq/input[name="group"][id="b"]/, 'has b param input')
     ->element_exists(qq/input[name="group"][id="c"]/, 'has c param input')
   ;
-  $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [sort values %params] })
+  $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [ sort values %params ] })
     ->content_like(qr/Update parameters successful/)
     ->status_is(200)
   ;
