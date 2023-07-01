@@ -88,7 +88,7 @@ post '/new_model' => sub ($c) {
   my $group_params = $c->every_param('group');
   if (@$group_params) {
     my $model_file = SETTINGS . $synth->model . '.dat';
-    my @groups = [ split /\s*,\s*/, $v->param('groups') ];
+    my @groups = split /\s*,\s*/, $v->param('groups');
     my $specs = -e $model_file ? retrieve($model_file) : undef;
     my $i = 0;
     for my $g (@groups) {
