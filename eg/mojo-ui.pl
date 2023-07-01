@@ -109,13 +109,13 @@ post '/model' => sub ($c) {
       return $c->redirect_to('model');
     }
     $specs->{group} = [ split /\s*,\s*/, $v->param('groups') ];
-    $specs->{parameter}{$_} = [] for $specs->{group}->@*; # TODO handle population
+    $specs->{parameter}{$_} = [] for $specs->{group}->@*;
     my $model_file = SETTINGS . $synth->model . '.dat';
     store($specs, $model_file);
     $c->flash(message => 'Add model successful');
     return $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
   }
-} => 'new_model';
+} => 'update_model';
 get '/edit_model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
@@ -127,11 +127,13 @@ get '/edit_model' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $model_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $model_file ? retrieve($model_file) : undef;
+  my $group_list = $v->param('groups') ? [ split /\s*,\s*/, $v->param('groups') ] : undef;
   $c->render(
-    template => 'edit_model',
-    model    => $v->param('model'),
-    groups   => $v->param('groups'),
-    specs    => $specs->{parameter},
+    template   => 'edit_model',
+    model      => $v->param('model'),
+    specs      => $specs->{parameter},
+    groups     => $v->param('groups'),
+    group_list => $group_list,
   );
 } => 'edit_model';
 
@@ -363,7 +365,7 @@ __DATA__
 % layout 'default';
 % title 'Synth::Config';
 <p></p>
-<form action="<%= url_for('new_model') %>" method="post">
+<form action="<%= url_for('update_model') %>" method="post">
 <div class="row">
   <div class="col">
     <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" placeholder="Model name" required>
@@ -379,7 +381,7 @@ __DATA__
 <div class="row">
   <div class="col">
 % unless ($group_list) {
-    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
+    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add model</button>
 % }
     <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
   </div>
@@ -387,7 +389,7 @@ __DATA__
 </form>
 % if ($group_list) {
 <p></p>
-<form action="<%= url_for('new_model') %>" method="post">
+<form action="<%= url_for('update_model') %>" method="post">
   <input type="hidden" name="model" value="<%= $model %>">
   <input type="hidden" name="groups" value="<%= $groups %>">
 %   for my $g (@$group_list) {
@@ -397,6 +399,37 @@ __DATA__
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add parameters</button>
 </form>
 % }
+
+
+@@ edit_model.html.ep
+% layout 'default';
+% title 'Synth::Config';
+<p></p>
+<div class="row">
+  <div class="col">
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control disabled">
+  </div>
+</div>
+<p></p>
+<div class="row">
+  <div class="col">
+    <input type="text" value="<%= $groups %>" class="form-control disabled">
+  </div>
+</div>
+<p></p>
+<form action="<%= url_for('update_model') %>" method="post">
+  <input type="hidden" name="model" value="<%= $model %>">
+% for my $g (@$group_list) {
+  <input type="text" name="parameter" value="<%= $specs->{$g} %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
+  <p></p>
+% }
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Update model</button>
+      <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+    </div>
+  </div>
+</form>
 
 
 @@ edit.html.ep
