@@ -227,7 +227,7 @@ post '/update' => sub ($c) {
   }
   my $model = trim $v->param('model') if $v->param('model');
   my $name  = trim $v->param('name')  if $v->param('name');
-  my $value = trim $v->param('value') if $v->param('value');
+  my $value = trim $v->param('value') if defined $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set_file = SETTINGS . $synth->model . '.dat';
@@ -477,7 +477,7 @@ __DATA__
 %   my @things = $key eq 'parameter' ? ($selected->{parameter}) : $key eq 'param_to' ? ($selected->{param_to}) : $specs->{$my_key}->@*;
 %     for my $i (@things) {
 %       next if !defined($i) || $i eq 'none' || $i eq '';
-      <option value="<%= $i %>" <%= $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
+      <option value="<%= $i %>" <%= defined $selected->{$key} && $i eq $selected->{$key} ? 'selected' : '' %>><%= ucfirst $i %></option>
 %     }
     </select>
 %   }
