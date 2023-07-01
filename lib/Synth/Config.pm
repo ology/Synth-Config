@@ -356,9 +356,9 @@ sub remove_settings {
 
 =head2 remove_model
 
-  $synth->remove_model(model => $model);
+  $synth->remove_model;
 
-Remove the database table for a given B<model>.
+Remove the database table for the object model.
 
 =cut
 
