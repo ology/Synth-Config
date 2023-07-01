@@ -5,9 +5,12 @@ use Data::Dumper::Compact qw(ddc);
 use Mojo::JSON qw(to_json);
 use Mojo::File ();
 use Mojo::Util qw(trim);
+use Storable qw(store retrieve);
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
+
+use constant PUBLIC => './eg/public/';
 
 get '/' => sub ($c) {
   my $model  = $c->param('model');
@@ -21,8 +24,8 @@ get '/' => sub ($c) {
   my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
     # get a specs config file for the synth model
-    my $set = './eg/' . $synth->model . '.set';
-    my $specs = -e $set ? do $set : undef;
+    my $set_file = PUBLIC . $synth->model . '.dat';
+    my $specs = -e $set_file ? retrieve($set_file) : undef;
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
     $groups = [ sort @$groups ] if $groups;
@@ -73,12 +76,12 @@ post '/new_model' => sub ($c) {
     $c->flash(error => 'Could not add model');
     return $c->redirect_to('index');
   }
-  # TODO insert groups into set file
   # TODO add group parameters
   my $synth = Synth::Config->new(model => $v->param('model'));
-  my $init_file = Mojo::File->new('./eg/initial.set');              # TODO relocate to public/
-  my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set'); # TODO relocate to public/
-  $set_file->spurt($init_file->slurp);
+  my $init_file = Mojo::File->new(PUBLIC . 'initial.set');
+  my $specs = -e $init_file ? do $init_file : undef;
+  my $model_file = PUBLIC . $synth->model . '.dat';
+  store($specs, $model_file);
   $c->flash(message => 'Add model successful');
   $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
 } => 'new_model';
@@ -111,8 +114,8 @@ get '/edit' => sub ($c) {
   $name = trim($name) if $name;
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
-  my $set = './eg/' . $synth->model . '.set';
-  my $specs = -e $set ? do $set : undef;
+  my $set_file = PUBLIC . $synth->model . '.dat';
+  my $specs = -e $set_file ? retrieve($set_file) : undef;
   unless ($specs) {
     $c->flash(error => 'No known model');
     return $c->redirect_to('index');
@@ -163,8 +166,8 @@ post '/update' => sub ($c) {
   my $value = trim $v->param('value') if $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
-  my $set = './eg/' . $synth->model . '.set';
-  my $specs = -e $set ? do $set : undef;
+  my $set_file = PUBLIC . $synth->model . '.dat';
+  my $specs = -e $set_file ? retrieve($set_file) : undef;
   my $id = $synth->make_setting(
     id         => $v->param('id'),
     name       => $name,
