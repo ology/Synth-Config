@@ -37,8 +37,8 @@ get '/' => sub ($c) {
       if ($fields) {
         my @fields = split /\s*,\s*/, $fields;
         for my $f (@fields) {
-          my ($x, $y) = split /\s*:\s*/, $f;
-          $parameters{$x} = $y;
+          my ($key, $val) = split /\s*:\s*/, $f;
+          $parameters{$key} = $val;
         }
       }
       $settings = $synth->search_settings(%parameters);
