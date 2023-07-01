@@ -177,7 +177,7 @@ sub make_setting {
       { id => $id },
     )->expand(json => 'settings')->hash->{settings};
     for my $arg (keys %args) {
-      delete $args{$arg} if $args{$arg} eq '' && !exists $result->{$arg};
+      $args{$arg} = '' unless defined $args{$arg};
     }
     my $params = { %$result, %args };
     $self->_sqlite->update(
