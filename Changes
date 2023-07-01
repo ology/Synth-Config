@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Improve the eg/mojo-ui.pl program.
+    - Simplify the remove_model() method.
 
 0.0026 2023-06-30 18:27:06
     - Fix SQLite single quote escaping.
