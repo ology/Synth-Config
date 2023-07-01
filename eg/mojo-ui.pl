@@ -412,6 +412,14 @@ $(document).ready(function() {
   else {
     toggle_patch('not-patch');
   }
+  if ('<%= $selected->{group} %>') {
+    populate("group", "parameter");
+    $("#parameter").val('<%= $selected->{parameter} %>');
+  }
+  if ('<%= $selected->{group_to} %>') {
+    populate("group_to", "param_to");
+    $("#param_to").val('<%= $selected->{param_to} %>');
+  }
 });
 </script>
 
