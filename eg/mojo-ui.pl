@@ -9,13 +9,13 @@ use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
 
 get '/' => sub ($c) {
-  my $model = $c->param('model');
-  my $name = $c->param('name');
-  my $group = $c->param('group');
+  my $model  = $c->param('model');
+  my $name   = $c->param('name');
+  my $group  = $c->param('group');
   my $fields = $c->param('fields');
   my ($models, $names, $groups, $settings);
-  $model = trim($model) if $model;
-  $name = trim($name) if $name;
+  $model  = trim($model)  if $model;
+  $name   = trim($name)   if $name;
   $fields = trim($fields) if $fields;
   my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
