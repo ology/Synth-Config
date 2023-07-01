@@ -321,7 +321,7 @@ __DATA__
 <form action="<%= url_for('new_model') %>" method="post">
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" placeholder="Module name" required>
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" placeholder="Model name" required>
   </div>
 </div>
 <p></p>
