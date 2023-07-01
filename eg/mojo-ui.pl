@@ -346,7 +346,7 @@ __DATA__
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
 %   for my $g (@$group_list) {
-  <input type="text" name="group_<%= $g %>" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameter">
+  <input type="text" name="group_<%= $g %>" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameters">
   <p></p>
 %   }
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add parameters</button>
