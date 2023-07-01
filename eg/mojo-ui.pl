@@ -194,7 +194,7 @@ __DATA__
     <select name="model" id="model" class="form-select" required>
       <option value="">Model...</option>
 % for my $m (@$models) {
-      <option value="<%= $m %>" <%= $models && $m eq $model ? 'selected' : '' %>><%= ucfirst $m %></option>
+      <option value="<%= $m %>" <%= $models && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
 % }
     </select>
   </div>
