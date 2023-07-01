@@ -320,6 +320,7 @@ __DATA__
     <a href="<%= url_for('model') %>" class="btn btn-success" id="new_model"><i class="fa-solid fa-database"></i> New model</a>
 % if ($model) {
     <a href="<%= url_for('edit_model')->query(model => $model) %>" id="edit_model" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Edit model</a>
+
     <a href="<%= url_for('remove')->query(model => $model) %>" id="remove_model" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 % }
   </div>
