@@ -119,10 +119,9 @@ post '/model' => sub ($c) {
 get '/edit_model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
-  $v->required('groups');
   if ($v->failed->@*) {
-    $c->flash(error => 'Could not update model');
-    return $c->redirect_to($c->url_for('model')->query(model => $v->param('model')));
+    $c->flash(error => 'Could not edit model');
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
   }
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $model_file = SETTINGS . $synth->model . '.dat';
