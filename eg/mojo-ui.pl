@@ -66,7 +66,13 @@ get '/' => sub ($c) {
 } => 'index';
 
 get '/model' => sub ($c) {
-  $c->render(template => 'model');
+  my $model  = $c->param('model');
+  my $groups = $c->param('groups');
+  $c->render(
+    template => 'model',
+    model    => $model,
+    groups   => $groups,
+  );
 } => 'model';
 post '/new_model' => sub ($c) {
   my $v = $c->validation;
@@ -88,7 +94,7 @@ post '/new_model' => sub ($c) {
   my $model_file = SETTINGS . $synth->model . '.dat';
   store($specs, $model_file);
   $c->flash(message => 'Add model successful');
-  $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
+  $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
 } => 'new_model';
 
 get '/remove' => sub ($c) {
@@ -315,13 +321,13 @@ __DATA__
 <form action="<%= url_for('new_model') %>" method="post">
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" class="form-control" placeholder="Module name" required>
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" placeholder="Module name" required>
   </div>
 </div>
 <p></p>
 <div class="row">
   <div class="col">
-    <input type="text" name="groups" id="groups" class="form-control" placeholder="group1, group2, etc." required>
+    <input type="text" name="groups" id="groups" value="<%= $groups %>" class="form-control" placeholder="group1, group2, etc." required>
   </div>
 </div>
 <p></p>
