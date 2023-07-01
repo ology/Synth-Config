@@ -68,7 +68,7 @@ get '/' => sub ($c) {
 get '/model' => sub ($c) {
   my $model  = $c->param('model');
   my $groups = $c->param('groups');
-  my $group_list = [ split /\s*,\s*/, $groups ];
+  my $group_list = $groups ? [ split /\s*,\s*/, $groups ] : undef;
   $c->render(
     template   => 'model',
     model      => $model,
@@ -350,14 +350,14 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
-% unless (@$group_list) {
+% unless ($group_list) {
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
 % }
     <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
   </div>
 </div>
 </form>
-% if (@$group_list) {
+% if ($group_list) {
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
 %   for my $g (@$group_list) {
