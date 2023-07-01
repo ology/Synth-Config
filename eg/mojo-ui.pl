@@ -30,10 +30,12 @@ get '/' => sub ($c) {
       my %parameters;
       $parameters{group} = $group if $group;
       $parameters{name}  = $name  if $name;
-      my @fields = split /\s*,\s*/, $fields;
-      for my $f (@fields) {
-        my ($x, $y) = split /\s*:\s*/, $f;
-        $parameters{$x} = $y;
+      if ($fields) {
+        my @fields = split /\s*,\s*/, $fields;
+        for my $f (@fields) {
+          my ($x, $y) = split /\s*:\s*/, $f;
+          $parameters{$x} = $y;
+        }
       }
       $settings = $synth->search_settings(%parameters);
     }
