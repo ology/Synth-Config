@@ -190,7 +190,6 @@ __DATA__
 <form action="<%= url_for('index') %>" method="get">
 <div class="row">
   <div class="col">
-    <label for="model" class="form-label">Model:</label>
     <select name="model" id="model" class="form-select" required>
       <option value="">Model name...</option>
 % for my $m (@$models) {
@@ -199,7 +198,6 @@ __DATA__
     </select>
   </div>
   <div class="col">
-    <label for="name" class="form-label">Name:</label>
     <select name="name" id="name" class="form-select">
       <option value="">Setting name...</option>
 % for my $n (@$names) {
@@ -208,7 +206,6 @@ __DATA__
     </select>
   </div>
   <div class="col">
-    <label for="group" class="form-label">Group:</label>
     <select name="group" id="group" class="form-select">
       <option value="">Group...</option>
 % for my $g (@$groups) {
@@ -220,7 +217,6 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
-    <label for="fields" class="form-label">Search fields:</label>
     <input type="text" name="fields" id="fields" value="<%= $fields %>" class="form-control" placeholder="field1:value1, field2:value2, etc.">
   </div>
 </div>
