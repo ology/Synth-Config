@@ -14,9 +14,9 @@ get '/' => sub ($c) {
   my $group = $c->param('group');
   my $fields = $c->param('fields');
   my ($models, $names, $groups, $settings);
-  $model = trim($model);
-  $name = trim($name);
-  $fields = trim($fields);
+  $model = trim($model) if $model;
+  $name = trim($name) if $name;
+  $fields = trim($fields) if $fields;
   my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
     # get a specs config file for the synth model
@@ -83,8 +83,8 @@ get '/edit' => sub ($c) {
   my $value      = $c->param('value');
   my $unit       = $c->param('unit');
   my $is_default = $c->param('is_default');
-  $model = trim $model;
-  $name = trim $name;
+  $model = trim($model) if $module;
+  $name = trim($name) if $name;
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
@@ -134,9 +134,9 @@ post '/update' => sub ($c) {
     $c->flash(error => 'Could not update');
     return $c->redirect_to('edit');
   }
-  my $model = trim $v->param('model');
-  my $name = trim $v->param('name');
-  my $value = trim $v->param('value');
+  my $model = trim $v->param('model') if $v->param('model');
+  my $name = trim $v->param('name') if $v->param('name');
+  my $value = trim $v->param('value') if $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set = './eg/' . $synth->model . '.set';
