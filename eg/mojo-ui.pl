@@ -68,13 +68,16 @@ get '/model' => sub ($c) {
 post '/new_model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
+  $v->required('groups');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not add model');
     return $c->redirect_to('index');
   }
+  # TODO insert groups into set file
+  # TODO add group parameters
   my $synth = Synth::Config->new(model => $v->param('model'));
-  my $init_file = Mojo::File->new('./eg/initial.set');
-  my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set');
+  my $init_file = Mojo::File->new('./eg/initial.set');              # TODO relocate to public/
+  my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set'); # TODO relocate to public/
   $set_file->spurt($init_file->slurp);
   $c->flash(message => 'Add model successful');
   $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
