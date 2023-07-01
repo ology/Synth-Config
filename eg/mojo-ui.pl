@@ -294,9 +294,11 @@ __DATA__
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 % if ($model) {
     <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
-    <a href="<%= url_for('remove')->query(model => $model) %>" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 % }
     <a href="<%= url_for('model') %>" class="btn btn-success"><i class="fa-solid fa-database"></i> New model</a>
+% if ($model) {
+    <a href="<%= url_for('remove')->query(model => $model) %>" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
+% }
   </div>
 </div>
 </form>
