@@ -74,12 +74,17 @@ post '/new_model' => sub ($c) {
   $v->required('groups');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not add model');
-    return $c->redirect_to('index');
+    return $c->redirect_to('model');
   }
-  # TODO add group parameters
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
   my $specs = -e $init_file ? do $init_file : undef;
+  unless ($specs) {
+    $c->flash(error => 'Invalid init file');
+    return $c->redirect_to('model');
+  }
+  $specs->{group} = [ split /\s*,\s*/, $v->param('groups') ];
+  $specs->{parameter}{$_} = [] for $specs->{group}->@*; # TODO handle population
   my $model_file = SETTINGS . $synth->model . '.dat';
   store($specs, $model_file);
   $c->flash(message => 'Add model successful');
