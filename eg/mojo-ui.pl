@@ -127,14 +127,13 @@ get '/edit_model' => sub ($c) {
   my $model_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $model_file ? retrieve($model_file) : undef;
   # get the known groups
-  my $groups = $specs->{group};
-  my $group_list = $v->param('groups') ? [ split /\s*,\s*/, $v->param('groups') ] : undef;
+  my $groups = join ',', $specs->{group}->@*;
   $c->render(
     template   => 'edit_model',
     model      => $v->param('model'),
-    specs      => $specs->{parameter},
     groups     => $groups,
-    group_list => $group_list,
+    group_list => $specs->{group},
+    specs      => $specs->{parameter},
   );
 } => 'edit_model';
 
