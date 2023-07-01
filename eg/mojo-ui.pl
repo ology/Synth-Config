@@ -301,6 +301,12 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
+    <input type="text" name="groups" id="groups" class="form-control" placeholder="group1, group2, etc." required>
+  </div>
+</div>
+<p></p>
+<div class="row">
+  <div class="col">
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
   </div>
 </div>
