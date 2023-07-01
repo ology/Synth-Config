@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0024 2023-06-30 17:32:42
     - Improve the eg/mojo-ui.pl program.
 
 0.0023 2023-06-30 16:45:31
