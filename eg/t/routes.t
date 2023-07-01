@@ -6,6 +6,8 @@ use Test::More;
 
 my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
 
+$t->ua->max_redirects(1);
+
 my $model = 'Testing';
 
 subtest index => sub {
@@ -29,6 +31,9 @@ subtest index => sub {
 };
 
 subtest cleanup => sub {
+  $t->get_ok($t->app->url_for('remove')->query(model => $model))
+    ->status_is(200)
+  ;
 };
 
 done_testing();
