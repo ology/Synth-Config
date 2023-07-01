@@ -68,6 +68,7 @@ get '/' => sub ($c) {
 get '/model' => sub ($c) {
   my $model  = $c->param('model');
   my $groups = $c->param('groups');
+  $groups = [ split /\s*,\s*/, $groups ];
   $c->render(
     template => 'model',
     model    => $model,
@@ -338,6 +339,9 @@ __DATA__
   </div>
 </div>
 </form>
+<p></p>
+% for my $g (@$groups) {
+% }
 
 
 @@ edit.html.ep
