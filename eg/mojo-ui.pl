@@ -98,12 +98,12 @@ get '/remove' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   if ($v->param('id')) {
     $synth->remove_setting(id => $v->param('id'));
-    $c->flash(message => 'Delete successful');
+    $c->flash(message => 'Remove successful');
     return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name')));
   }
   elsif ($synth->model) {
     $synth->remove_model;
-    $c->flash(message => 'Delete successful');
+    $c->flash(message => 'Remove successful');
     return $c->redirect_to('index');
   }
 } => 'remove';
