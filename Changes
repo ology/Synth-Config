@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0027 2023-07-01 01:43:35
     - Improve the eg/mojo-ui.pl program.
     - Simplify the remove_model() method.
     - Improve documentation.
