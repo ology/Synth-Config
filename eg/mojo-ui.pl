@@ -91,9 +91,15 @@ get '/remove' => sub ($c) {
   my $name  = $c->param('name');
   my $model = $c->param('model');
   my $synth = Synth::Config->new(model => $model);
-  $synth->remove_setting(id => $id);
+  if ($id) {
+    $synth->remove_setting(id => $id);
+    return $c->redirect_to($c->url_for('index')->query(model => $model, name => $name));
+  }
+  elsif ($synth->model) {
+    $synth->remove_model;
+    return $c->redirect_to('index');
+  }
   $c->flash(message => 'Delete successful');
-  return $c->redirect_to($c->url_for('index')->query(model => $model, name => $name));
 } => 'remove';
 
 get '/edit' => sub ($c) {
