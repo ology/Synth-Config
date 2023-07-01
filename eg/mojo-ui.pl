@@ -67,16 +67,18 @@ get '/' => sub ($c) {
 
 get '/model' => sub ($c) {
   my $model  = $c->param('model');
+  my $specs  = $c->param('specs');
   my $groups = $c->param('groups');
   my $group_list = $groups ? [ split /\s*,\s*/, $groups ] : undef;
   $c->render(
     template   => 'model',
     model      => $model,
+    specs      => $specs,
     groups     => $groups,
     group_list => $group_list,
   );
 } => 'model';
-post '/new_model' => sub ($c) {
+post '/model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
   $v->required('groups');
@@ -114,6 +116,24 @@ post '/new_model' => sub ($c) {
     return $c->redirect_to($c->url_for('model')->query(model => $v->param('model'), groups => $v->param('groups')));
   }
 } => 'new_model';
+get '/edit_model' => sub ($c) {
+  my $v = $c->validation;
+  $v->required('model');
+  $v->required('groups');
+  if ($v->failed->@*) {
+    $c->flash(error => 'Could not update model');
+    return $c->redirect_to($c->url_for('model')->query(model => $v->param('model')));
+  }
+  my $synth = Synth::Config->new(model => $v->param('model'));
+  my $model_file = SETTINGS . $synth->model . '.dat';
+  my $specs = -e $model_file ? retrieve($model_file) : undef;
+  $c->render(
+    template => 'edit_model',
+    model    => $v->param('model'),
+    groups   => $v->param('groups'),
+    specs    => $specs->{parameter},
+  );
+} => 'edit_model';
 
 get '/remove' => sub ($c) {
   my $v = $c->validation;
@@ -577,3 +597,4 @@ $(document).ready(function() {
     </div>
   </body>
 </html>
+
