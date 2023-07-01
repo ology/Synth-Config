@@ -126,7 +126,6 @@ get '/edit_model' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $model_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $model_file ? retrieve($model_file) : undef;
-  # get the known groups
   my $groups = join ',', $specs->{group}->@*;
   $c->render(
     template   => 'edit_model',
