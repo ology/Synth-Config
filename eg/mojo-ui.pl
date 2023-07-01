@@ -3,6 +3,7 @@ use Mojolicious::Lite -signatures;
 
 use Data::Dumper::Compact qw(ddc);
 use Mojo::JSON qw(to_json);
+use Mojo::File ();
 use Mojo::Util qw(trim);
 
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
@@ -60,6 +61,23 @@ get '/' => sub ($c) {
     settings => $settings,
   );
 } => 'index';
+
+get '/model' => sub ($c) {
+  $c->render(template => 'model');
+} => 'model';
+post '/new_model' => sub ($c) {
+  my $v = $c->validation;
+  $v->required('model');
+  if ($v->failed->@*) {
+    $c->flash(error => 'Could not add model');
+    return $c->redirect_to('index');
+  }
+  my $synth = Synth::Config->new(model => $v->param('model'));
+  my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set');
+  $set_file->spurt('{}');
+  $c->flash(message => 'Add model successful');
+  $c->redirect_to('index');
+} => 'new_model';
 
 get '/remove' => sub ($c) {
   my $id    = $c->param('id');
@@ -195,7 +213,7 @@ __DATA__
     <select name="model" id="model" class="form-select" required>
       <option value="">Model name...</option>
 % for my $m (@$models) {
-      <option value="<%= $m %>" <%= $models && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
+      <option value="<%= $m %>" <%= $models && $model && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
 % }
     </select>
   </div>
@@ -227,6 +245,7 @@ __DATA__
   <div class="col">
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
+    <a href="<%= url_for('model') %>" class="btn btn-success"><i class="fa-solid fa-database"></i> New model</a>
   </div>
 </div>
 </form>
@@ -263,6 +282,25 @@ __DATA__
 %   }
 <br>
 % }
+
+
+@@ model.html.ep
+% layout 'default';
+% title 'Synth::Config';
+<p></p>
+<form action="<%= url_for('new_model') %>" method="post">
+<div class="row">
+  <div class="col">
+    <input type="text" name="model" id="model" class="form-control" placeholder="Module name" required>
+  </div>
+</div>
+<p></p>
+<div class="row">
+  <div class="col">
+    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
+  </div>
+</div>
+</form>
 
 
 @@ edit.html.ep
