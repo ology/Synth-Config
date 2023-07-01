@@ -10,7 +10,7 @@ use Storable qw(store retrieve);
 use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
 use Synth::Config ();
 
-use constant PUBLIC => './eg/public/';
+use constant SETTINGS => './eg/public/settings/';
 
 get '/' => sub ($c) {
   my $model  = $c->param('model');
@@ -24,7 +24,7 @@ get '/' => sub ($c) {
   my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
     # get a specs config file for the synth model
-    my $set_file = PUBLIC . $synth->model . '.dat';
+    my $set_file = SETTINGS . $synth->model . '.dat';
     my $specs = -e $set_file ? retrieve($set_file) : undef;
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
@@ -78,9 +78,9 @@ post '/new_model' => sub ($c) {
   }
   # TODO add group parameters
   my $synth = Synth::Config->new(model => $v->param('model'));
-  my $init_file = Mojo::File->new(PUBLIC . 'initial.set');
+  my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
   my $specs = -e $init_file ? do $init_file : undef;
-  my $model_file = PUBLIC . $synth->model . '.dat';
+  my $model_file = SETTINGS . $synth->model . '.dat';
   store($specs, $model_file);
   $c->flash(message => 'Add model successful');
   $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
@@ -114,7 +114,7 @@ get '/edit' => sub ($c) {
   $name = trim($name) if $name;
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
-  my $set_file = PUBLIC . $synth->model . '.dat';
+  my $set_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $set_file ? retrieve($set_file) : undef;
   unless ($specs) {
     $c->flash(error => 'No known model');
@@ -166,7 +166,7 @@ post '/update' => sub ($c) {
   my $value = trim $v->param('value') if $v->param('value');
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
-  my $set_file = PUBLIC . $synth->model . '.dat';
+  my $set_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $set_file ? retrieve($set_file) : undef;
   my $id = $synth->make_setting(
     id         => $v->param('id'),
