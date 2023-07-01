@@ -68,11 +68,12 @@ get '/' => sub ($c) {
 get '/model' => sub ($c) {
   my $model  = $c->param('model');
   my $groups = $c->param('groups');
-  $groups = [ split /\s*,\s*/, $groups ];
+  my $group_list = [ split /\s*,\s*/, $groups ];
   $c->render(
-    template => 'model',
-    model    => $model,
-    groups   => $groups,
+    template   => 'model',
+    model      => $model,
+    groups     => $groups,
+    group_list => $group_list,
   );
 } => 'model';
 post '/new_model' => sub ($c) {
@@ -339,10 +340,10 @@ __DATA__
   </div>
 </div>
 </form>
-% if ($groups) {
+% if (@$group_list) {
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
-%   for my $g (@$groups) {
+%   for my $g (@$group_list) {
   <label for="<%= $g %>"><%= ucfirst $g %></label>
   <input type="text" name="group_<%= $g %>" id="<%= $g %>" value="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %>">
 %   }
