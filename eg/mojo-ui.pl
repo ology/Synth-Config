@@ -335,7 +335,9 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
+% unless (@$group_list) {
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
+% }
     <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
   </div>
 </div>
@@ -344,8 +346,8 @@ __DATA__
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
 %   for my $g (@$group_list) {
-  <label for="<%= $g %>"><%= ucfirst $g %></label>
-  <input type="text" name="group_<%= $g %>" id="<%= $g %>" value="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %>">
+  <input type="text" name="group_<%= $g %>" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameter">
+  <p></p>
 %   }
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add parameters</button>
 </form>
