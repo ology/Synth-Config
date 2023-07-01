@@ -287,7 +287,7 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
-    <input type="text" name="fields" id="fields" value="<%= $fields %>" class="form-control" placeholder="field1:value1, field2:value2, etc.">
+    <input type="text" name="fields" id="fields" value="<%= $fields %>" class="form-control" placeholder="Search field1:value1, field2:value2, etc.">
   </div>
 </div>
 <p></p>
