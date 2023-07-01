@@ -82,13 +82,29 @@ post '/model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
   $v->required('groups');
+  $v->optional('parameter');
   if ($v->failed->@*) {
-    $c->flash(error => 'Could not add model');
+    $c->flash(error => 'Could not update model');
     return $c->redirect_to('model');
   }
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $group_params = $c->every_param('group');
-  if (@$group_params) {
+  my $parameters = $c->every_param('parameter');
+  if (@$parameters) {
+    my $model_file = SETTINGS . $synth->model . '.dat';
+    my @groups = split /\s*,\s*/, $v->param('groups');
+    my $specs = -e $model_file ? retrieve($model_file) : undef;
+    my $i = 0;
+    for my $g (@groups) {
+      my $params = [ split /\s*,\s*/, $parameters->[$i] ];
+      $specs->{parameter}{$g} = $params;
+      $i++;
+    }
+    store($specs, $model_file);
+    $c->flash(message => 'Add parameters successful');
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
+  }
+  elsif (@$group_params) {
     my $model_file = SETTINGS . $synth->model . '.dat';
     my @groups = split /\s*,\s*/, $v->param('groups');
     my $specs = -e $model_file ? retrieve($model_file) : undef;
@@ -404,7 +420,7 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control disabled">
+    <input type="text" name="model" value="<%= $model %>" class="form-control disabled">
   </div>
 </div>
 <p></p>
@@ -416,6 +432,7 @@ __DATA__
 <p></p>
 <form action="<%= url_for('update_model') %>" method="post">
   <input type="hidden" name="model" value="<%= $model %>">
+  <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
   <input type="text" name="parameter" value="<%= $specs->{$g} %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
   <p></p>
