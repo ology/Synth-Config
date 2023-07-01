@@ -423,7 +423,7 @@ __DATA__
   <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
   <label for="<%= $g %>_param"><%= $g %>:</label>
-  <input type="text" name="group" id="<%= $g %>_param" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
+  <input type="text" name="group" id="<%= $g %>_param" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
   <p></p>
 % }
   <div class="row">
