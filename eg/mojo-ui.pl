@@ -247,7 +247,7 @@ post '/update' => sub ($c) {
     unit       => $v->param('unit'),
     is_default => $v->param('is_default'),
   );
-  $c->flash(message => 'Update successful');
+  $c->flash(message => 'Update setting successful');
   $c->redirect_to($c->url_for('edit')->query(
     id         => $id,
     name       => $v->param('name'),
@@ -429,7 +429,7 @@ __DATA__
   <div class="row">
     <div class="col">
       <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Update model</button>
-      <a href="<%= url_for('index')->query(model => $model) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+      <a href="<%= url_for('index')->query(model => $model) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
     </div>
   </div>
 </form>
@@ -496,9 +496,9 @@ __DATA__
   <p></p>
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
 % if ($id) {
-  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
+  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
 % }
-  <a href="<%= url_for('index')->query(model => $model, name => $name, group => $selected->{group}) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+  <a href="<%= url_for('index')->query(model => $model, name => $name, group => $selected->{group}) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
 </form>
 <script>
 $(document).ready(function() {
