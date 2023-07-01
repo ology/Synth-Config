@@ -369,7 +369,6 @@ __DATA__
 % }
   <a href="<%= url_for('index')->query(model => $model, name => $name, group => $selected->{group}) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
 </form>
-
 <script>
 $(document).ready(function() {
   function populate (group, param) {
