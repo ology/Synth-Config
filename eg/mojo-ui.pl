@@ -93,13 +93,14 @@ get '/remove' => sub ($c) {
   my $synth = Synth::Config->new(model => $model);
   if ($id) {
     $synth->remove_setting(id => $id);
+    $c->flash(message => 'Delete successful');
     return $c->redirect_to($c->url_for('index')->query(model => $model, name => $name));
   }
   elsif ($synth->model) {
     $synth->remove_model;
+    $c->flash(message => 'Delete successful');
     return $c->redirect_to('index');
   }
-  $c->flash(message => 'Delete successful');
 } => 'remove';
 
 get '/edit' => sub ($c) {
