@@ -84,6 +84,7 @@ post '/new_model' => sub ($c) {
     $c->flash(error => 'Could not add model');
     return $c->redirect_to('model');
   }
+  my $group_params = $c->every_param('group');
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
   my $specs = -e $init_file ? do $init_file : undef;
@@ -346,7 +347,7 @@ __DATA__
 <p></p>
 <form action="<%= url_for('new_model') %>" method="post">
 %   for my $g (@$group_list) {
-  <input type="text" name="group_<%= $g %>" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
+  <input type="text" name="group" id="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
   <p></p>
 %   }
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add parameters</button>
