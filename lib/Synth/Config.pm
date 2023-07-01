@@ -363,9 +363,7 @@ Remove the database table for a given B<model>.
 =cut
 
 sub remove_model {
-  my ($self, %args) = @_;
-  my $model = delete $args{model};
-  croak 'No model given' unless $model;
+  my ($self) = @_;
   $self->_sqlite->query(
     'drop table ' . $self->model
   );
