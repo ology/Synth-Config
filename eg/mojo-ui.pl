@@ -257,7 +257,7 @@ __DATA__
 <b>Group</b>: <%= $setting->{group} %> ,
 <b>Param</b>: <%= $setting->{parameter} %> <b>Control</b>: <i><%= $setting->{control} %></i>
 %   if ($setting->{group_to}) {
-<b>To</b>: <%= $setting->{param_to} %> of <%= $setting->{group_to} %>
+<b>To</b>: <%= $setting->{param_to} %> of the <%= $setting->{group_to} %> group
 %   }
 %   if ($setting->{value}) {
 ,
