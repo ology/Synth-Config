@@ -274,7 +274,7 @@ __DATA__
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" required>
+    <input type="text" name="model" id="model" value="<%= ucfirst $model %>" class="form-control" required>
   </div>
   <div class="col">
     <input type="text" name="name" id="name" value="<%= $name %>" class="form-control" required>
