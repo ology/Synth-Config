@@ -21,17 +21,17 @@ use namespace::clean;
 
   my $name = 'Foo!';
 
-  my $id1 = $synth->make_setting(name => $name, etc => '...');
-  my $id2 = $synth->make_setting(name => $name, etc => '???');
+  my $id1 = $synth->make_setting(name => $name, group => '...');
+  my $id2 = $synth->make_setting(name => $name, group => '???');
 
   my $setting = $synth->recall_setting(id => $id1);
-  # { etc => '...' }
+  # { group => '...' }
 
-  # update the etc key only
-  $synth->make_setting(id => $id1, etc => '!!!');
+  # update the group key only
+  $synth->make_setting(id => $id1, group => '!!!');
 
-  my $settings = $synth->search_settings(etc => '???');
-  # [ 2 => { etc => '???' } ]
+  my $settings = $synth->search_settings(group => '???');
+  # [ 2 => { group => '???' } ]
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
