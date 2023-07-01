@@ -319,7 +319,7 @@ __DATA__
 % }
     <a href="<%= url_for('model') %>" class="btn btn-success"><i class="fa-solid fa-database"></i> New model</a>
 % if ($model) {
-    <a href="<%= url_for('edit_model') %>" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Edit model</a>
+    <a href="<%= url_for('edit_model')->query(model => $model) %>" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Edit model</a>
     <a href="<%= url_for('remove')->query(model => $model) %>" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 % }
   </div>
@@ -404,13 +404,15 @@ __DATA__
 <p></p>
 <div class="row">
   <div class="col">
-    <input type="text" name="model" value="<%= $model %>" class="form-control disabled">
+    <label for="model">Model:</label>
+    <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" disabled readonly>
   </div>
 </div>
 <p></p>
 <div class="row">
   <div class="col">
-    <input type="text" value="<%= $groups %>" class="form-control disabled">
+    <label for="group">Group:</label>
+    <input type="text" id="group" value="<%= $groups %>" class="form-control" disabled readonly>
   </div>
 </div>
 <p></p>
@@ -418,13 +420,14 @@ __DATA__
   <input type="hidden" name="model" value="<%= $model %>">
   <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
-  <input type="text" name="group" value="<%= $specs->{$g} %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
+  <label for="<%= $g %>_param"><%= ucfirst $g %>:</label>
+  <input type="text" name="group" id="<%= $g %>_param" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= ucfirst $g %> parameter1, param2, etc.">
   <p></p>
 % }
   <div class="row">
     <div class="col">
       <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Update model</button>
-      <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
+      <a href="<%= url_for('index')->query(model => $model) %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
     </div>
   </div>
 </form>
