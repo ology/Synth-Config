@@ -308,6 +308,7 @@ __DATA__
 <div class="row">
   <div class="col">
     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Model</button>
+    <a href="<%= url_for('index') %>" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
   </div>
 </div>
 </form>
