@@ -30,6 +30,15 @@ subtest index => sub {
   ;
 };
 
+subtest new_model => sub {
+  $t->get_ok($t->app->url_for('model'))
+    ->element_exists('input[name="model"]', 'has model input')
+    ->element_exists('input[name="groups"]', 'has groups input')
+    ->element_exists('button[id="new_model"]', 'has new_model btn')
+    ->status_is(200)
+  ;
+};
+
 subtest cleanup => sub {
   $t->get_ok($t->app->url_for('remove')->query(model => $model))
     ->status_is(200)
