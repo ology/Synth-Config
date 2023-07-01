@@ -1,10 +1,12 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve the eg/mojo-ui.pl program.
 
 0.0023 2023-06-30 16:45:31
     - SQLite does not like JSON key values with single quotes, apparently. :\
     - Improve the eg/mojo-ui.pl program.
+    - Improve documentation.
 
 0.0022 2023-06-30 15:31:35
     - Doubleplusugh. Include public/!
