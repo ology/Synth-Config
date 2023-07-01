@@ -192,7 +192,7 @@ __DATA__
   <div class="col">
     <label for="model" class="form-label">Model:</label>
     <select name="model" id="model" class="form-select" required>
-      <option value="">Model...</option>
+      <option value="">Model name...</option>
 % for my $m (@$models) {
       <option value="<%= $m %>" <%= $models && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
 % }
@@ -201,7 +201,7 @@ __DATA__
   <div class="col">
     <label for="name" class="form-label">Name:</label>
     <select name="name" id="name" class="form-select">
-      <option value="">Name...</option>
+      <option value="">Setting name...</option>
 % for my $n (@$names) {
       <option value="<%= $n %>" <%= $names && $n eq $name ? 'selected' : '' %>><%= ucfirst $n %></option>
 % }
