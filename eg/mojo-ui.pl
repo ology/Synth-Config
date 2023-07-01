@@ -82,7 +82,6 @@ post '/model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
   $v->required('groups');
-  $v->optional('parameter');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not update model');
     return $c->redirect_to('model');
