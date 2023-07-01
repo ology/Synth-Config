@@ -266,6 +266,7 @@ __DATA__
 <br>
 % }
 
+
 @@ edit.html.ep
 % layout 'default';
 % title 'Synth::Config';
@@ -404,6 +405,7 @@ $(document).ready(function() {
   });
 });
 </script>
+
 
 @@ layouts/default.html.ep
 <!DOCTYPE html>
