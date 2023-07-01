@@ -73,8 +73,9 @@ post '/new_model' => sub ($c) {
     return $c->redirect_to('index');
   }
   my $synth = Synth::Config->new(model => $v->param('model'));
+  my $init_file = Mojo::File->new('./eg/initial.set');
   my $set_file = Mojo::File->new('./eg/' . $synth->model . '.set');
-  $set_file->spurt('{}');
+  $set_file->spurt($init_file->slurp);
   $c->flash(message => 'Add model successful');
   $c->redirect_to('index');
 } => 'new_model';
