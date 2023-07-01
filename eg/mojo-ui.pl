@@ -111,7 +111,7 @@ get '/edit' => sub ($c) {
   my $unit       = $c->param('unit');
   my $is_default = $c->param('is_default');
   $model = trim($model) if $model;
-  $name = trim($name) if $name;
+  $name  = trim($name)  if $name;
   my $synth = Synth::Config->new(model => $model);
   # get a specs config file for the synth model
   my $set_file = SETTINGS . $synth->model . '.dat';
