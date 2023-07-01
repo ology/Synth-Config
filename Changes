@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Adjust make_setting() logic.
+    - Improve the eg/mojo-ui.pl program.
 
 0.0028 2023-07-01 10:39:18
     - Improve the eg/mojo-ui.pl program.
