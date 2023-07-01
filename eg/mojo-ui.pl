@@ -339,8 +339,15 @@ __DATA__
   </div>
 </div>
 </form>
+% if ($groups) {
 <p></p>
-% for my $g (@$groups) {
+<form action="<%= url_for('new_model') %>" method="post">
+%   for my $g (@$groups) {
+  <label for="<%= $g %>"><%= ucfirst $g %></label>
+  <input type="text" name="group_<%= $g %>" id="<%= $g %>" value="<%= $g %>" class="form-control" placeholder="<%= ucfirst $g %>">
+%   }
+  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add parameters</button>
+</form>
 % }
 
 
