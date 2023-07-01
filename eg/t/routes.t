@@ -6,8 +6,9 @@ use Test::More;
 
 my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
 
-subtest page_load => sub {
+subtest index => sub {
   $t->get_ok($t->app->url_for('index'))
+    ->text_is('html head title' => 'Synth::Config', 'has page title')
     ->status_is(200)
   ;
 };
