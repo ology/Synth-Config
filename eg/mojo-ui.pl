@@ -161,7 +161,7 @@ get '/remove' => sub ($c) {
   }
 } => 'remove';
 
-get '/edit' => sub ($c) {
+get '/edit_setting' => sub ($c) {
   my $id         = $c->param('id');
   my $name       = $c->param('name');
   my $model      = $c->param('model');
@@ -198,14 +198,14 @@ get '/edit' => sub ($c) {
     is_default => $is_default,
   };
   $c->render(
-    template => 'edit',
+    template => 'edit_setting',
     specs    => $specs,
     id       => $id,
     name     => $name,
     model    => $model,
     selected => $selected,
   );
-} => 'edit';
+} => 'edit_setting';
 
 post '/update' => sub ($c) {
   my $v = $c->validation;
@@ -224,7 +224,7 @@ post '/update' => sub ($c) {
   $v->optional('id');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not update');
-    return $c->redirect_to('edit');
+    return $c->redirect_to('edit_setting');
   }
   my $model = trim $v->param('model') if $v->param('model');
   my $name  = trim $v->param('name')  if $v->param('name');
@@ -248,7 +248,7 @@ post '/update' => sub ($c) {
     is_default => $v->param('is_default'),
   );
   $c->flash(message => 'Update setting successful');
-  $c->redirect_to($c->url_for('edit')->query(
+  $c->redirect_to($c->url_for('edit_setting')->query(
     id         => $id,
     name       => $v->param('name'),
     model      => $v->param('model'),
@@ -316,7 +316,7 @@ __DATA__
   <div class="col">
     <button type="submit" id="search" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 % if ($model) {
-    <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $group) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
+    <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $group) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
 % }
     <a href="<%= url_for('model') %>" class="btn btn-success" id="new_model"><i class="fa-solid fa-database"></i> New model</a>
 % if ($model) {
@@ -332,7 +332,7 @@ __DATA__
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
 %   my $setting = (values(%$s))[0];
-%   my $edit_url = url_for('edit')->query(
+%   my $edit_url = url_for('edit_setting')->query(
 %     model      => $model,
 %     id         => $id,
 %     name       => $setting->{name},
@@ -439,7 +439,7 @@ __DATA__
 </form>
 
 
-@@ edit.html.ep
+@@ edit_setting.html.ep
 % layout 'default';
 <p></p>
 <form action="<%= url_for('update') %>" method="post">
@@ -501,7 +501,7 @@ __DATA__
 % if ($id) {
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update</button>
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
-  <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
+  <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
 % } else {
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
 % }
