@@ -7,7 +7,7 @@ use Mojo::File ();
 use Mojo::Util qw(trim);
 use Storable qw(store retrieve);
 
-use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config);
+use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config); # local author library
 use Synth::Config ();
 
 use constant SETTINGS => './eg/public/settings/';
