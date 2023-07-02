@@ -47,6 +47,7 @@ subtest new_model => sub {
   ;
   $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups })
     ->status_is(200)
+    ->content_like(qr/Add model successful/)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model value')
     ->element_exists(qq/input[name="groups"][value="$groups"]/, 'has groups value')
     ->element_exists(qq/input[name="group"][id="a"]/, 'has param input')
@@ -131,9 +132,11 @@ subtest new_setting => sub {
 
 subtest cleanup => sub {
   $t->get_ok($t->app->url_for('remove')->query(id => 1, model => $model, name => $name))
+    ->content_like(qr/Remove setting successful/)
     ->status_is(200)
   ;
   $t->get_ok($t->app->url_for('remove')->query(model => $model))
+    ->content_like(qr/Remove model successful/)
     ->status_is(200)
   ;
   (my $model_id = $model) =~ s/\W/_/g;
