@@ -69,8 +69,8 @@ subtest edit_model => sub {
     ->element_exists(qq/input[name="group"][id="c"]/, 'has param input')
   ;
   $t->post_ok($t->app->url_for('model'), form => { model => $model, groups => $groups, group => [ sort values %params ] })
-    ->content_like(qr/Update parameters successful/)
     ->status_is(200)
+    ->content_like(qr/Update parameters successful/)
   ;
   $t->get_ok($t->app->url_for('edit_model')->query(model => $model))
     ->status_is(200)
@@ -113,8 +113,8 @@ subtest new_setting => sub {
     is_default => 0,
   );
   $t->post_ok($t->app->url_for('update'), form => \%form)
-    ->content_like(qr/Update setting successful/)
     ->status_is(200)
+    ->content_like(qr/Update setting successful/)
   ;
   $t->get_ok($t->app->url_for('edit')->query(%form))
     ->status_is(200)
@@ -135,12 +135,12 @@ subtest new_setting => sub {
 
 subtest cleanup => sub {
   $t->get_ok($t->app->url_for('remove')->query(id => 1, model => $model, name => $name))
-    ->content_like(qr/Remove setting successful/)
     ->status_is(200)
+    ->content_like(qr/Remove setting successful/)
   ;
   $t->get_ok($t->app->url_for('remove')->query(model => $model))
-    ->content_like(qr/Remove model successful/)
     ->status_is(200)
+    ->content_like(qr/Remove model successful/)
   ;
   (my $model_id = $model) =~ s/\W/_/g;
   $model_id = lc $model_id;
