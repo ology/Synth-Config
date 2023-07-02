@@ -281,7 +281,7 @@ __DATA__
 <form action="<%= url_for('index') %>" method="get">
 <div class="row">
   <div class="col">
-    <select name="model" id="model" class="form-select" required>
+    <select name="model" id="model" class="form-select" onchange="this.form.submit();" required>
       <option value="">Model name...</option>
 % for my $m (@$models) {
       <option value="<%= $m %>" <%= $models && $model && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
@@ -289,7 +289,7 @@ __DATA__
     </select>
   </div>
   <div class="col">
-    <select name="name" id="name" class="form-select">
+    <select name="name" id="name" class="form-select" onchange="this.form.submit();">
       <option value="">Setting name...</option>
 % for my $n (@$names) {
       <option value="<%= $n %>" <%= $names && $name && $n eq $name ? 'selected' : '' %>><%= ucfirst $n %></option>
@@ -297,7 +297,7 @@ __DATA__
     </select>
   </div>
   <div class="col">
-    <select name="group" id="group" class="form-select">
+    <select name="group" id="group" class="form-select" onchange="this.form.submit();">
       <option value="">Group...</option>
 % for my $g (@$groups) {
       <option value="<%= $g %>" <%= $group && $g eq $group ? 'selected' : '' %>><%= ucfirst $g %></option>
