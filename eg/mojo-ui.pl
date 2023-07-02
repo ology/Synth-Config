@@ -271,8 +271,8 @@ helper to_json => sub ($c, $data) {
 
 helper build_edit_url => sub ($c, $model, $id, $set) {
   my $edit_url = $c->url_for('edit_setting')->query(
-    model      => $model,
     $id ? (id => $id) : (),
+    model      => $model,
     name       => $set->{name},
     group      => $set->{group},
     parameter  => $set->{parameter},
