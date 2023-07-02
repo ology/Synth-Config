@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve documentation.
+    - Renamed the automation scripts..
 
 0.0034 2023-07-02 12:43:48
     - Sort search results by parameter as well.
