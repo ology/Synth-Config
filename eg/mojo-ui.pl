@@ -432,7 +432,7 @@ __DATA__
 % }
   <div class="row">
     <div class="col">
-      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Update model</button>
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update model</button>
       <a href="<%= url_for('index')->query(model => $model) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
     </div>
   </div>
