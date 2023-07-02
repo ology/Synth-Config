@@ -11,6 +11,7 @@ my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
 $t->ua->max_redirects(1);
 
 my $model  = 'Testing';
+my $name   = 'Foo';
 my $groups = 'a,b,c';
 my @groups = split ',', $groups;
 my %params;
@@ -97,7 +98,7 @@ subtest new_setting => sub {
   ;
   my $form = {
     model      => $model,
-    name       => 'Foo',
+    name       => $name,
     group      => $groups[0],
     parameter  => substr($params{ $groups[0] }, 0, 1),
     control    => 'knob',
@@ -114,7 +115,7 @@ subtest new_setting => sub {
   $t->get_ok($t->app->url_for('edit')->query(%$form))
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model value')
-    ->element_exists('input[name="name"][value="Foo"]', 'has name value')
+    ->element_exists(qq/input[name="name"][value="$name"]/, 'has name value')
     ->element_exists('select[name="group"]:has(option[selected][value="a"])', 'has group value')
     ->element_exists('select[name="parameter"]:has(option[selected][value="1"])', 'has parameter value')
     ->element_exists('select[name="control"]:has(option[selected][value="knob"])', 'has control value')
@@ -129,6 +130,9 @@ subtest new_setting => sub {
 };
 
 subtest cleanup => sub {
+  $t->get_ok($t->app->url_for('remove')->query(id => 1, model => $model, name => $name))
+    ->status_is(200)
+  ;
   $t->get_ok($t->app->url_for('remove')->query(model => $model))
     ->status_is(200)
   ;
