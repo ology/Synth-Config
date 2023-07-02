@@ -225,7 +225,10 @@ sub recall_setting {
 
 =head2 search_settings
 
-  my $settings = $synth->search_settings(some_setting => $value);
+  my $settings = $synth->search_settings(
+    some_setting    => $valu2,
+    another_setting => $value2,
+  );
 
 Return all the settings given a search query.
 
