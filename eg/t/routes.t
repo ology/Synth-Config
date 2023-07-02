@@ -97,7 +97,7 @@ subtest new_setting => sub {
     ->element_exists('button[type="submit"]', 'has submit btn')
     ->element_exists('a[id="cancel"]', 'has cancel btn')
   ;
-  my $form = {
+  my %form = (
     model      => $model,
     name       => $name,
     group      => $groups[0],
@@ -108,25 +108,25 @@ subtest new_setting => sub {
     value      => 3,
     unit       => 'Hz',
     is_default => 0,
-  };
-  $t->post_ok($t->app->url_for('update'), form => $form)
+  );
+  $t->post_ok($t->app->url_for('update'), form => \%form)
     ->content_like(qr/Update setting successful/)
     ->status_is(200)
   ;
-  $t->get_ok($t->app->url_for('edit')->query(%$form))
+  $t->get_ok($t->app->url_for('edit')->query(%form))
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model value')
     ->element_exists(qq/input[name="name"][value="$name"]/, 'has name value')
-    ->element_exists('select[name="group"]:has(option[selected][value="a"])', 'has group value')
-    ->element_exists('select[name="parameter"]:has(option[selected][value="1"])', 'has parameter value')
-    ->element_exists('select[name="control"]:has(option[selected][value="knob"])', 'has control value')
-    ->element_exists('select[name="bottom"]:has(option[selected][value="0"])', 'has bottom value')
-    ->element_exists('select[name="top"]:has(option[selected][value="6"])', 'has top value')
+    ->element_exists(qq/select[name="group"]:has(option[selected][value="$form{group}"])/, 'has group value')
+    ->element_exists(qq/select[name="parameter"]:has(option[selected][value="$form{parameter}"])/, 'has parameter value')
+    ->element_exists(qq/select[name="control"]:has(option[selected][value="$form{control}"])/, 'has control value')
+    ->element_exists(qq/select[name="bottom"]:has(option[selected][value="$form{bottom}"])/, 'has bottom value')
+    ->element_exists(qq/select[name="top"]:has(option[selected][value="$form{top}"])/, 'has top value')
     ->element_exists('select[name="group_to"]:not(:has(option[selected]))', 'no group_to selected')
     ->element_exists('select[name="param_to"]:not(:has(option[selected]))', 'no param_to selected')
-    ->element_exists('input[name="value"][value="3"]', 'has value value')
-    ->element_exists('select[name="unit"]:has(option[selected][value="Hz"])', 'has unit value')
-    ->element_exists('input[name="is_default"][value="0"]', 'has is_default value')
+    ->element_exists(qq/input[name="value"][value="$form{value}"]/, 'has value value')
+    ->element_exists(qq/select[name="unit"]:has(option[selected][value="$form{unit}"])/, 'has unit value')
+    ->element_exists(qq/input[name="is_default"][value="$form{is_default}"]/, 'has is_default value')
   ;
 };
 
