@@ -494,10 +494,12 @@ __DATA__
   </div>
 </div>
   <p></p>
-  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
 % if ($id) {
+  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update</button>
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
   <a href="<%= url_for('edit')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
+% } else {
+  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
 % }
   <a href="<%= url_for('index')->query(model => $model, name => $name, group => $selected->{group}) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
 </form>
