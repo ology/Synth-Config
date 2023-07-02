@@ -1,8 +1,6 @@
 {
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
     group      => [qw()],
-    parameter  => {
-    },
     control    => [qw(knob switch slider patch)],
     group_to   => [], # if control = patch
     param_to   => [], # if control = patch
@@ -11,4 +9,6 @@
     value      => [],
     unit       => [qw(none Hz o'clock)],
     is_default => [0, 1],
+    parameter  => {
+    },
 };
