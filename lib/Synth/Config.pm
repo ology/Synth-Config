@@ -365,7 +365,7 @@ sub remove_settings {
 
   $synth->remove_model;
 
-Remove the database table for the object model.
+Remove the database table for the current object model.
 
 =cut
 
