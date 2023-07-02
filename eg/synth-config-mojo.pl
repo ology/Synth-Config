@@ -350,28 +350,49 @@ __DATA__
 </div>
 </form>
 <p></p>
-<ol>
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">Edit</th>
+    <th scope="col">Name</th>
+    <th scope="col">Group</th>
+    <th scope="col">Param</th>
+    <th scope="col">Control</th>
+    <th scope="col">Value</th>
+  </tr>
+</thead>
+<tbody>
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
 %   my $setting = (values(%$s))[0];
 %   my $edit_url = build_edit_url($model, $id, $setting);
-<li>
-&nbsp;
-<a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a>
-&nbsp;
-<b>Name</b>: <%= $setting->{name} %> ,
-<b>Group</b>: <%= $setting->{group} %> ,
-<b>Param</b>: <%= $setting->{parameter} %> <b>Control</b>: <i><%= $setting->{control} %></i>
+<tr>
+  <td>
+    <a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a>
+  </td>
+  <td>
+    <%= $setting->{name} %>
+  </td>
+  <td>
+    <%= $setting->{group} %>
+  </td>
+  <td>
+    <%= $setting->{parameter} %>
+  </td>
+  <td>
+    <i><%= $setting->{control} %></i>
+  </td>
+  <td>
 %   if ($setting->{group_to}) {
-<b>To</b>: <%= $setting->{param_to} %> of the <%= $setting->{group_to} %> group
+    to <%= $setting->{param_to} %> of <%= $setting->{group_to} %>
 %   }
 %   if ($setting->{value}) {
-,
-<b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>
+    <%= $setting->{value} %> <%= $setting->{unit} %>
 %   }
-</li>
+  </td>
+</tr>
 % }
-</ol>
+</table>
 
 
 @@ model.html.ep
