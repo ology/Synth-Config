@@ -1,7 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
-    Sort search results by parameter as well.
+    - Sort search results by parameter as well.
+    - Improve eg/mojo-ui.pl.
 
 0.0033 2023-07-02 01:05:42
     - Improve the eg/mojo-ui.pl program.
