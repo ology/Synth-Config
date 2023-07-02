@@ -9,7 +9,7 @@ use Synth::Config ();
 
 use constant SETTINGS => './eg/public/settings/';
 
-my $t = Test::Mojo->new(curfile->dirname->sibling('mojo-ui.pl'));
+my $t = Test::Mojo->new(curfile->dirname->sibling('synth-config-mojo.pl'));
 
 $t->ua->max_redirects(1);
 
