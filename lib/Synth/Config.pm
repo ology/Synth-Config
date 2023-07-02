@@ -243,7 +243,7 @@ sub search_settings {
     . $self->model
     . ' where ' . join(' and ', @where)
     . ' order by mygroup,parameter';
-  print "SQL: $sql\n" if $self->verbose;
+  print "Search SQL: $sql\n" if $self->verbose;
   my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {
