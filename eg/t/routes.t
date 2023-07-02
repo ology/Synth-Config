@@ -83,7 +83,7 @@ subtest edit_model => sub {
 };
 
 subtest new_setting => sub {
-  $t->get_ok($t->app->url_for('edit')->query(model => $model))
+  $t->get_ok($t->app->url_for('edit_setting')->query(model => $model))
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model value')
     ->element_exists('input[name="name"]', 'has name input')
@@ -116,7 +116,7 @@ subtest new_setting => sub {
     ->status_is(200)
     ->content_like(qr/Update setting successful/)
   ;
-  $t->get_ok($t->app->url_for('edit')->query(%form))
+  $t->get_ok($t->app->url_for('edit_setting')->query(%form))
     ->status_is(200)
     ->element_exists(qq/input[name="model"][value="$model"]/, 'has model value')
     ->element_exists(qq/input[name="name"][value="$name"]/, 'has name value')
