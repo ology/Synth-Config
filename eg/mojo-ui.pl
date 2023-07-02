@@ -269,6 +269,25 @@ helper to_json => sub ($c, $data) {
   return to_json $data;
 };
 
+helper build_edit_url => sub ($c, $model, $id, $set, $clone) {
+  my $edit_url = $c->url_for('edit_setting')->query(
+    model      => $model,
+    ($clone ? () : (id => $id)),
+    name       => $set->{name},
+    group      => $set->{group},
+    parameter  => $set->{parameter},
+    control    => $set->{control},
+    group_to   => $set->{group_to},
+    param_to   => $set->{param_to},
+    bottom     => $set->{bottom},
+    top        => $set->{top},
+    value      => $set->{value},
+    unit       => $set->{unit},
+    is_default => $set->{is_default},
+  );
+  return $edit_url;
+};
+
 app->secrets(['yabbadabbadoo']);
 
 app->start;
@@ -332,21 +351,7 @@ __DATA__
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
 %   my $setting = (values(%$s))[0];
-%   my $edit_url = url_for('edit_setting')->query(
-%     model      => $model,
-%     id         => $id,
-%     name       => $setting->{name},
-%     group      => $setting->{group},
-%     parameter  => $setting->{parameter},
-%     control    => $setting->{control},
-%     group_to   => $setting->{group_to},
-%     param_to   => $setting->{param_to},
-%     bottom     => $setting->{bottom},
-%     top        => $setting->{top},
-%     value      => $setting->{value},
-%     unit       => $setting->{unit},
-%     is_default => $setting->{is_default},
-%   );
+%   my $edit_url = build_edit_url($model, $id, $setting, '');
 <li>
 &nbsp;
 <a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a>
@@ -501,7 +506,9 @@ __DATA__
 % if ($id) {
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update</button>
   <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
-  <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
+% my $edit_url = build_edit_url($model, $id, $selected, 'clone');
+  <a href="<%= $edit_url %>" id="clone_setting" class="btn btn-success"><i class="fa-solid fa-copy"></i> Clone</a>
+  <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New</a>
 % } else {
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Submit</button>
 % }
