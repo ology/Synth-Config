@@ -149,14 +149,14 @@ get '/remove' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   if ($v->param('id')) {
     $synth->remove_setting(id => $v->param('id'));
-    $c->flash(message => 'Remove successful');
+    $c->flash(message => 'Remove setting successful');
     return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name')));
   }
   elsif ($synth->model) {
     $synth->remove_model;
     my $model_file = Mojo::File->new(SETTINGS . $synth->model . '.dat');
     $model_file->remove;
-    $c->flash(message => 'Remove successful');
+    $c->flash(message => 'Remove model successful');
     return $c->redirect_to('index');
   }
 } => 'remove';
