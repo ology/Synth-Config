@@ -287,7 +287,8 @@ sub recall_all {
 
   my $models = $synth->recall_models;
 
-Return all the models.
+Return all the know models. This method can be called without having
+specified a synth B<model> in the constructor.
 
 =cut
 
