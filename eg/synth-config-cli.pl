@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# PODNAME: synth-config.pl
+# PODNAME: synth-config-cli.pl
 
 use strict;
 use warnings;

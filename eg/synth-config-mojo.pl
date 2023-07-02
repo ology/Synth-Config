@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+
+# PODNAME: synth-config-mojo.pl
+
 use Mojolicious::Lite -signatures;
 
 use Data::Dumper::Compact qw(ddc);
