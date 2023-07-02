@@ -239,10 +239,10 @@ sub search_settings {
     push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
   }
   return [] unless @where;
-  my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup from /
+  my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup, json_extract(settings, '$.parameter') as parameter from /
     . $self->model
     . ' where ' . join(' and ', @where)
-    . ' order by mygroup';
+    . ' order by mygroup,parameter';
   print "SQL: $sql\n" if $self->verbose;
   my $results = $self->_sqlite->query($sql);
   my @settings;
