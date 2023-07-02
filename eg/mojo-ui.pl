@@ -328,6 +328,7 @@ __DATA__
 </div>
 </form>
 <p></p>
+<ol>
 % for my $s (@$settings) {
 %   my $id = (keys(%$s))[0];
 %   my $setting = (values(%$s))[0];
@@ -346,6 +347,8 @@ __DATA__
 %     unit       => $setting->{unit},
 %     is_default => $setting->{is_default},
 %   );
+<li>
+&nbsp;
 <a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a>
 &nbsp;
 <b>Name</b>: <%= $setting->{name} %> ,
@@ -358,8 +361,9 @@ __DATA__
 ,
 <b>Value</b>: <%= $setting->{value} %> <%= $setting->{unit} %>
 %   }
-<br>
+</li>
 % }
+</ol>
 
 
 @@ model.html.ep
