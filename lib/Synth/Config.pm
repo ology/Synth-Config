@@ -248,7 +248,7 @@ sub search_settings {
   my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup, json_extract(settings, '$.parameter') as parameter from /
     . $self->model
     . ' where ' . join(' and ', @where)
-    . ' order by mygroup,parameter';
+    . ' order by name,mygroup,parameter';
   print "Search SQL: $sql\n" if $self->verbose;
   my $results = $self->_sqlite->query($sql);
   my @settings;
