@@ -129,8 +129,7 @@ get '/edit_model' => sub ($c) {
   my $synth = Synth::Config->new(model => $v->param('model'));
   my $model_file = SETTINGS . $synth->model . '.dat';
   my $specs = -e $model_file ? retrieve($model_file) : undef;
-  my $groups;
-  $groups = join ',', $specs->{group}->@* if exists $specs->{group};
+  my $groups = exists $specs->{group} ? join ',', $specs->{group}->@* : undef;
   $c->render(
     template   => 'edit_model',
     model      => $v->param('model'),
