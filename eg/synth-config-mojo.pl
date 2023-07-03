@@ -384,7 +384,7 @@ __DATA__
   </td>
   <td>
 %   if ($setting->{group_to}) {
-    to <%= $setting->{param_to} %> of <%= $setting->{group_to} %>
+    <%= $setting->{group_to} %> <%= $setting->{param_to} %>
 %   }
 %   if ($setting->{value}) {
     <%= $setting->{value} %> <%= $setting->{unit} %>
