@@ -374,7 +374,7 @@ __DATA__
 <thead>
   <tr>
     <th scope="col">Edit</th>
-    <th scope="col">Name</th>
+    <th scope="col">Setting name</th>
     <th scope="col">Group</th>
     <th scope="col">Param</th>
     <th scope="col">Control</th>
