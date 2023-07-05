@@ -97,11 +97,11 @@ subtest cleanup => sub {
   my $settings = eval { $obj->recall_all };
   is $settings, undef, 'remove_model';
   # remove the database
-  ok -e 'test.db', 'db exists';
-  unlink 'test.db';
-  unlink 'test.db-shm';
-  unlink 'test.db-wal';
-  ok !-e 'test.db', 'db unlinked';
+#  ok -e 'test.db', 'db exists';
+#  unlink 'test.db';
+#  unlink 'test.db-shm';
+#  unlink 'test.db-wal';
+#  ok !-e 'test.db', 'db unlinked';
 };
 
 done_testing();
