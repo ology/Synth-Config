@@ -184,6 +184,7 @@ get '/edit_setting' => sub ($c) {
   my $id         = $c->param('id');
   my $name       = $c->param('name');
   my $model      = $c->param('model');
+# TODO gather these keys from the init.set file
   my $group      = $c->param('group');
   my $parameter  = $c->param('parameter');
   my $control    = $c->param('control');
@@ -235,6 +236,7 @@ post '/update_setting' => sub ($c) {
   my $v = $c->validation;
   $v->required('name');
   $v->required('model');
+# TODO gather these keys from the init.set file
   $v->required('group');
   $v->required('parameter');
   $v->required('control');
@@ -298,6 +300,7 @@ helper build_edit_url => sub ($c, $model, $id, $set) {
     $id ? (id => $id) : (),
     model      => $model,
     name       => $set->{name},
+# TODO gather these keys from the init.set file
     group      => $set->{group},
     parameter  => $set->{parameter},
     control    => $set->{control},
