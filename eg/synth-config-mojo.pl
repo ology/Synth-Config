@@ -372,7 +372,7 @@ __DATA__
   </div>
 </div>
 </form>
-% if (@$settings) {
+% if ($settings && @$settings) {
 <p></p>
 <table class="table table-hover">
 <thead>
