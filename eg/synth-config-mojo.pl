@@ -383,21 +383,11 @@ __DATA__
 %   my $setting = (values(%$s))[0];
 %   my $edit_url = build_edit_url($model, $id, $setting);
 <tr>
-  <td>
-    <a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a>
-  </td>
-  <td>
-    <%= $setting->{name} %>
-  </td>
-  <td>
-    <%= $setting->{group} %>
-  </td>
-  <td>
-    <%= $setting->{parameter} %>
-  </td>
-  <td>
-    <i><%= $setting->{control} %></i>
-  </td>
+  <td><a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a></td>
+  <td><%= $setting->{name} %></td>
+  <td><%= $setting->{group} %></td>
+  <td><%= $setting->{parameter} %></td>
+  <td><i><%= $setting->{control} %></i></td>
   <td>
 %   if ($setting->{group_to}) {
     <%= $setting->{group_to} %> <%= $setting->{param_to} %>
