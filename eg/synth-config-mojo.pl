@@ -32,7 +32,6 @@ get '/' => sub ($c) {
     my $specs = -e $set_file ? retrieve($set_file) : undef;
     # get the known groups if there are specs
     $groups = $specs ? $specs->{group} : undef;
-    $groups = [ sort @$groups ] if $groups;
     # fetch the things!
     if ($group || $name || $fields) {
       my %parameters;
