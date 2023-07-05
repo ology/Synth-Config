@@ -151,8 +151,8 @@ sub BUILD {
 
 Save a named setting and return the record id.
 
-The B<name> is required. If an B<id> is given, an update is performed.
-Otherwise, a database insert is made.
+The B<name> is required to perform an insert. If an B<id> is given, an
+update is performed.  Otherwise, a database insert is made.
 
 Example:
 
@@ -189,7 +189,7 @@ sub make_setting {
       { id => $id },
     );
   }
-  else {
+  elsif ($name) {
     $id = $self->_sqlite->insert(
       $self->model,
       {
