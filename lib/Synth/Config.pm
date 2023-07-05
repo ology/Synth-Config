@@ -143,6 +143,15 @@ sub BUILD {
         name text not null
       )'
   );
+  # create the model specs table unless it's already there
+  $self->_sqlite->query(
+    'create table if not exists specs'
+    . ' (
+        id integer primary key autoincrement,
+        model text not null,
+        spec json not null
+      )'
+  );
 }
 
 =head2 make_setting
@@ -377,6 +386,90 @@ sub remove_model {
   my ($self) = @_;
   $self->_sqlite->query(
     'drop table ' . $self->model
+  );
+}
+
+=head2 make_spec
+
+  my $id = $synth->make_spec(%args);
+
+Save a model specification and return the record id.
+
+If an B<id> is given, an update is performed.
+
+The spec is a single JSON field that can contain any key/value
+pairs that define the configuration - groups, parameters, values, etc.
+of a model.
+
+=cut
+
+sub make_spec {
+  my ($self, %args) = @_;
+  my $id = delete $args{id};
+  croak 'No columns given' unless keys %args;
+  if ($id) {
+    my $result = $self->_sqlite->select(
+      'specs',
+      ['spec'],
+      { id => $id },
+    )->expand(json => 'spec')->hash->{spec};
+    for my $arg (keys %args) {
+      $args{$arg} = '' unless defined $args{$arg};
+    }
+    my $params = { %$result, %args };
+    $self->_sqlite->update(
+      'specs',
+      { spec => to_json($params) },
+      { id => $id },
+    );
+  }
+  else {
+    $id = $self->_sqlite->insert(
+      'specs',
+      {
+        model => $self->model,
+        spec  => to_json(\%args),
+      },
+    )->last_insert_id;
+  }
+  return $id;
+}
+
+=head2 recall_spec
+
+  my $specs = $synth->recall_spec(id => $id);
+
+Return the modle configuration specification for the given B<id>.
+
+=cut
+
+sub recall_spec {
+  my ($self, %args) = @_;
+  my $id = delete $args{id};
+  croak 'No id given' unless $id;
+  my $result = $self->_sqlite->select(
+    'specs',
+    ['spec'],
+    { id => $id },
+  )->expand(json => 'spec')->hash;
+  my $specs = $result->{spec};
+  return $specs;
+}
+
+=head2 remove_spec
+
+  $synth->remove_spec;
+
+Remove the database table for the current object model configuration
+specification.
+
+=cut
+
+sub remove_spec {
+  my ($self) = @_;
+  $self->_sqlite->delete(
+    'specs',
+    { model => $self->model }
   );
 }
 
