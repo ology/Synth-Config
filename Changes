@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve eg/mojo-ui.pl.
 
 0.0038 2023-07-03 08:08:06
     - Fix search sort.
