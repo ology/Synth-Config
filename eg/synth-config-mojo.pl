@@ -199,6 +199,10 @@ get '/edit_setting' => sub ($c) {
     $c->flash(error => 'No known model');
     return $c->redirect_to('index');
   }
+  my $models = $synth->recall_models;
+  for my $m (@$models) {
+    $m =~ s/_/ /g;
+  }
   my $selected = {
     group      => $group,
     parameter  => $parameter,
@@ -217,6 +221,7 @@ get '/edit_setting' => sub ($c) {
     id       => $id,
     name     => $name,
     model    => $model,
+    models   => $models,
     selected => $selected,
   );
 } => 'edit_setting';
@@ -495,7 +500,12 @@ __DATA__
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
-    <input type="text" name="model" id="model" value="<%= ucfirst $model %>" class="form-control" placeholder="Model name" required>
+    <select name="model" id="model" class="form-select" required>
+      <option value="">Model name...</option>
+% for my $m (@$models) {
+      <option value="<%= $m %>" <%= $models && $model && lc($m) eq lc($model) ? 'selected' : '' %>><%= ucfirst $m %></option>
+% }
+    </select>
   </div>
   <div class="col">
     <input type="text" name="name" id="name" value="<%= $name %>" class="form-control" placeholder="Setting name" required>
