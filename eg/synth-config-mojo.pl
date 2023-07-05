@@ -157,7 +157,7 @@ get '/remove' => sub ($c) {
   $v->optional('id');
   $v->optional('name');
   $v->optional('model');
-  $v->group('model');
+  $v->optional('group');
   if ($v->failed->@*) {
     $c->flash(error => 'Remove failed');
     return $c->redirect_to('index');
