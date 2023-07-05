@@ -85,6 +85,7 @@ post '/model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
   $v->required('groups');
+  $v->optional('clone');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not update model');
     return $c->redirect_to('model');
@@ -100,9 +101,18 @@ post '/model' => sub ($c) {
       $specs->{parameter}{$g} = [ split /\s*,\s*/, $group_params->[$i] ];
       $i++;
     }
-    store($specs, $model_file);
-    $c->flash(message => 'Update parameters successful');
-    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
+    if ($v->param('clone')) {
+      $synth = Synth::Config->new(model => $v->param('clone'));
+      $model_file = SETTINGS . $synth->model . '.dat';
+      store($specs, $model_file);
+      $c->flash(message => 'Clone model successful');
+      return $c->redirect_to($c->url_for('index')->query(model => $v->param('clone')));
+    }
+    else {
+      store($specs, $model_file);
+      $c->flash(message => 'Update parameters successful');
+      return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
+    }
   }
   else {
     my $init_file = Mojo::File->new(SETTINGS . 'initial.set');
@@ -122,6 +132,7 @@ post '/model' => sub ($c) {
 get '/edit_model' => sub ($c) {
   my $v = $c->validation;
   $v->required('model');
+  $v->optional('clone');
   if ($v->failed->@*) {
     $c->flash(error => 'Could not edit model');
     return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
@@ -136,6 +147,7 @@ get '/edit_model' => sub ($c) {
     groups     => $groups,
     group_list => $specs->{group},
     specs      => $specs->{parameter},
+    clone      => $v->param('clone'),
   );
 } => 'edit_model';
 
@@ -436,23 +448,27 @@ __DATA__
 @@ edit_model.html.ep
 % layout 'default';
 <p></p>
+<form action="<%= url_for('update_model') %>" method="post">
 <div class="row">
   <div class="col">
     <label for="model">Model:</label>
+% if ($clone) {
+    <input type="hidden" name="model" value="<%= $model %>">
+    <input type="hidden" name="groups" value="<%= $groups %>">
+    <input type="text" name="clone" id="clone" class="form-control" required>
+% } else {
     <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" disabled readonly>
+% }
   </div>
 </div>
 <p></p>
 <div class="row">
   <div class="col">
-    <label for="group">Group:</label>
-    <input type="text" id="group" value="<%= $groups %>" class="form-control" disabled readonly>
+    <label for="groups">Groups:</label>
+    <input type="text" id="groups" value="<%= $groups %>" class="form-control" disabled readonly>
   </div>
 </div>
 <p></p>
-<form action="<%= url_for('update_model') %>" method="post">
-  <input type="hidden" name="model" value="<%= $model %>">
-  <input type="hidden" name="groups" value="<%= $groups %>">
 % for my $g (@$group_list) {
   <label for="<%= $g %>"><%= $g %>:</label>
   <input type="text" name="group" id="<%= $g %>" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
@@ -460,7 +476,12 @@ __DATA__
 % }
   <div class="row">
     <div class="col">
+% if ($clone) {
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New model</button>
+% } else {
       <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update model</button>
+      <a href="<%= url_for('edit_model')->query(model => $model, clone => 1) %>" id="clone_model" class="btn btn-success"><i class="fa-solid fa-copy"></i> Clone</a>
+% }
       <a href="<%= url_for('index')->query(model => $model) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
     </div>
   </div>
