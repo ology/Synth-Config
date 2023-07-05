@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Add the missing Top=100% value.
+    - Require a name field for setting insert.
 
 0.0039 2023-07-04 21:06:11
     - Improve eg/synth-config-mojo.pl.
