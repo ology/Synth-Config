@@ -166,7 +166,12 @@ get '/remove' => sub ($c) {
     $c->flash(message => 'Remove setting successful');
     return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name')));
   }
-  elsif ($synth->model) {
+  elsif ($v->param('name') && !($v->param('id'))) {
+    $synth->remove_settings(name => $v->param('name'));
+    $c->flash(message => 'Remove named settings successful');
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model')));
+  }
+  elsif ($synth->model && !$v->param('name')) {
     $synth->remove_model;
     my $model_file = Mojo::File->new(SETTINGS . $synth->model . '.dat');
     $model_file->remove;
@@ -362,7 +367,7 @@ __DATA__
 
     <a href="<%= url_for('remove')->query(model => $model) %>" id="remove_model" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 
-    <a href="<%= url_for('remove')->query(name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove name</a>
+    <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove name</a>
 % }
   </div>
 </div>
