@@ -154,6 +154,10 @@ Save a named setting and return the record id.
 The B<name> is required to perform an insert. If an B<id> is given, an
 update is performed.
 
+The setting is a single JSON field that can contain any key/value
+pairs. These pairs B<must> include at least a C<group> to be
+searchable.
+
 Example:
 
   name: 'My Best Setting!'
