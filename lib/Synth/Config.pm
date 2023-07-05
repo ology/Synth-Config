@@ -21,8 +21,8 @@ use namespace::clean;
 
   my $name = 'Foo!';
 
-  my $id1 = $synth->make_setting(name => $name, group => 'foo');
-  my $id2 = $synth->make_setting(name => $name, group => 'bar');
+  my $id1 = $synth->make_setting(name => $name, group => 'foo', etc => '...');
+  my $id2 = $synth->make_setting(name => $name, group => 'bar', etc => '???');
 
   my $setting = $synth->recall_setting(id => $id1);
   # { group => 'foo' }
@@ -31,10 +31,10 @@ use namespace::clean;
   $synth->make_setting(id => $id1, group => 'baz');
 
   my $settings = $synth->search_settings(name => $name);
-  # [ 1 => { group => 'baz' }, 2 => { group => 'bar' } ]
+  # [ 1 => { group => 'baz', etc => '...' }, 2 => { group => 'bar', etc => '???' } ]
 
   my $settings = $synth->search_settings(group => 'bar');
-  # [ 2 => { group => 'bar' } ]
+  # [ 2 => { group => 'bar', etc => '???' } ]
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
