@@ -231,7 +231,7 @@ get '/edit_setting' => sub ($c) {
   );
 } => 'edit_setting';
 
-post '/update' => sub ($c) {
+post '/update_setting' => sub ($c) {
   my $v = $c->validation;
   $v->required('name');
   $v->required('model');
@@ -247,7 +247,7 @@ post '/update' => sub ($c) {
   $v->optional('is_default');
   $v->optional('id');
   if ($v->failed->@*) {
-    $c->flash(error => 'Could not update');
+    $c->flash(error => 'Could not update setting');
     return $c->redirect_to('edit_setting');
   }
   my $model = trim $v->param('model') if $v->param('model');
@@ -287,7 +287,7 @@ post '/update' => sub ($c) {
     unit       => $v->param('unit'),
     is_default => $v->param('is_default'),
   ));
-} => 'update';
+} => 'update_setting';
 
 helper to_json => sub ($c, $data) {
   return to_json $data;
@@ -507,7 +507,7 @@ __DATA__
 @@ edit_setting.html.ep
 % layout 'default';
 <p></p>
-<form action="<%= url_for('update') %>" method="post">
+<form action="<%= url_for('update_setting') %>" method="post">
   <input type="hidden" name="id" value="<%= $id %>">
 <div class="row">
   <div class="col">
