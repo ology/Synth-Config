@@ -358,14 +358,12 @@ __DATA__
 <div class="row">
   <div class="col">
     <button type="submit" id="search" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-% if ($model) {
-    <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $group) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
-% }
     <a href="<%= url_for('model') %>" class="btn btn-success" id="new_model"><i class="fa-solid fa-database"></i> New model</a>
 % if ($model) {
     <a href="<%= url_for('edit_model')->query(model => $model) %>" id="edit_model" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Edit model</a>
+    <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $group) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New setting</a>
 %   if ($name) {
-    <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove named</a>
+    <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove <%= $name %> settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove settings</a>
 %   }
 % }
   </div>
