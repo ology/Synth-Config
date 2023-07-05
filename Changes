@@ -3,6 +3,7 @@ Revision history for Synth-Config
 {{$NEXT}}
     - Improve eg/mojo-ui.pl.
     - Pin Mojo::SQLite 2.000.
+    - Comment-out possibly goofy db file cleanup tests.
 
 0.0038 2023-07-03 08:08:06
     - Fix search sort.
