@@ -467,9 +467,9 @@ __DATA__
 <div class="row">
   <div class="col">
     <label for="model">Model:</label>
+    <input type="hidden" name="groups" value="<%= $groups %>">
 % if ($clone) {
     <input type="hidden" name="model" value="<%= $model %>">
-    <input type="hidden" name="groups" value="<%= $groups %>">
     <input type="text" name="clone" id="clone" class="form-control" required>
 % } else {
     <input type="text" name="model" id="model" value="<%= $model %>" class="form-control" disabled readonly>
@@ -477,13 +477,8 @@ __DATA__
   </div>
 </div>
 <p></p>
-<div class="row">
-  <div class="col">
-    <label for="groups">Groups:</label>
-    <input type="text" id="groups" value="<%= $groups %>" class="form-control" disabled readonly>
-  </div>
-</div>
-<p></p>
+<b>Groups:</b>
+<hr>
 % for my $g (@$group_list) {
   <label for="<%= $g %>"><%= $g %>:</label>
   <input type="text" name="group" id="<%= $g %>" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
