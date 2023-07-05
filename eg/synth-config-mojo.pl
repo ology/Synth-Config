@@ -477,10 +477,10 @@ __DATA__
   </div>
 </div>
 <p></p>
-<b>Groups:</b>
+<b>Groups</b>:
 <hr>
 % for my $g (@$group_list) {
-  <label for="<%= $g %>"><%= $g %>:</label>
+  <label for="<%= $g %>"><b><%= ucfirst $g %></b>:</label>
   <input type="text" name="group" id="<%= $g %>" value="<%= join ',', $specs->{$g}->@* %>" class="form-control" placeholder="<%= $g %> parameter1, param2, etc.">
   <p></p>
 % }
