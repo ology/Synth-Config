@@ -26,6 +26,7 @@ get '/' => sub ($c) {
   $fields = trim($fields) if $fields;
   my $synth = Synth::Config->new(model => $model, verbose => 1);
   if ($model) {
+    # TODO save the specs config file IN THE DATABASE please
     # get a specs config file for the synth model
     my $set_file = SETTINGS . $synth->model . '.dat';
     my $specs = -e $set_file ? retrieve($set_file) : undef;
