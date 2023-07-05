@@ -364,8 +364,6 @@ __DATA__
     <a href="<%= url_for('model') %>" class="btn btn-success" id="new_model"><i class="fa-solid fa-database"></i> New model</a>
 % if ($model) {
     <a href="<%= url_for('edit_model')->query(model => $model) %>" id="edit_model" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Edit model</a>
-
-    <a href="<%= url_for('remove')->query(model => $model) %>" id="remove_model" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 %   if ($name) {
     <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove named</a>
 %   }
@@ -485,6 +483,7 @@ __DATA__
       <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New model</button>
 % } else {
       <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update model</button>
+      <a href="<%= url_for('remove')->query(model => $model) %>" id="remove_model" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
       <a href="<%= url_for('edit_model')->query(model => $model, clone => 1) %>" id="clone_model" class="btn btn-success"><i class="fa-solid fa-copy"></i> Clone</a>
 % }
       <a href="<%= url_for('index')->query(model => $model) %>" id="cancel" class="btn btn-warning"><i class="fa-solid fa-xmark"></i> Cancel</a>
