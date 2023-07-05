@@ -372,6 +372,7 @@ __DATA__
   </div>
 </div>
 </form>
+% if (@$settings) {
 <p></p>
 <table class="table table-hover">
 <thead>
@@ -385,10 +386,10 @@ __DATA__
   </tr>
 </thead>
 <tbody>
-% for my $s (@$settings) {
-%   my $id = (keys(%$s))[0];
-%   my $setting = (values(%$s))[0];
-%   my $edit_url = build_edit_url($model, $id, $setting);
+%   for my $s (@$settings) {
+%     my $id = (keys(%$s))[0];
+%     my $setting = (values(%$s))[0];
+%     my $edit_url = build_edit_url($model, $id, $setting);
 <tr>
   <td><a href="<%= $edit_url %>" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pencil"></i></a></td>
   <td><%= $setting->{name} %></td>
@@ -396,16 +397,17 @@ __DATA__
   <td><%= $setting->{parameter} %></td>
   <td><i><%= $setting->{control} %></i></td>
   <td>
-%   if ($setting->{group_to}) {
+%     if ($setting->{group_to}) {
     <%= $setting->{group_to} %> <%= $setting->{param_to} %>
-%   }
-%   if ($setting->{value}) {
+%     }
+%     if ($setting->{value}) {
     <%= $setting->{value} %> <%= $setting->{unit} %>
-%   }
+%     }
   </td>
 </tr>
-% }
+%   }
 </table>
+% }
 
 
 @@ model.html.ep
