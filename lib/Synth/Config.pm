@@ -152,7 +152,7 @@ sub BUILD {
 Save a named setting and return the record id.
 
 The B<name> is required to perform an insert. If an B<id> is given, an
-update is performed.  Otherwise, a database insert is made.
+update is performed.
 
 Example:
 
