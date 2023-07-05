@@ -367,7 +367,7 @@ __DATA__
 
     <a href="<%= url_for('remove')->query(model => $model) %>" id="remove_model" class="btn btn-danger" onclick="if(!confirm('Remove model?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove model</a>
 
-    <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove name</a>
+    <a href="<%= url_for('remove')->query(model => $model, name => $name) %>" id="remove_name" class="btn btn-danger" onclick="if(!confirm('Remove named settings?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove named</a>
 % }
   </div>
 </div>
