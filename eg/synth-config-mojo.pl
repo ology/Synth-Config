@@ -569,7 +569,7 @@ __DATA__
   <p></p>
 % if ($id) {
   <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-right"></i> Update</button>
-  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
+  <a href="<%= url_for('remove')->query(id => $id, model => $model, name => $name, group => $selected->{group}) %>" id="remove" class="btn btn-danger" onclick="if(!confirm('Remove setting <%= $id %>?')) return false;"><i class="fa-solid fa-trash-can"></i> Remove</a>
 % my $edit_url = build_edit_url($model, '', { name => $name, %$selected });
   <a href="<%= $edit_url %>" id="clone_setting" class="btn btn-success"><i class="fa-solid fa-copy"></i> Clone</a>
   <a href="<%= url_for('edit_setting')->query(model => $model, name => $name, group => $selected->{group}) %>" id="new_setting" class="btn btn-success"><i class="fa-solid fa-plus"></i> New</a>
