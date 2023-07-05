@@ -157,6 +157,7 @@ get '/remove' => sub ($c) {
   $v->optional('id');
   $v->optional('name');
   $v->optional('model');
+  $v->group('model');
   if ($v->failed->@*) {
     $c->flash(error => 'Remove failed');
     return $c->redirect_to('index');
@@ -165,7 +166,7 @@ get '/remove' => sub ($c) {
   if ($v->param('id')) {
     $synth->remove_setting(id => $v->param('id'));
     $c->flash(message => 'Remove setting successful');
-    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name')));
+    return $c->redirect_to($c->url_for('index')->query(model => $v->param('model'), name => $v->param('name'), group => $v->param('group')));
   }
   elsif ($v->param('name') && !($v->param('id'))) {
     $synth->remove_settings(name => $v->param('name'));
