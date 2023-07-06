@@ -237,7 +237,7 @@ post '/update_setting' => sub ($c) {
   my $v = $c->validation;
   $v->required('name');
   $v->required('model');
-# TODO gather these keys from the init.set file
+# TODO gather these keys from the *.set file
   $v->required('group');
   $v->required('parameter');
   $v->required('control');
@@ -301,7 +301,7 @@ helper build_edit_url => sub ($c, $model, $id, $set) {
     $id ? (id => $id) : (),
     model      => $model,
     name       => $set->{name},
-# TODO gather these keys from the init.set file
+# TODO gather these keys from the *.set file
     group      => $set->{group},
     parameter  => $set->{parameter},
     control    => $set->{control},
