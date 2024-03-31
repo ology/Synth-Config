@@ -30,6 +30,8 @@ my $config = LoadFile($opt{config});
 my $synth = Synth::Config->new(model => $opt{model});
 
 for my $patch ($config->{patches}->@*) {
+    next unless $patch->{control} eq 'patch';
+
     my $patch_name = $patch->{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
