@@ -48,28 +48,32 @@ for my $patch ($config->{patches}->@*) {
 
         print "Done.\n";
     }
+
     print ddc $settings;
+
+    my $g = GraphViz2->new(
+        global => { directed => 1 },
+        node   => { shape => 'oval' },
+        edge   => { color => 'grey' },
+    );
+
+    my %nodes;
+    my %edges;
+
+    for my $s (@$settings) {
+          my $setting = (values(%$s))[0];
+          my $from  = $setting->{group};
+          my $to    = $setting->{group_to};
+          my $param = "$setting->{parameter} to $setting->{param_to}";
+          $g->add_node(name => $from) unless $nodes{$from}++;
+          $g->add_node(name => $to)   unless $nodes{$to}++;
+          $g->add_edge(from => $from, to => $to, label => $param)
+              unless $edges{$param}++;
+    }
+
+    (my $model = $opt{model}) =~ s/\W/_/g;
+    (my $patch = $patch->{patch}) =~ s/\W/_/g;
+    my $filename = "$model-$patch.png";
+
+    $g->run(format => 'png', output_file => $filename);
 }
-
-__END__
-my $g = GraphViz2->new(
-    global => { directed => 1 },
-    node   => { shape => 'oval' },
-    edge   => { color => 'grey' },
-);
-
-my %nodes;
-my %edges;
-
-for my $s (@$settings) {
-      my $setting = (values(%$s))[0];
-      my $from  = $setting->{group};
-      my $to    = $setting->{group_to};
-      my $param = "$setting->{parameter} to $setting->{param_to}";
-      $g->add_node(name => $from) unless $nodes{$from}++;
-      $g->add_node(name => $to)   unless $nodes{$to}++;
-      $g->add_edge(from => $from, to => $to, label => $param)
-          unless $edges{$param}++;
-}
-
-$g->run(format => 'png', output_file => "$0.png");
