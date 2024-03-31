@@ -20,7 +20,7 @@ GetOptions(\%opt,
     'config=s',
 );
 
-die "Usage: perl $0 --model='My modular' --setting='Simple 001'\n"
+die "Usage: perl $0 --model='My modular'\n"
     unless $opt{model};
 
 $opt{config} ||= $opt{model} . '.yaml';
