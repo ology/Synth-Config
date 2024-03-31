@@ -30,18 +30,20 @@ my $config = LoadFile($opt{config});
 my $synth = Synth::Config->new(model => $opt{model});
 
 for my $patch ($config->{patches}->@*) {
-    my $settings = $synth->search_settings(name => $patch->{patch});
+    my $patch_name = $patch->{patch};
+
+    my $settings = $synth->search_settings(name => $patch_name);
     unless (@$settings) {
-        print "Adding $opt{setting} to $opt{model}...\n";
+        print "Adding $patch_name to $opt{model}...\n";
 
         for my $setting ($patch->{settings}->@*) {
             $synth->make_setting(
-                name => $patch->{patch},
+                name => $patch_name,
                 %$setting,
             );
         }
 
-        $settings = $synth->search_settings(name => $patch->{patch});
+        $settings = $synth->search_settings(name => $patch_name);
 
         print "Done.\n";
     }
@@ -69,7 +71,7 @@ for my $patch ($config->{patches}->@*) {
     }
 
     (my $model = $opt{model}) =~ s/\W/_/g;
-    (my $patch = $patch->{patch}) =~ s/\W/_/g;
+    (my $patch = $patch_name) =~ s/\W/_/g;
     my $filename = "$model-$patch.png";
 
     $g->run(format => 'png', output_file => $filename);
