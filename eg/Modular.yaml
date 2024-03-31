@@ -47,7 +47,7 @@ patches:
         group_to: 'envelope'
         param_to: 'gate-in'
       - group: 'envelope'
-        parameter: 'envelope-out'
+        parameter: 'env-out'
         control: 'patch'
         group_to: 'amplifier'
         param_to: 'signal-in'
