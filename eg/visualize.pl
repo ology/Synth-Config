@@ -39,7 +39,7 @@ for my $patch ($config->{patches}->@*) {
         for my $setting ($patch->{settings}->@*) {
             next unless $setting->{control} eq 'patch';
 
-            print "Adding $patch_name to $model_name...\n";
+            print "Adding $patch_name setting to $model_name...\n";
             $synth->make_setting(name => $patch_name, %$setting);
         }
 
