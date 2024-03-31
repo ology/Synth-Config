@@ -19,28 +19,28 @@ use namespace::clean;
 
   my $synth = Synth::Config->new(model => $model);
 
-  my $name = 'Foo!';
+  my $name = 'My favorite setting';
 
-  my $id1 = $synth->make_setting(name => $name, group => 'foo', etc => '...');
-  my $id2 = $synth->make_setting(name => $name, group => 'bar', etc => '???');
+  my $id1 = $synth->make_setting(name => $name, group => 'filter', etc => '...');
+  my $id2 = $synth->make_setting(name => $name, group => 'sequencer', etc => '...');
 
   my $setting = $synth->recall_setting(id => $id1);
-  # { group => 'foo' }
+  # { group => 'filter' }
 
-  # update the group key only
-  $synth->make_setting(id => $id1, group => 'baz');
+  # update the group key
+  $synth->make_setting(id => $id1, group => 'envelope');
 
   my $settings = $synth->search_settings(name => $name);
-  # [ 1 => { group => 'baz', etc => '...' }, 2 => { group => 'bar', etc => '???' } ]
+  # [ 1 => { group => 'envelope', etc => '...' }, 2 => { group => 'sequencer', etc => '...' } ]
 
-  my $settings = $synth->search_settings(group => 'bar');
-  # [ 2 => { group => 'bar', etc => '???' } ]
+  my $settings = $synth->search_settings(group => 'sequencer');
+  # [ 2 => { group => 'sequencer', etc => '...' } ]
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
 
   my $names = $synth->recall_names;
-  # [ 'Foo!' ]
+  # [ 'My favorite setting' ]
 
   $synth->remove_setting(id => $id1);
 
