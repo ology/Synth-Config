@@ -20,14 +20,15 @@ GetOptions(\%opt,
     'config=s',
 );
 
-die "Usage: perl $0 --model='My modular'\n"
-    unless $opt{model};
+my $model_name = $opt{model};
 
-$opt{config} ||= $opt{model} . '.yaml';
+die "Usage: perl $0 --model='My modular'\n" unless $model_name;
+
+$opt{config} ||= "$model_name.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 my $config = LoadFile($opt{config});
 
-my $synth = Synth::Config->new(model => $opt{model});
+my $synth = Synth::Config->new(model => $model_name);
 
 for my $patch ($config->{patches}->@*) {
     next unless $patch->{control} eq 'patch';
@@ -36,7 +37,7 @@ for my $patch ($config->{patches}->@*) {
 
     my $settings = $synth->search_settings(name => $patch_name);
     unless (@$settings) {
-        print "Adding $patch_name to $opt{model}\n";
+        print "Adding $patch_name to $model_name\n";
 
         for my $setting ($patch->{settings}->@*) {
             $synth->make_setting(
@@ -70,7 +71,7 @@ for my $patch ($config->{patches}->@*) {
               unless $edges{$param}++;
     }
 
-    (my $model = $opt{model}) =~ s/\W/_/g;
+    (my $model = $model_name) =~ s/\W/_/g;
     (my $patch = $patch_name) =~ s/\W/_/g;
     my $filename = "$model-$patch.png";
 
