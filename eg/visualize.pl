@@ -34,7 +34,7 @@ for my $patch ($config->{patches}->@*) {
 
     my $settings = $synth->search_settings(name => $patch_name);
     unless (@$settings) {
-        print "Adding $patch_name to $opt{model}...\n";
+        print "Adding $patch_name to $opt{model}\n";
 
         for my $setting ($patch->{settings}->@*) {
             $synth->make_setting(
@@ -44,8 +44,6 @@ for my $patch ($config->{patches}->@*) {
         }
 
         $settings = $synth->search_settings(name => $patch_name);
-
-        print "Done.\n";
     }
 
     print ddc $settings;
