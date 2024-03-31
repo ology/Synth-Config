@@ -26,9 +26,6 @@ die "Usage: perl $0 --model='My modular'\n"
 $opt{config} ||= $opt{model} . '.yaml';
 die "Invalid model config\n" unless -e $opt{config};
 my $config = LoadFile($opt{config});
-warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});exit;
-
-my @ids;
 
 my $synth = Synth::Config->new(model => $opt{model});
 
@@ -38,7 +35,7 @@ for my $patch ($config->{patches}->@*) {
         print "Adding $opt{setting} to $opt{model}...\n";
 
         for my $setting ($patch->{settings}->@*) {
-            push @ids, $synth->make_setting(
+            $synth->make_setting(
                 name => $patch->{patch},
                 %$setting,
             );
