@@ -31,7 +31,7 @@ my $config = LoadFile($opt{config});
 my $synth = Synth::Config->new(model => $model_name);
 
 for my $patch ($config->{patches}->@*) {
-    next unless $patch->{control} eq 'patch';
+    next unless $patch->{settings}{control} eq 'patch';
 
     my $patch_name = $patch->{patch};
 
