@@ -27,19 +27,18 @@ die "Usage: perl $0 --model='My modular'\n" unless $model_name;
 $opt{config} ||= "$model_name.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 my $config = LoadFile($opt{config});
+#warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});exit;
 
 my $synth = Synth::Config->new(model => $model_name);
 
 for my $patch ($config->{patches}->@*) {
-    next unless $patch->{settings}{control} eq 'patch';
-
     my $patch_name = $patch->{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
     unless (@$settings) {
-        print "Adding $patch_name to $model_name\n";
-
         for my $setting ($patch->{settings}->@*) {
+            next unless $setting->{control} eq 'patch';
+
             $synth->make_setting(
                 name => $patch_name,
                 %$setting,
