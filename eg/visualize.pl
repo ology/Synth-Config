@@ -12,8 +12,8 @@ use GraphViz2 ();
 use YAML qw(LoadFile);
 
 my %opt = ( # defaults:
-    model   => undef, # e.g. 'Modular'
-    config  => undef, # n.b. set below if not given
+    model  => undef, # e.g. 'Modular'
+    config => undef, # n.b. set below if not given
 );
 GetOptions(\%opt,
     'model=s',
