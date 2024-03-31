@@ -456,7 +456,7 @@ sub make_spec {
 
   my $specs = $synth->recall_spec(id => $id);
 
-Return the modle configuration specification for the given B<id>.
+Return the model configuration specification for the given B<id>.
 
 =cut
 
