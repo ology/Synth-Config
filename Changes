@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve documentation.
     - Improve eg/synth-config-mojo.pl.
     - Add the eg/visualize.pl program.
 
