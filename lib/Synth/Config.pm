@@ -33,7 +33,7 @@ use namespace::clean;
   my $settings = $synth->search_settings(name => $name);
   # [ 1 => { group => 'envelope', etc => '...' }, 2 => { group => 'sequencer', etc => '...' } ]
 
-  my $settings = $synth->search_settings(group => 'sequencer');
+  $settings = $synth->search_settings(group => 'sequencer');
   # [ 2 => { group => 'sequencer', etc => '...' } ]
 
   my $models = $synth->recall_models;
