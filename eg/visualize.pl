@@ -39,10 +39,7 @@ for my $patch ($config->{patches}->@*) {
         for my $setting ($patch->{settings}->@*) {
             next unless $setting->{control} eq 'patch';
 
-            $synth->make_setting(
-                name => $patch_name,
-                %$setting,
-            );
+            $synth->make_setting(name => $patch_name, %$setting);
         }
 
         $settings = $synth->search_settings(name => $patch_name);
