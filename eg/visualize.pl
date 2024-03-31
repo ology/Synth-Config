@@ -44,7 +44,6 @@ for my $patch ($config->{patches}->@*) {
 
         $settings = $synth->search_settings(name => $patch_name);
     }
-
     print ddc $settings;
 
     my $g = GraphViz2->new(
