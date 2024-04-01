@@ -1,7 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
-    - Fix eg/visualize.pl.
+    - Fix eg/visualize.pl and Module.yaml.
 
 0.0041 2024-03-31 13:16:21
     - Improve documentation.
