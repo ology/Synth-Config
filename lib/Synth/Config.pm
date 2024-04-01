@@ -21,23 +21,6 @@ use namespace::clean;
 
   my $name = 'My favorite setting';
 
-  my %spec = ( # default initial model specification
-    order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
-    group      => [],
-    parameter  => {},
-    control    => [qw(knob switch slider patch)],
-    group_to   => [],
-    param_to   => [],
-    bottom     => [qw(off 0 1 7AM 20)],
-    top        => [qw(on 3 4 6 7 5PM 20_000 100%)],
-    value      => [],
-    unit       => [qw(Hz o'clock)],
-    is_default => [0, 1],
-  );
-  my $spec_id = $synth->make_spec(%spec);
-  my $specs = $synth->recall_spec(id => $spec_id);
-  $synth->remove_spec;
-
   my $id1 = $synth->make_setting(name => $name, group => 'filter', etc => '...');
   my $id2 = $synth->make_setting(name => $name, group => 'sequencer', etc => '...');
 
@@ -58,6 +41,23 @@ use namespace::clean;
 
   my $names = $synth->recall_names;
   # [ 'My favorite setting' ]
+
+  my %spec = ( # default initial model specification
+    order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
+    group      => [],
+    parameter  => {},
+    control    => [qw(knob switch slider patch)],
+    group_to   => [],
+    param_to   => [],
+    bottom     => [qw(off 0 1 7AM 20)],
+    top        => [qw(on 3 4 6 7 5PM 20_000 100%)],
+    value      => [],
+    unit       => [qw(Hz o'clock)],
+    is_default => [0, 1],
+  );
+  my $spec_id = $synth->make_spec(%spec);
+  my $specs = $synth->recall_spec(id => $spec_id);
+  $synth->remove_spec;
 
   $synth->remove_setting(id => $id1);
 
