@@ -62,8 +62,11 @@ for my $patch ($config->{patches}->@*) {
           my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
           $g->add_node(name => $from) unless $nodes{$from}++;
           $g->add_node(name => $to)   unless $nodes{$to}++;
-          $g->add_edge(from => $from, to => $to, label => "$setting->{parameter} to $setting->{param_to}")
-              unless $edges{$param}++;
+          $g->add_edge(
+              from  => $from,
+              to    => $to,
+              label => "$setting->{parameter} to $setting->{param_to}",
+          ) unless $edges{$param}++;
     }
 
     (my $model = $model_name) =~ s/\W/_/g;
