@@ -59,7 +59,7 @@ for my $patch ($config->{patches}->@*) {
           my $setting = (values(%$s))[0];
           my $from  = $setting->{group};
           my $to    = $setting->{group_to};
-          my $param = "$setting->{parameter} to $setting->{param_to}";
+          my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
           $g->add_node(name => $from) unless $nodes{$from}++;
           $g->add_node(name => $to)   unless $nodes{$to}++;
           $g->add_edge(from => $from, to => $to, label => $param)
