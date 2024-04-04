@@ -59,8 +59,9 @@ for my $patch ($config->{patches}->@*) {
           if ($setting->{control} eq 'patch') {
               my $to = $setting->{group_to};
               unless ($nodes{$to}) {
-                  my ($to_group) = $g->add_group($to);
-                  $nodes{$to} = $to_group;
+                  ($nodes{$to}) = $g->add_group($to);
+                  $nodes{$to}->set_attribute('label', '');
+                  $nodes{$to}->add_node($to);
               }
               my $label = "$setting->{parameter} to $setting->{param_to}";
               $g->add_edge_once($from, $to, $label);
