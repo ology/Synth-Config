@@ -7,6 +7,11 @@ patches:
         control: 'patch'
         group_to: 'mixer'
         param_to: 'in'
+      - group: 'oscillator'
+        parameter: 'range'
+        control: 'knob'
+        value: 8
+        unit: "'"
       - group: 'mixer'
         parameter: 'stereo-out'
         control: 'patch'
