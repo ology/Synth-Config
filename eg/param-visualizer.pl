@@ -46,7 +46,7 @@ for my $patch ($config->{patches}->@*) {
     }
 
     my $g = Graph::Easy->new;
-    my (%nodes, %edges);
+    my %nodes;
 
     for my $s (@$settings) {
           my $setting = (values(%$s))[0];
@@ -63,7 +63,6 @@ for my $patch ($config->{patches}->@*) {
                   $nodes{$to} = $to_group;
               }
               my $label = "$setting->{parameter} to $setting->{param_to}";
-              my $key = "$from $setting->{parameter} to $to $setting->{param_to}";
               $g->add_edge_once($from, $to, $label);
           }
           else {
