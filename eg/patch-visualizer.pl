@@ -35,6 +35,7 @@ for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
+    # TODO if settings then update
     unless (@$settings) {
         for my $setting ($patch->{settings}->@*) {
             next unless $setting->{control} eq 'patch';
