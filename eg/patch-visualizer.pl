@@ -74,6 +74,7 @@ for my $patch ($config->{patches}->@*) {
         $labels{$from} = join "\n", @label;
     }
 
+    # render nodes and (patch) edges
     for my $s (@$settings) {
         my $setting = (values(%$s))[0];
         next if $setting->{control} ne 'patch';
