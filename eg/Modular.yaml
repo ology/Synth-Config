@@ -12,6 +12,11 @@ patches:
         control: 'knob'
         value: 8
         unit: "'"
+      - group: 'oscillator'
+        parameter: 'waveform'
+        control: 'switch'
+        value: 'square'
+        unit: ''
       - group: 'mixer'
         parameter: 'stereo-out'
         control: 'patch'
