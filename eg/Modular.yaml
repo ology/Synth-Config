@@ -29,6 +29,11 @@ patches:
         control: 'patch'
         group_to: 'mixer'
         param_to: 'in'
+      - group: 'oscillator'
+        parameter: 'range'
+        control: 'knob'
+        value: 8
+        unit: "'"
       - group: 'mixer'
         parameter: 'stereo-out'
         control: 'patch'
@@ -46,6 +51,11 @@ patches:
         control: 'patch'
         group_to: 'filter'
         param_to: 'sig-in'
+      - group: 'oscillator'
+        parameter: 'range'
+        control: 'knob'
+        value: 8
+        unit: "'"
       - group: 'filter'
         parameter: 'out'
         control: 'patch'
@@ -68,6 +78,11 @@ patches:
         control: 'patch'
         group_to: 'filter'
         param_to: 'sig-in'
+      - group: 'oscillator'
+        parameter: 'range'
+        control: 'knob'
+        value: 8
+        unit: "'"
       - group: 'lfo'
         parameter: 'out'
         control: 'patch'
@@ -105,6 +120,11 @@ patches:
         control: 'patch'
         group_to: 'amplifier'
         param_to: 'sig-in'
+      - group: 'oscillator'
+        parameter: 'range'
+        control: 'knob'
+        value: 8
+        unit: "'"
       - group: 'amplifier'
         parameter: 'out'
         control: 'patch'
