@@ -115,6 +115,26 @@ patches:
         control: 'patch'
         group_to: 'amplifier'
         param_to: 'mod-in'
+      - group: 'envelope'
+        parameter: 'attack'
+        control: 'slider'
+        value: 2
+        unit: "%"
+      - group: 'envelope'
+        parameter: 'decay'
+        control: 'slider'
+        value: 4
+        unit: "%"
+      - group: 'envelope'
+        parameter: 'sustain'
+        control: 'slider'
+        value: 9
+        unit: "%"
+      - group: 'envelope'
+        parameter: 'release'
+        control: 'slider'
+        value: 8.5
+        unit: "%"
       - group: 'oscillator'
         parameter: 'out'
         control: 'patch'
@@ -130,11 +150,21 @@ patches:
         control: 'patch'
         group_to: 'mixer'
         param_to: 'in'
+      - group: 'amplifier'
+        parameter: 'gain'
+        control: 'knob'
+        value: 40
+        unit: "%"
       - group: 'mixer'
         parameter: 'stereo-out'
         control: 'patch'
         group_to: 'audio'
         param_to: 'stereo-in'
+      - group: 'mixer'
+        parameter: 'volume'
+        control: 'slider'
+        value: 80
+        unit: "%"
   - patch: 'Simple 005'
     settings:
       - group: 'SEQ'
