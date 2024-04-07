@@ -77,7 +77,7 @@ for my $patch ($config->{patches}->@*) {
 
     for my $s (@$settings) {
         my $setting = (values(%$s))[0];
-        next unless $setting->{control} eq 'patch' || $setting->{group_to};
+        next if $setting->{control} ne 'patch';
         # create edge
         my $from  = $setting->{group};
         my $to    = $setting->{group_to};
