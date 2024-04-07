@@ -54,6 +54,7 @@ for my $patch ($config->{patches}->@*) {
     my %nodes;
     my %edges;
     my %sets;
+    my %labels;
 
     # collect settings by group
     for my $s (@$settings) {
@@ -61,24 +62,31 @@ for my $patch ($config->{patches}->@*) {
         my $from = $setting->{group};
         push $sets{$from}->@*, $setting;
     }
-
+    # create node label
     for my $s (@$settings) {
         my $setting = (values(%$s))[0];
-        next unless $setting->{control} eq 'patch';
         my $from = $setting->{group};
-        # create node label
         my @label = ($from);
         for my $group ($sets{$from}->@*) {
             next if $group->{control} eq 'patch';
             push @label, "$group->{parameter} = $group->{value}$group->{unit}";
         }
-        $from = join "\n", @label;
+        my $label = join "\n", @label;
+        $labels{$from} = $label;
+    }
+
+    for my $s (@$settings) {
+        my $setting = (values(%$s))[0];
+        next unless $setting->{control} eq 'patch' || $setting->{group_to};
         # create edge
+        my $from  = $setting->{group};
         my $to    = $setting->{group_to};
         my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
         my $label = "$setting->{parameter} to $setting->{param_to}";
+        $to = $labels{$to};
+        $from = $labels{$from};
         $g->add_node(name => $from) unless $nodes{$from}++;
-        $g->add_node(name => $to)   unless $nodes{$to}++;
+        $g->add_node(name => $to)   unless $to && $nodes{$to}++;
         $g->add_edge(
             from  => $from,
             to    => $to,
