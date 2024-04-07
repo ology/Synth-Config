@@ -86,7 +86,7 @@ for my $patch ($config->{patches}->@*) {
         $to = $labels{$to};
         $from = $labels{$from};
         $g->add_node(name => $from) unless $nodes{$from}++;
-        $g->add_node(name => $to)   unless $to && $nodes{$to}++;
+        $g->add_node(name => $to) unless $to && $nodes{$to}++;
         $g->add_edge(
             from  => $from,
             to    => $to,
