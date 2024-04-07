@@ -71,8 +71,7 @@ for my $patch ($config->{patches}->@*) {
             next if $group->{control} eq 'patch';
             push @label, "$group->{parameter} = $group->{value}$group->{unit}";
         }
-        my $label = join "\n", @label;
-        $labels{$from} = $label;
+        $labels{$from} = join "\n", @label;
     }
 
     for my $s (@$settings) {
