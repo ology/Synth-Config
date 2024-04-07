@@ -38,8 +38,6 @@ for my $patch ($config->{patches}->@*) {
     # TODO if settings then update
     unless (@$settings) {
         for my $setting ($patch->{settings}->@*) {
-            next unless $setting->{control} eq 'patch';
-
             print "Adding $patch_name setting to $model_name...\n";
             $synth->make_setting(name => $patch_name, %$setting);
         }
@@ -55,20 +53,37 @@ for my $patch ($config->{patches}->@*) {
 
     my %nodes;
     my %edges;
+    my %sets;
+
+    # collect settings by group
+    for my $s (@$settings) {
+        my $setting = (values(%$s))[0];
+        my $from = $setting->{group};
+        push $sets{$from}->@*, $setting;
+    }
 
     for my $s (@$settings) {
-          my $setting = (values(%$s))[0];
-          my $from  = $setting->{group};
-          my $to    = $setting->{group_to};
-          my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
-          my $label = "$setting->{parameter} to $setting->{param_to}";
-          $g->add_node(name => $from) unless $nodes{$from}++;
-          $g->add_node(name => $to)   unless $nodes{$to}++;
-          $g->add_edge(
-              from  => $from,
-              to    => $to,
-              label => $label,
-          ) unless $edges{$param}++;
+        my $setting = (values(%$s))[0];
+        next unless $setting->{control} eq 'patch';
+        my $from = $setting->{group};
+        # create node label
+        my @label = ($from);
+        for my $group ($sets{$from}->@*) {
+            next if $group->{control} eq 'patch';
+            push @label, "$group->{parameter} = $group->{value}$group->{unit}";
+        }
+        $from = join "\n", @label;
+        # create edge
+        my $to    = $setting->{group_to};
+        my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
+        my $label = "$setting->{parameter} to $setting->{param_to}";
+        $g->add_node(name => $from) unless $nodes{$from}++;
+        $g->add_node(name => $to)   unless $nodes{$to}++;
+        $g->add_edge(
+            from  => $from,
+            to    => $to,
+            label => $label,
+        ) unless $edges{$param}++;
     }
 
     (my $model = $model_name) =~ s/\W/_/g;
