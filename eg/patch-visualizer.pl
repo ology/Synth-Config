@@ -35,15 +35,18 @@ for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
-    # TODO if settings then update
-    unless (@$settings) {
-        for my $setting ($patch->{settings}->@*) {
+    for my $setting ($patch->{settings}->@*) {
+        my $id = $setting->{id};
+        if ($id) {
+            print "Updating $patch_name setting in $model_name...\n";
+            $synth->make_setting(id => $id, %$setting);
+        }
+        else {
             print "Adding $patch_name setting to $model_name...\n";
             $synth->make_setting(name => $patch_name, %$setting);
         }
-
-        $settings = $synth->search_settings(name => $patch_name);
     }
+    $settings = $synth->search_settings(name => $patch_name);
 
     my $g = GraphViz2->new(
         global => { directed => 1 },
