@@ -83,8 +83,8 @@ for my $patch ($config->{patches}->@*) {
         my $to    = $setting->{group_to};
         my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
         my $label = "$setting->{parameter} to $setting->{param_to}";
-        $to = $labels{$to};
         $from = $labels{$from};
+        $to = $labels{$to};
         $g->add_node(name => $from) unless $nodes{$from}++;
         $g->add_node(name => $to) unless $to && $nodes{$to}++;
         $g->add_edge(
