@@ -249,6 +249,7 @@ sub recall_setting {
     { id => $id },
   )->expand(json => 'settings')->hash;
   my $setting = $result->{settings};
+  $setting->{id} = $id;
   $setting->{name} = $result->{name};
   return $setting;
 }
@@ -307,9 +308,10 @@ sub recall_all {
   my $results = $self->_sqlite->query($sql);
   my @settings;
   while (my $next = $results->hash) {
-    push @settings, { $next->{id} => from_json($next->{settings}) };
-    # add the setting name to the settings data
-    $settings[-1]->{ $next->{id} }{name} = $next->{name};
+    my $set = from_json($next->{settings});
+    $set->{id} = $next->{id};
+    $set->{name} = $next->{name};
+    push @settings, $set;
   }
   return \@settings;
 }
