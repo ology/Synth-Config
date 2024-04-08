@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0043 2024-04-08 10:06:44
     - Refactor search and recall methods to return simpler results.
     - Fix-up the visualization example program and config file.
     - Update tests!
