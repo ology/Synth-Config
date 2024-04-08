@@ -58,9 +58,9 @@ use namespace::clean;
   );
   my $spec_id = $synth->make_spec(%spec);
   my $specs = $synth->recall_spec(id => $spec_id);
-  $synth->remove_spec;
 
   # remove stuff!
+  $synth->remove_spec;
   $synth->remove_setting(id => $id1);
   $synth->remove_settings(name => $name);
   $synth->remove_model(model => $model);
