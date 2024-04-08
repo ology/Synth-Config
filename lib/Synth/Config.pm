@@ -2,7 +2,7 @@ package Synth::Config;
 
 # ABSTRACT: Synthesizer settings librarian
 
-our $VERSION = '0.0045';
+our $VERSION = '0.0046';
 
 use Moo;
 use strictures 2;
@@ -499,9 +499,6 @@ __END__
 =head1 SEE ALSO
 
 The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
-
-The L<Mojolicious::Lite> user interface that automates synthesizer
-configuration saving and retrieval is F<eg/synth-config-mojo.pl>.
 
 L<Moo>
 
