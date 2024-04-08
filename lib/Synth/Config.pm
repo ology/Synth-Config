@@ -25,16 +25,16 @@ use namespace::clean;
   my $id2 = $synth->make_setting(name => $name, group => 'sequencer', etc => '...');
 
   my $setting = $synth->recall_setting(id => $id1);
-  # { group => 'filter' }
+  # { id => 1, group => 'filter' }
 
   # update the group key
   $synth->make_setting(id => $id1, group => 'envelope');
 
   my $settings = $synth->search_settings(name => $name);
-  # [ 1 => { group => 'envelope', etc => '...' }, 2 => { group => 'sequencer', etc => '...' } ]
+  # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
 
   $settings = $synth->search_settings(group => 'sequencer');
-  # [ 2 => { group => 'sequencer', etc => '...' } ]
+  # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
@@ -189,12 +189,12 @@ Example:
   name: 'My Best Setting!'
   settings:
     group   parameter control bottom top   value unit is_default
-    filters cutoff    knob    20     20000 200   Hz   true
+    filters cutoff    knob    20     20000 200   Hz   1
 
   name: 'My Other Best Setting!'
   settings:
     group parameter control group_to param_to is_default
-    mixer output    patch   filters  vcf-1-in true
+    mixer output    patch   filters  vcf-1-in 0
 
 =cut
 
