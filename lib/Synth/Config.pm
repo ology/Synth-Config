@@ -498,21 +498,15 @@ __END__
 
 =head1 SEE ALSO
 
+The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
+
 The L<Mojolicious::Lite> user interface that automates synthesizer
 configuration saving and retrieval is F<eg/synth-config-mojo.pl>.
-
-The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
 
 L<Moo>
 
 L<Mojo::JSON>
 
 L<Mojo::SQLite>
-
-Knob: L<https://codepen.io/jhnsnc/pen/KXYayG>
-
-Switch: L<https://codepen.io/magnus16/pen/grzqMz>
-
-Slider: L<?>
 
 =cut
