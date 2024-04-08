@@ -37,10 +37,13 @@ for my $patch ($config->{patches}->@*) {
 
     my $settings = $synth->_search_settings(name => $patch_name);
 
-    $synth->remove_settings(name => $patch_name);
+    if ($settings) {
+        print "Removing $patch_name setting from $model_name\n";
+        $synth->remove_settings(name => $patch_name);
+    }
 
     for my $setting ($patch->{settings}->@*) {
-        print "Adding $patch_name setting to $model_name...\n";
+        print "Adding $patch_name setting to $model_name\n";
         $synth->make_setting(name => $patch_name, %$setting);
     }
     $settings = $synth->_search_settings(name => $patch_name);
