@@ -49,7 +49,7 @@ for my $patch ($config->{patches}->@*) {
             $synth->make_setting(name => $patch_name, %$setting);
         }
     }
-    $settings = $synth->search_settings(name => $patch_name);
+    $settings = $synth->_search_settings(name => $patch_name);
 
     my $g = GraphViz2->new(
         global => { directed => 1 },
@@ -63,14 +63,11 @@ for my $patch ($config->{patches}->@*) {
 
     # collect settings by group
     for my $s (@$settings) {
-        my $setting = (values(%$s))[0];
-        my $from = $setting->{group};
-        push $sets{$from}->@*, $setting;
+        my $from = $s->{group};
+        push $sets{$from}->@*, $s;
     }
     # create node label
-    for my $s (@$settings) {
-        my $setting = (values(%$s))[0];
-        my $from = $setting->{group};
+    for my $from (keys %sets) {
         my @label = ($from);
         for my $group ($sets{$from}->@*) {
             next if $group->{control} eq 'patch';
@@ -81,13 +78,12 @@ for my $patch ($config->{patches}->@*) {
 
     # render nodes and (patch) edges
     for my $s (@$settings) {
-        my $setting = (values(%$s))[0];
-        next if $setting->{control} ne 'patch';
+        next if $s->{control} ne 'patch';
         # create edge
-        my $from  = $setting->{group};
-        my $to    = $setting->{group_to};
-        my $param = "$from $setting->{parameter} to $to $setting->{param_to}";
-        my $label = "$setting->{parameter} to $setting->{param_to}";
+        my $from  = $s->{group};
+        my $to    = $s->{group_to};
+        my $param = "$from $s->{parameter} to $to $s->{param_to}";
+        my $label = "$s->{parameter} to $s->{param_to}";
         $from = $labels{$from};
         $to = $labels{$to} if exists $labels{$to};
         $g->add_edge(
