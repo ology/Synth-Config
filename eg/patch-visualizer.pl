@@ -25,7 +25,8 @@ GetOptions(\%opt,
 
 my $model_name = $opt{model};
 
-die "Usage: perl $0 --model='Modular'\n" unless $model_name;
+die "Usage: perl $0 --model='Modular' [--patch='Simple 001']\n"
+    unless $model_name;
 
 $opt{config} ||= "eg/$model_name.yaml";
 die "Invalid model config\n" unless -e $opt{config};
