@@ -1,8 +1,9 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
-    - Fix-up the visualization example config file.
-    - Update tests.
+    - Refactor search and recall methods to return simpler results.
+    - Fix-up the visualization example program and config file.
+    - Update tests!
 
 0.0042 2024-03-31 20:12:33
     - Fix eg/visualize.pl and Module.yaml.
