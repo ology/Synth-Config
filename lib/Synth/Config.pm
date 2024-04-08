@@ -501,7 +501,7 @@ __END__
 The L<Mojolicious::Lite> user interface that automates synthesizer
 configuration saving and retrieval is F<eg/synth-config-mojo.pl>.
 
-The F<t/01-methods.t> and F<eg/synth-config-cli.pl> files in this distribution
+The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
 
 L<Moo>
 
