@@ -80,17 +80,16 @@ for my $patch ($config->{patches}->@*) {
     for my $s (@$settings) {
         next if $s->{control} ne 'patch';
         # create edge
-        my $from  = $s->{group};
-        my $to    = $s->{group_to};
-        my $param = "$from $s->{parameter} to $to $s->{param_to}";
-        my $label = "$s->{parameter} to $s->{param_to}";
+        my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
+        my $key = "$from $param to $to $param_to";
+        my $label = "$param to $param_to";
         $from = $labels{$from};
         $to = $labels{$to} if exists $labels{$to};
         $g->add_edge(
             from  => $from,
             to    => $to,
             label => $label,
-        ) unless $edges{$param}++;
+        ) unless $edges{$key}++;
     }
 
     (my $model = $model_name) =~ s/\W/_/g;
