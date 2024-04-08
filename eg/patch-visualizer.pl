@@ -9,6 +9,7 @@ use Synth::Config ();
 use Data::Dumper::Compact qw(ddc);
 use Getopt::Long qw(GetOptions);
 use GraphViz2 ();
+use List::Util qw(first);
 use YAML qw(LoadFile);
 
 my %opt = ( # defaults:
@@ -34,9 +35,11 @@ my $synth = Synth::Config->new(model => $model_name);
 for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
 
-    my $settings = $synth->search_settings(name => $patch_name);
+    my $settings = $synth->_search_settings(name => $patch_name);
+
     for my $setting ($patch->{settings}->@*) {
-        my $id = $setting->{id};
+        my $set = first { $settings->[$_]{parameter} eq $setting->{parameter} } @$settings;
+        my $id = $set ? $set->{id} : undef;
         if ($id) {
             print "Updating $patch_name setting in $model_name...\n";
             $synth->make_setting(id => $id, %$setting);
