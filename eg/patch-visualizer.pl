@@ -38,7 +38,7 @@ for my $patch ($config->{patches}->@*) {
     my $settings = $synth->_search_settings(name => $patch_name);
 
     for my $setting ($patch->{settings}->@*) {
-        my $set = first { $settings->[$_]{parameter} eq $setting->{parameter} } @$settings;
+        my $set = first { $_->{parameter} eq $setting->{parameter} } @$settings;
         my $id = $set ? $set->{id} : undef;
         if ($id) {
             print "Updating $patch_name setting in $model_name...\n";
