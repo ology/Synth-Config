@@ -61,9 +61,9 @@ use namespace::clean;
 
   # remove stuff!
   $synth->remove_spec;
-  $synth->remove_setting(id => $id1);
-  $synth->remove_settings(name => $name);
-  $synth->remove_model(model => $model);
+  $synth->remove_setting(id => $id1);     # remove a particular setting
+  $synth->remove_settings(name => $name); # remove all setting sharing the same name
+  $synth->remove_model(model => $model);  # remove the entire model
 
 =head1 DESCRIPTION
 
