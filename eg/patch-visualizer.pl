@@ -37,7 +37,7 @@ my $synth = Synth::Config->new(model => $model_name);
 for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
 
-    next if $opt{patch} && $patch_name eq $opt{patch};
+    next unless $opt{patch} || $patch_name eq $opt{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
 
