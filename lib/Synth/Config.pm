@@ -290,6 +290,33 @@ sub search_settings {
   return \@settings;
 }
 
+sub _search_settings {
+  my ($self, %args) = @_;
+  my $name = delete $args{name};
+  my @where;
+  push @where, "name = '$name'" if $name;
+  for my $arg (keys %args) {
+    next unless $args{$arg};
+    $args{$arg} =~ s/'/''/g; # escape the single-quote
+    push @where, q/json_extract(settings, '$./ . $arg . q/') = / . "'$args{$arg}'";
+  }
+  return [] unless @where;
+  my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup, json_extract(settings, '$.parameter') as parameter from /
+    . $self->model
+    . ' where ' . join(' and ', @where)
+    . ' order by name,mygroup,parameter';
+  print "Search SQL: $sql\n" if $self->verbose;
+  my $results = $self->_sqlite->query($sql);
+  my @settings;
+  while (my $next = $results->hash) {
+    my $set = from_json($next->{settings});
+    $set->{id} = $next->{id};
+    $set->{name} = $next->{name};
+    push @settings, $set;
+  }
+  return \@settings;
+}
+
 =head2 recall_all
 
   my $settings = $synth->recall_all;
