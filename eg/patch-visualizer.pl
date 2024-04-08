@@ -28,7 +28,6 @@ die "Usage: perl $0 --model='My modular'\n" unless $model_name;
 $opt{config} ||= "eg/$model_name.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 my $config = LoadFile($opt{config});
-#warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});exit;
 
 my $synth = Synth::Config->new(model => $model_name);
 
