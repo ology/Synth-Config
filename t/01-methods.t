@@ -46,6 +46,13 @@ subtest settings => sub {
   is keys(%$setting), keys(%$expect), 'recall_setting';
   # check the updated field
   ok $setting->{is_default}, 'is_default';
+  # undef a single field in the setting
+  $got = $obj->make_setting(id => $id, is_default => undef);
+  is $got, $id, 'make_setting undef update';
+  # recall that same setting
+  $setting = $obj->recall_setting(id => $id);
+  # check the updated field
+  ok !$setting->{is_default}, 'is_default';
   # search the settings for a particular key
   my $settings = $obj->search_settings(group => $expect->{group});
   is_deeply $settings, [ { $id => $setting } ], 'search_settings';
