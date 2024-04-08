@@ -34,7 +34,7 @@ my $synth = Synth::Config->new(model => $model_name);
 for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
 
-    my $settings = $synth->_search_settings(name => $patch_name);
+    my $settings = $synth->search_settings(name => $patch_name);
 
     if ($settings) {
         print "Removing $patch_name setting from $model_name\n";
@@ -45,7 +45,7 @@ for my $patch ($config->{patches}->@*) {
         print "Adding $patch_name setting to $model_name\n";
         $synth->make_setting(name => $patch_name, %$setting);
     }
-    $settings = $synth->_search_settings(name => $patch_name);
+    $settings = $synth->search_settings(name => $patch_name);
 
     my $g = GraphViz2->new(
         global => { directed => 1 },
