@@ -42,6 +42,7 @@ use namespace::clean;
   my $names = $synth->recall_names;
   # [ 'My favorite setting' ]
 
+  # declare the possible settings
   my %spec = ( # default initial model specification
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
     group      => [],
