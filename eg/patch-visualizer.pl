@@ -36,7 +36,7 @@ for my $patch ($config->{patches}->@*) {
 
     my $settings = $synth->search_settings(name => $patch_name);
 
-    if ($settings) {
+    if ($settings && @$settings) {
         print "Removing $patch_name setting from $model_name\n";
         $synth->remove_settings(name => $patch_name);
     }
