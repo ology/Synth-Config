@@ -15,10 +15,12 @@ use YAML qw(LoadFile);
 my %opt = ( # defaults:
     model  => undef, # e.g. 'Modular'
     config => undef, # n.b. set below if not given
+    patch  => undef, # e.g. 'Simple 001'
 );
 GetOptions(\%opt,
     'model=s',
     'config=s',
+    'patch=s',
 );
 
 my $model_name = $opt{model};
@@ -33,6 +35,8 @@ my $synth = Synth::Config->new(model => $model_name);
 
 for my $patch ($config->{patches}->@*) {
     my $patch_name = $patch->{patch};
+
+    next if $opt{patch} && $patch_name eq $opt{patch};
 
     my $settings = $synth->search_settings(name => $patch_name);
 
