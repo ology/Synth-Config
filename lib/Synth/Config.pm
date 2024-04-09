@@ -456,6 +456,30 @@ sub make_spec {
   return $id;
 }
 
+=head2 recall_specs
+
+  my $specs = $synth->recall_specs;
+
+Return all the specs.
+
+=cut
+
+sub recall_specs {
+  my ($self) = @_;
+  my $sql = q/select id,model,spec,json_extract(spec, '$.group') as mygroup from /
+    . 'specs'
+    . ' order by model,mygroup';
+  my $results = $self->_sqlite->query($sql);
+  my @specs;
+  while (my $next = $results->hash) {
+    my $set = from_json($next->{spec});
+    $set->{id} = $next->{id};
+    $set->{model} = $next->{model};
+    push @specs, $set;
+  }
+  return \@specs;
+}
+
 =head2 recall_spec
 
   my $spec = $synth->recall_spec(id => $id);
