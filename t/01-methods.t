@@ -128,7 +128,9 @@ subtest specs => sub {
   my $got = $obj->recall_spec(id => $id);
   $expect->{id} = $id;
   is_deeply $got, $expect, 'recall_spec';
-#  my $specs = $obj->recall_specs;
+  $got = $obj->recall_specs;
+  $expect->{model} = $obj->model;
+  is_deeply $got->[0], $expect, 'recall_specs';
 };
 
 subtest cleanup => sub {
