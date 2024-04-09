@@ -468,6 +468,7 @@ sub recall_specs {
   my ($self) = @_;
   my $sql = q/select id,model,spec,json_extract(spec, '$.group') as mygroup from /
     . 'specs'
+    . " where model = '" . $self->model . "'"
     . ' order by model,mygroup';
   my $results = $self->_sqlite->query($sql);
   my @specs;
