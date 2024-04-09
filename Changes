@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve the specs logic.
     - Improve eg/patch-visualizer.pl.
     - Fix eg/synth-config-mojo.pl to use database specs.
 
