@@ -43,7 +43,7 @@ use namespace::clean;
   # [ 'My favorite setting' ]
 
   # declare the possible settings
-  my %spec = ( # default initial model specification
+  my %spec = (
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
     group      => [],
     parameter  => {},
@@ -57,7 +57,8 @@ use namespace::clean;
     is_default => [0, 1],
   );
   my $spec_id = $synth->make_spec(%spec);
-  my $specs = $synth->recall_spec(id => $spec_id);
+  my $spec = $synth->recall_spec(id => $spec_id);
+  my $specs = $synth->recall_specs;
 
   # remove stuff!
   $synth->remove_spec;
@@ -457,7 +458,7 @@ sub make_spec {
 
 =head2 recall_spec
 
-  my $specs = $synth->recall_spec(id => $id);
+  my $spec = $synth->recall_spec(id => $id);
 
 Return the model configuration specification for the given B<id>.
 
@@ -472,8 +473,9 @@ sub recall_spec {
     ['spec'],
     { id => $id },
   )->expand(json => 'spec')->hash;
-  my $specs = $result->{spec};
-  return $specs;
+  my $spec = $result->{spec};
+  $spec->{id} = $id;
+  return $spec;
 }
 
 =head2 remove_spec
