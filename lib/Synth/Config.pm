@@ -460,7 +460,7 @@ sub make_spec {
 
   my $specs = $synth->recall_specs;
 
-Return all the specs.
+Return the specs for the model.
 
 =cut
 
@@ -478,7 +478,7 @@ sub recall_specs {
     $set->{model} = $next->{model};
     push @specs, $set;
   }
-  return \@specs;
+  return $specs[0];
 }
 
 =head2 recall_spec
