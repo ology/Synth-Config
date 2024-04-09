@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0047 2024-04-09 11:28:00
     - Improve the specs logic.
     - Improve eg/patch-visualizer.pl.
     - Fix eg/synth-config-mojo.pl to use database specs.
