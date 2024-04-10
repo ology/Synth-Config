@@ -17,12 +17,10 @@ use Synth::Config ();
 pod2usage(1) unless @ARGV;
 
 my %opts = (
-    model  => undef,
-    dbname => undef,
+    model => undef,
 );
 GetOptions( \%opts,
     'model=s',
-    'dbname=s',
 ) or pod2usage(2);
 
 pod2usage(1) if $opts{help};
@@ -149,7 +147,7 @@ synth-config.pl - Save synth settings
 
 =head1 SYNOPSIS
 
-  synth-config.pl --model=Something [--dbname=synth.db]
+  synth-config.pl --model=Modular
 
 =head1 OPTIONS
 
@@ -158,10 +156,6 @@ synth-config.pl - Save synth settings
 =item B<model>
 
 The required synthesizer model name.
-
-=item B<dbname>
-
-The name of the SQLite database in which to save settings.
 
 =back
 
