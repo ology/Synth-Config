@@ -17,20 +17,23 @@ use Synth::Config ();
 pod2usage(1) unless @ARGV;
 
 my %opts = (
-    model => undef,
+    model => undef, # e.g. 'Modular'
+    patch => undef, # e.g. 'Simple 001'
 );
 GetOptions( \%opts,
     'model=s',
+    'patch=s',
 ) or pod2usage(2);
 
 pod2usage(1) if $opts{help};
 pod2usage(-exitval => 0, -verbose => 2) if $opts{man};
 
-if (my @missing = grep !defined($opts{$_}), qw(model)) {
-    die 'Missing: ' . join(', ', @missing);
-}
+die "Usage: perl $0 --model='Modular'\n"
+    unless $opts{model};
 
-my $name = prompt('What is the name of this setting?', 'required');
+my $name = $opts{patch};
+unless ($name) {
+    $name = prompt('What is the name of this setting?', 'required');
 die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
