@@ -478,7 +478,7 @@ sub recall_specs {
     $set->{model} = $next->{model};
     push @specs, $set;
   }
-  return $specs[0];
+  return \@specs;
 }
 
 =head2 recall_spec
