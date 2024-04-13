@@ -38,7 +38,7 @@ die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
 
-my $specs = $synth->recall_specs;
+my $specs = $synth->recall_specs()->[0];
 
 # instantiate a chooser if needed
 my $tc = $specs ? Term::Choose->new : undef;
