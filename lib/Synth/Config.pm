@@ -59,6 +59,7 @@ use namespace::clean;
   my $spec_id = $synth->make_spec(%spec);
   my $spec = $synth->recall_spec(id => $spec_id);
   my $specs = $synth->recall_specs;
+  # [ { order => [ ... ], etc => ... } ]
 
   # remove stuff!
   $synth->remove_spec;
