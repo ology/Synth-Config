@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0048 2024-04-13 10:44:44
     - Improve eg/synth-config-cli.pl.
     - Fix the return value of recall_specs().
 
