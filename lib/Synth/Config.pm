@@ -8,6 +8,7 @@ use Moo;
 use strictures 2;
 use Carp qw(croak);
 use GraphViz2 ();
+use List::Util qw(first);
 use Mojo::JSON qw(from_json to_json);
 use Mojo::SQLite ();
 use YAML qw(Load LoadFile);
@@ -555,8 +556,6 @@ sub import_yaml {
   my $config = $options{file}
     ? LoadFile($options{file})
     : Load($options{string});
-use Data::Dumper::Compact qw(ddc);
-warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});
 
   my $list = $options{patches} && @{ $options{patches} }
     ? $options{patches}
@@ -572,6 +571,7 @@ warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});
 
     for my $patch (@{ $config->{patches} }) {
       my $name = $patch->{patch};
+      next unless first { $_ eq $name } @$list;
       for my $set (@{ $patch->{settings} }) {
         my $group = $set->{group};
         print "Adding $name $group setting to ", $self->model, "\n";
