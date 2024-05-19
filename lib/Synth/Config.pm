@@ -37,7 +37,12 @@ use namespace::clean;
   $settings = $synth->search_settings(group => 'sequencer');
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
-  $synth->graphviz(\@settings);
+  $g = $synth->graphviz(
+    settings   => $settings,
+    model_name => $model_name,
+    patch_name => $patch_name,
+    render     => 1,
+  );
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
