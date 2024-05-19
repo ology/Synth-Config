@@ -34,6 +34,7 @@ die "Usage: perl $0 --model='Modular'\n"
 my $name = $opts{patch};
 unless ($name) {
     $name = prompt('What is the name of this setting?', 'required');
+}
 die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
