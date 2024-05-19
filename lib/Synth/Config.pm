@@ -7,6 +7,7 @@ our $VERSION = '0.0048';
 use Moo;
 use strictures 2;
 use Carp qw(croak);
+use GraphViz2 ();
 use Mojo::JSON qw(from_json to_json);
 use Mojo::SQLite ();
 use namespace::clean;
@@ -35,6 +36,8 @@ use namespace::clean;
 
   $settings = $synth->search_settings(group => 'sequencer');
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
+
+  $synth->graphviz(\@settings);
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
@@ -521,12 +524,83 @@ sub remove_spec {
   );
 }
 
+=head2 graphviz
+
+  $synth->graphviz(\@settings);
+
+Visualize a patch of B<settings> with the L<GraphViz2> module.
+
+=cut
+
+sub graphviz {
+  my ($self, $settings, $options) = @_;
+
+  $options->{render}     ||= 0;
+  $options->{path}       ||= '.';
+  $options->{model_name} ||= 'model';
+  $options->{patch_name} ||= 'patch';
+  $options->{extension}  ||= 'png';
+  $options->{shape}      ||= 'oval';
+  $options->{color}      ||= 'grey';
+
+  my $g = GraphViz2->new(
+    global => { directed => 1 },
+    node   => { shape => $options->{shape} },
+    edge   => { color => $options->{color} },
+  );
+  my (%edges, %sets, %labels);
+
+  # collect settings by group
+  for my $set (@$settings) {
+    my $from = $set->{group};
+    push @{ $sets{$from} }, $set;
+  }
+
+  # accumulate parameter = value lines
+  for my $from (keys %sets) {
+    my @label = ($from);
+    for my $group ($sets{$from}->@*) {
+      next if $group->{control} eq 'patch';
+      my $label = "$group->{parameter} = $group->{value}$group->{unit}";
+      push @label, $label;
+    }
+    $labels{$from} = join "\n", @label;
+  }
+
+  # add patch edges
+  for my $s (@$settings) {
+    next if $s->{control} ne 'patch';
+    my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
+    my $key = "$from $param to $to $param_to";
+    my $label = "$param to $param_to";
+    $from = $labels{$from};
+    $to = $labels{$to} if exists $labels{$to};
+    $g->add_edge(
+      from  => $from,
+      to    => $to,
+      label => $label,
+    ) unless $edges{$key}++;
+  }
+
+  if ($options->{render}) {
+    # save the file
+    (my $model = $options->{model_name}) =~ s/\W/_/g;
+    (my $patch = $options->{patch_name}) =~ s/\W/_/g;
+    my $filename = "$options->{path}/$model-$patch.$options->{extension}";
+    $g->run(format => $options->{extension}, output_file => $filename);
+  }
+
+  return $g;
+}
+
 1;
 __END__
 
 =head1 SEE ALSO
 
 The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
+
+L<GraphViz2>
 
 L<Moo>
 
