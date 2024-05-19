@@ -37,7 +37,6 @@ for my $patch_name (@$patches) {
     $synth->graphviz(
         settings   => $settings,
         model_name => $model,
-        patch_name => $patch_name,
         render     => 1,
     );
 }
