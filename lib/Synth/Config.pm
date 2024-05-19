@@ -47,13 +47,11 @@ use namespace::clean;
   my $g = $synth->graphviz(
     settings   => $settings,
     model_name => $model,
-    patch_name => $patch,
   );
   # or
   $synth->graphviz(
     settings   => $settings,
     model_name => $model,
-    patch_name => $patch,
     render     => 1,
   );
 
