@@ -29,7 +29,7 @@ my $synth = Synth::Config->new(model => $model);
 
 my $patches = $synth->import_yaml(
     file => $opt{config},
-    $opt{patch} ? (patches => $opt{patch}) : (),
+    $opt{patch} ? (patches => [ $opt{patch} ]) : (),
 );
 
 for my $patch (@$patches) {
