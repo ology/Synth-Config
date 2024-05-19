@@ -26,7 +26,7 @@ $opt{config} ||= "eg/$model.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 
 my $synth = Synth::Config->new(
-    model   => $model,
+    model => $model,
 #    verbose => 1,
 );
 
