@@ -94,6 +94,7 @@ for my $patch ($config->{patches}->@*) {
     # save the file
     (my $model = $model_name) =~ s/\W/_/g;
     (my $patch = $patch_name) =~ s/\W/_/g;
-    my $filename = "$model-$patch.png";
-    $g->run(format => 'png', output_file => $filename);
+    my $extension = 'png';
+    my $filename = "$model-$patch.$extension";
+    $g->run(format => $extension, output_file => $filename);
 }
