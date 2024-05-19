@@ -121,6 +121,15 @@ subtest settings => sub {
   is_deeply $settings, [], 'remove_settings';
 };
 
+subtest graphviz => sub {
+  my $got = $obj->graphviz(
+    settings   => $initial,
+    model_name => $model,
+    patch_name => $first,
+  );
+  isa_ok $got, 'GraphViz2';
+};
+
 subtest specs => sub {
   my $expect = {
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
