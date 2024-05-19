@@ -13,14 +13,16 @@ use List::Util qw(first);
 use YAML qw(LoadFile);
 
 my %opt = ( # defaults:
-    model  => undef, # e.g. 'Modular'
-    config => undef, # n.b. set below if not given
-    patch  => undef, # e.g. 'Simple 001'
+    model     => undef, # e.g. 'Modular'
+    config    => undef, # n.b. set below if not given
+    patch     => undef, # e.g. 'Simple 001'
+    extension => 'png',
 );
 GetOptions(\%opt,
     'model=s',
     'config=s',
     'patch=s',
+    'extension=s',
 );
 
 my $model_name = $opt{model};
@@ -94,7 +96,6 @@ for my $patch ($config->{patches}->@*) {
     # save the file
     (my $model = $model_name) =~ s/\W/_/g;
     (my $patch = $patch_name) =~ s/\W/_/g;
-    my $extension = 'png';
-    my $filename = "$model-$patch.$extension";
-    $g->run(format => $extension, output_file => $filename);
+    my $filename = "$model-$patch.$opt{extension}";
+    $g->run(format => $opt{extension}, output_file => $filename);
 }
