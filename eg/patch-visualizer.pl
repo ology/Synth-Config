@@ -34,7 +34,7 @@ my $patches = $synth->import_yaml(
 
 for my $patch (@$patches) {
     my $settings = $synth->search_settings(name => $patch);
-    my $g = $synth->graphviz(
+    $synth->graphviz(
         settings   => $settings,
         model_name => $model_name,
         patch_name => $patch,
