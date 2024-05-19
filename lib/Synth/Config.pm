@@ -561,12 +561,12 @@ sub import_yaml {
     ? $options{patches}
     : [ map { $_->{patch} } @{ $config->{patches} } ];
 
-  for my $patch (@$list) {
-    my $settings = $self->search_settings(name => $patch);
+  for my $patch_name (@$list) {
+    my $settings = $self->search_settings(name => $patch_name);
 
     if ($settings && @$settings) {
-      print "Removing $patch setting from ", $self->model, "\n";
-      $self->remove_settings(name => $patch);
+      print "Removing $patch_name setting from ", $self->model, "\n";
+      $self->remove_settings(name => $patch_name);
     }
 
     for my $patch (@{ $config->{patches} }) {
