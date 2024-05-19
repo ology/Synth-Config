@@ -13,8 +13,8 @@ my %opt = (
 );
 GetOptions(\%opt,
     'model=s',
-    'config=s',
     'patch=s',
+    'config=s',
 );
 
 my $model = $opt{model};
