@@ -64,6 +64,7 @@ for my $patch ($config->{patches}->@*) {
         my $from = $s->{group};
         push $sets{$from}->@*, $s;
     }
+
     # accumulate parameter = value lines
     for my $from (keys %sets) {
         my @label = ($from);
