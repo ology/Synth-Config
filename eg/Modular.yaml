@@ -139,22 +139,22 @@ patches:
         parameter: 'attack'
         control: 'slider'
         value: 2
-        unit: "%"
+        unit: '%'
       - group: 'envelope'
         parameter: 'decay'
         control: 'slider'
         value: 4
-        unit: "%"
+        unit: '%'
       - group: 'envelope'
         parameter: 'sustain'
         control: 'slider'
         value: 9
-        unit: "%"
+        unit: '%'
       - group: 'envelope'
         parameter: 'release'
         control: 'slider'
         value: 8.5
-        unit: "%"
+        unit: '%'
       # VCO
       - group: 'oscillator'
         parameter: 'out'
@@ -176,7 +176,7 @@ patches:
         parameter: 'gain'
         control: 'knob'
         value: 40
-        unit: "%"
+        unit: '%'
       # MIX
       - group: 'mixer'
         parameter: 'stereo-out'
@@ -187,7 +187,7 @@ patches:
         parameter: 'volume'
         control: 'slider'
         value: 80
-        unit: "%"
+        unit: '%'
   - patch: 'Simple 005'
     settings:
       - group: 'SEQ'
