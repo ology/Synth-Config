@@ -618,7 +618,6 @@ sub graphviz {
   my ($self, %options) = @_;
 
   die 'Model not given' unless $options{model_name};
-  die 'Patch not given' unless $options{patch_name};
 
   $options{render}    ||= 0;
   $options{path}      ||= '.';
@@ -651,9 +650,9 @@ sub graphviz {
   }
 
   # add patch edges
-  for my $s (@{ $options{settings} }) {
-    next if $s->{control} ne 'patch';
-    my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
+  for my $set (@{ $options{settings} }) {
+    next if $set->{control} ne 'patch';
+    my ($from, $to, $param, $param_to) = @$set{qw(group group_to parameter param_to)};
     my $key = "$from $param to $to $param_to";
     my $label = "$param to $param_to";
     $from = $labels{$from};
