@@ -604,10 +604,11 @@ Option defaults:
 sub graphviz {
   my ($self, %options) = @_;
 
+  die 'Model not given' unless $options{model_name};
+  die 'Patch not given' unless $options{patch_name};
+
   $options{render}     ||= 0;
   $options{path}       ||= '.';
-  $options{model_name} ||= 'model';
-  $options{patch_name} ||= 'patch';
   $options{extension}  ||= 'png';
   $options{shape}      ||= 'oval';
   $options{color}      ||= 'grey';
