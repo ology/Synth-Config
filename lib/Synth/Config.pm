@@ -39,7 +39,13 @@ use namespace::clean;
   $settings = $synth->search_settings(group => 'sequencer');
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
-  $g = $synth->graphviz(
+  my $g = $synth->graphviz(
+    settings   => $settings,
+    model_name => $model,
+    patch_name => $patch,
+  );
+  # or
+  $synth->graphviz(
     settings   => $settings,
     model_name => $model,
     patch_name => $patch,
