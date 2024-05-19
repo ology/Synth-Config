@@ -25,7 +25,10 @@ die "Usage: perl $0 --model='Modular' [--patch='Simple 001' --patch='Simple 002'
 $opt{config} ||= "eg/$model.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 
-my $synth = Synth::Config->new(model => $model);
+my $synth = Synth::Config->new(
+    model   => $model,
+#    verbose => 1,
+);
 
 my $patches = $synth->import_yaml(
     file => $opt{config},
