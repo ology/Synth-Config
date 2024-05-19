@@ -8,7 +8,6 @@ use Synth::Config ();
 
 use Data::Dumper::Compact qw(ddc);
 use Getopt::Long qw(GetOptions);
-use GraphViz2 ();
 use List::Util qw(first);
 use YAML qw(LoadFile);
 
@@ -16,13 +15,11 @@ my %opt = ( # defaults:
     model     => undef, # e.g. 'Modular'
     config    => undef, # n.b. set below if not given
     patch     => undef, # e.g. 'Simple 001'
-    extension => 'png',
 );
 GetOptions(\%opt,
     'model=s',
     'config=s',
     'patch=s',
-    'extension=s',
 );
 
 my $model_name = $opt{model};
@@ -54,48 +51,12 @@ for my $patch ($config->{patches}->@*) {
     }
     $settings = $synth->search_settings(name => $patch_name);
 
-    my $g = GraphViz2->new(
-        global => { directed => 1 },
-        node   => { shape => 'oval' },
-        edge   => { color => 'grey' },
+    my $g = $synth->graphviz(
+      $settings,
+      {
+        model_name => $model_name,
+        patch_name => $patch_name,
+        render     => 1,
+      }
     );
-    my (%edges, %sets, %labels);
-
-    # collect settings by group
-    for my $s (@$settings) {
-        my $from = $s->{group};
-        push $sets{$from}->@*, $s;
-    }
-
-    # accumulate parameter = value lines
-    for my $from (keys %sets) {
-        my @label = ($from);
-        for my $group ($sets{$from}->@*) {
-            next if $group->{control} eq 'patch';
-            my $label = "$group->{parameter} = $group->{value}$group->{unit}";
-            push @label, $label;
-        }
-        $labels{$from} = join "\n", @label;
-    }
-
-    # render patch edges
-    for my $s (@$settings) {
-        next if $s->{control} ne 'patch';
-        my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
-        my $key = "$from $param to $to $param_to";
-        my $label = "$param to $param_to";
-        $from = $labels{$from};
-        $to = $labels{$to} if exists $labels{$to};
-        $g->add_edge(
-            from  => $from,
-            to    => $to,
-            label => $label,
-        ) unless $edges{$key}++;
-    }
-
-    # save the file
-    (my $model = $model_name) =~ s/\W/_/g;
-    (my $patch = $patch_name) =~ s/\W/_/g;
-    my $filename = "$model-$patch.$opt{extension}";
-    $g->run(format => $opt{extension}, output_file => $filename);
 }
