@@ -576,7 +576,8 @@ sub import_yaml {
     my $settings = $self->search_settings(name => $patch_name);
 
     if ($settings && @$settings) {
-      print "Removing $patch_name setting from ", $self->model, "\n";
+      print "Removing $patch_name setting from ", $self->model, "\n"
+          if $self->verbose;
       $self->remove_settings(name => $patch_name);
     }
 
@@ -585,7 +586,8 @@ sub import_yaml {
       next unless first { $_ eq $name } @$list;
       for my $set (@{ $patch->{settings} }) {
         my $group = $set->{group};
-        print "Adding $name $group setting to ", $self->model, "\n";
+        print "Adding $name $group setting to ", $self->model, "\n"
+          if $self->verbose;
         $self->make_setting(name => $name, %$set);
       }
     }
