@@ -533,25 +533,25 @@ Visualize a patch of B<settings> with the L<GraphViz2> module.
 =cut
 
 sub graphviz {
-  my ($self, $settings, $options) = @_;
+  my ($self, %options) = @_;
 
-  $options->{render}     ||= 0;
-  $options->{path}       ||= '.';
-  $options->{model_name} ||= 'model';
-  $options->{patch_name} ||= 'patch';
-  $options->{extension}  ||= 'png';
-  $options->{shape}      ||= 'oval';
-  $options->{color}      ||= 'grey';
+  $options{render}     ||= 0;
+  $options{path}       ||= '.';
+  $options{model_name} ||= 'model';
+  $options{patch_name} ||= 'patch';
+  $options{extension}  ||= 'png';
+  $options{shape}      ||= 'oval';
+  $options{color}      ||= 'grey';
 
   my $g = GraphViz2->new(
     global => { directed => 1 },
-    node   => { shape => $options->{shape} },
-    edge   => { color => $options->{color} },
+    node   => { shape => $options{shape} },
+    edge   => { color => $options{color} },
   );
   my (%edges, %sets, %labels);
 
   # collect settings by group
-  for my $set (@$settings) {
+  for my $set (@{ $options{settings} }) {
     my $from = $set->{group};
     push @{ $sets{$from} }, $set;
   }
@@ -568,7 +568,7 @@ sub graphviz {
   }
 
   # add patch edges
-  for my $s (@$settings) {
+  for my $s (@{ $options{settings} }) {
     next if $s->{control} ne 'patch';
     my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
     my $key = "$from $param to $to $param_to";
@@ -582,12 +582,12 @@ sub graphviz {
     ) unless $edges{$key}++;
   }
 
-  if ($options->{render}) {
+  if ($options{render}) {
     # save the file
-    (my $model = $options->{model_name}) =~ s/\W/_/g;
-    (my $patch = $options->{patch_name}) =~ s/\W/_/g;
-    my $filename = "$options->{path}/$model-$patch.$options->{extension}";
-    $g->run(format => $options->{extension}, output_file => $filename);
+    (my $model = $options{model_name}) =~ s/\W/_/g;
+    (my $patch = $options{patch_name}) =~ s/\W/_/g;
+    my $filename = "$options{path}/$model-$patch.$options{extension}";
+    $g->run(format => $options{extension}, output_file => $filename);
   }
 
   return $g;
