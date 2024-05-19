@@ -20,10 +20,10 @@ use namespace::clean;
 
   my $synth = Synth::Config->new(model => $model);
 
-  my $name = 'My favorite setting';
+  my $patch = 'My favorite setting';
 
-  my $id1 = $synth->make_setting(name => $name, group => 'filter', etc => '...');
-  my $id2 = $synth->make_setting(name => $name, group => 'sequencer', etc => '...');
+  my $id1 = $synth->make_setting(name => $patch, group => 'filter', etc => '...');
+  my $id2 = $synth->make_setting(name => $patch, group => 'sequencer', etc => '...');
 
   my $setting = $synth->recall_setting(id => $id1);
   # { id => 1, group => 'filter' }
@@ -31,7 +31,7 @@ use namespace::clean;
   # update the group key
   $synth->make_setting(id => $id1, group => 'envelope');
 
-  my $settings = $synth->search_settings(name => $name);
+  my $settings = $synth->search_settings(name => $patch);
   # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
 
   $settings = $synth->search_settings(group => 'sequencer');
@@ -39,8 +39,8 @@ use namespace::clean;
 
   $g = $synth->graphviz(
     settings   => $settings,
-    model_name => $model_name,
-    patch_name => $patch_name,
+    model_name => $model,
+    patch_name => $patch,
     render     => 1,
   );
 
@@ -71,9 +71,9 @@ use namespace::clean;
 
   # remove stuff!
   $synth->remove_spec;
-  $synth->remove_setting(id => $id1);     # remove a particular setting
-  $synth->remove_settings(name => $name); # remove all setting sharing the same name
-  $synth->remove_model(model => $model);  # remove the entire model
+  $synth->remove_setting(id => $id1);      # remove a particular setting
+  $synth->remove_settings(name => $patch); # remove all settings sharing the same name
+  $synth->remove_model(model => $model);   # remove the entire model
 
 =head1 DESCRIPTION
 
