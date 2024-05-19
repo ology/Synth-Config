@@ -8,8 +8,8 @@ use Getopt::Long qw(GetOptions);
 
 my %opt = (
     model  => undef, # e.g. 'Modular'
-    config => undef, # n.b. set below if not given
     patch  => undef, # e.g. 'Simple 001'
+    config => undef, # n.b. set below if not given
 );
 GetOptions(\%opt,
     'model=s',
