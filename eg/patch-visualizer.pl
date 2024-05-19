@@ -13,13 +13,13 @@ my %opt = (
 );
 GetOptions(\%opt,
     'model=s',
-    'patch=s',
+    'patch=s@',
     'config=s',
 );
 
 my $model = $opt{model};
 
-die "Usage: perl $0 --model='Modular' [--patch='Simple 001']\n"
+die "Usage: perl $0 --model='Modular' [--patch='Simple 001' --patch='Simple 002']\n"
     unless $model;
 
 $opt{config} ||= "eg/$model.yaml";
