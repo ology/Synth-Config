@@ -52,11 +52,9 @@ for my $patch ($config->{patches}->@*) {
     $settings = $synth->search_settings(name => $patch_name);
 
     my $g = $synth->graphviz(
-      $settings,
-      {
-        model_name => $model_name,
-        patch_name => $patch_name,
-        render     => 1,
-      }
+      settings   => $settings,
+      model_name => $model_name,
+      patch_name => $patch_name,
+      render     => 1,
     );
 }
