@@ -607,11 +607,11 @@ sub graphviz {
   die 'Model not given' unless $options{model_name};
   die 'Patch not given' unless $options{patch_name};
 
-  $options{render}     ||= 0;
-  $options{path}       ||= '.';
-  $options{extension}  ||= 'png';
-  $options{shape}      ||= 'oval';
-  $options{color}      ||= 'grey';
+  $options{render}    ||= 0;
+  $options{path}      ||= '.';
+  $options{extension} ||= 'png';
+  $options{shape}     ||= 'oval';
+  $options{color}     ||= 'grey';
 
   my $g = GraphViz2->new(
     global => { directed => 1 },
