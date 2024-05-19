@@ -33,7 +33,7 @@ use namespace::clean;
   my $id2 = $synth->make_setting(name => $patch, group => 'sequencer', etc => '...');
 
   my $setting = $synth->recall_setting(id => $id1);
-  # { id => 1, group => 'filter' }
+  # { id => 1, group => 'filter', etc => '...' }
 
   # update the group key
   $synth->make_setting(id => $id1, group => 'envelope');
