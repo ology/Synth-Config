@@ -532,16 +532,17 @@ sub remove_spec {
 
 =head1 import_yaml
 
-Add the settings in a L<YAML> file or string, to the database.
+Add the settings in a L<YAML> file or string, to the database and
+return the setting (patch) name.
 
-Import a specific B<patch> in the settings, by providing it in the
-B<options>.
+Import a specific set of B<patches> in the settings, by providing them
+in the B<options>.
 
 Option defaults:
 
-  file   = undef
-  string = undef
-  patch  = undef
+  file    = undef
+  string  = undef
+  patches = undef
 
 =cut
 
@@ -555,23 +556,25 @@ sub import_yaml {
     ? LoadFile($options{file})
     : Load($options{string});
 
-  for my $patch (@{ $config->{patches} }) {
-    my $patch_name = $patch->{patch};
+  my $list = $options{patches}
+    ? $options{patches}
+    : [ map { $_->{patch} } @{ $config->{patches} } ];
 
-    next if $options{patch} && $patch_name ne $options{patch};
-
-    my $settings = $self->search_settings(name => $patch_name);
+  for my $patch (@$list) {
+    my $settings = $self->search_settings(name => $patch);
 
     if ($settings && @$settings) {
-      print "Removing $patch_name setting from ", $self->model, "\n";
-      $self->remove_settings(name => $patch_name);
+      print "Removing $patch setting from ", $self->model, "\n";
+      $self->remove_settings(name => $patch);
     }
 
-    for my $setting (@{ $patch->{settings} }) {
-      print "Adding $patch_name setting to ", $self->model, "\n";
-      $self->make_setting(name => $patch_name, %$setting);
+    for my $setting (@{ $config->{patches}{$patch}{settings} }) {
+      print "Adding $patch setting to ", $self->model, "\n";
+      $self->make_setting(name => $patch, %$setting);
     }
   }
+
+  return $list;
 }
 
 =head2 graphviz
