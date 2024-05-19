@@ -17,15 +17,15 @@ GetOptions(\%opt,
     'patch=s',
 );
 
-my $model_name = $opt{model};
+my $model = $opt{model};
 
 die "Usage: perl $0 --model='Modular' [--patch='Simple 001']\n"
-    unless $model_name;
+    unless $model;
 
-$opt{config} ||= "eg/$model_name.yaml";
+$opt{config} ||= "eg/$model.yaml";
 die "Invalid model config\n" unless -e $opt{config};
 
-my $synth = Synth::Config->new(model => $model_name);
+my $synth = Synth::Config->new(model => $model);
 
 my $patches = $synth->import_yaml(
     file    => $opt{config},
@@ -36,7 +36,7 @@ for my $patch (@$patches) {
     my $settings = $synth->search_settings(name => $patch);
     $synth->graphviz(
         settings   => $settings,
-        model_name => $model_name,
+        model_name => $model,
         patch_name => $patch,
         render     => 1,
     );
