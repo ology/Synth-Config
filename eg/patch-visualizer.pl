@@ -67,7 +67,7 @@ for my $patch ($config->{patches}->@*) {
         my $from = $s->{group};
         push $sets{$from}->@*, $s;
     }
-    # create node label
+    # accumulate parameter = value lines
     for my $from (keys %sets) {
         my @label = ($from);
         for my $group ($sets{$from}->@*) {
@@ -78,7 +78,7 @@ for my $patch ($config->{patches}->@*) {
         $labels{$from} = join "\n", @label;
     }
 
-    # render nodes and (patch) edges
+    # render patch edges
     for my $s (@$settings) {
         next if $s->{control} ne 'patch';
         # create edge
@@ -94,9 +94,9 @@ for my $patch ($config->{patches}->@*) {
         ) unless $edges{$key}++;
     }
 
+    # save the file
     (my $model = $model_name) =~ s/\W/_/g;
     (my $patch = $patch_name) =~ s/\W/_/g;
     my $filename = "$model-$patch.png";
-
     $g->run(format => 'png', output_file => $filename);
 }
