@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve documentation.
 
 0.0051 2024-05-19 11:38:27
     - Add missing tests for import_yaml() and graphviz().
