@@ -555,8 +555,10 @@ sub import_yaml {
   my $config = $options{file}
     ? LoadFile($options{file})
     : Load($options{string});
+use Data::Dumper::Compact qw(ddc);
+warn __PACKAGE__,' L',__LINE__,' ',ddc($config, {max_width=>128});
 
-  my $list = $options{patches}
+  my $list = $options{patches} && @{ $options{patches} }
     ? $options{patches}
     : [ map { $_->{patch} } @{ $config->{patches} } ];
 
@@ -568,9 +570,13 @@ sub import_yaml {
       $self->remove_settings(name => $patch);
     }
 
-    for my $setting (@{ $config->{patches}{$patch}{settings} }) {
-      print "Adding $patch setting to ", $self->model, "\n";
-      $self->make_setting(name => $patch, %$setting);
+    for my $patch (@{ $config->{patches} }) {
+      my $name = $patch->{patch};
+      for my $set (@{ $patch->{settings} }) {
+        my $group = $set->{group};
+        print "Adding $name $group setting to ", $self->model, "\n";
+        $self->make_setting(name => $name, %$set);
+      }
     }
   }
 
