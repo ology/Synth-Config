@@ -2,6 +2,9 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Add a real-world example of a patch I need to save: eg/Maths.yaml.
+    - Add the import_yaml() method.
+    - Add the graphviz() method.
+    - Simplify eg/patch-visualizer.pl.
 
 0.0048 2024-04-13 10:44:44
     - Improve eg/synth-config-cli.pl.
