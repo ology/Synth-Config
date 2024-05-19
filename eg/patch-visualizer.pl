@@ -81,7 +81,6 @@ for my $patch ($config->{patches}->@*) {
     # render patch edges
     for my $s (@$settings) {
         next if $s->{control} ne 'patch';
-        # create edge
         my ($from, $to, $param, $param_to) = @$s{qw(group group_to parameter param_to)};
         my $key = "$from $param to $to $param_to";
         my $label = "$param to $param_to";
