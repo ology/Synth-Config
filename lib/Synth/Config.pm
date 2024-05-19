@@ -632,9 +632,11 @@ sub graphviz {
   );
   my (%edges, %sets, %labels);
 
+  my $patch_name = '';
   # collect settings by group
   for my $set (@{ $options{settings} }) {
     my $from = $set->{group};
+    $patch_name = $set->{name};
     push @{ $sets{$from} }, $set;
   }
 
@@ -667,7 +669,7 @@ sub graphviz {
   if ($options{render}) {
     # save the file
     (my $model = $options{model_name}) =~ s/\W/_/g;
-    (my $patch = $options{patch_name}) =~ s/\W/_/g;
+    (my $patch = $patch_name) =~ s/\W/_/g;
     my $filename = "$options{path}/$model-$patch.$options{extension}";
     $g->run(format => $options{extension}, output_file => $filename);
   }
