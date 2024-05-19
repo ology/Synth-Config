@@ -18,12 +18,17 @@ use namespace::clean;
 
   use Synth::Config ();
 
-  my $model = 'Moog Matriarch';
-
+  my $model = 'Modular';
   my $synth = Synth::Config->new(model => $model);
 
-  my $patch = 'My favorite setting';
+  # populate the database with patch settings from a configuration file
+  my $patches = $synth->import_yaml(
+      file    => "$model.yaml",
+      patches => ['Simple 001', 'Simple 002' ],
+  );
 
+  # populate the database with individual settings
+  my $patch = 'My favorite setting';
   my $id1 = $synth->make_setting(name => $patch, group => 'filter', etc => '...');
   my $id2 = $synth->make_setting(name => $patch, group => 'sequencer', etc => '...');
 
