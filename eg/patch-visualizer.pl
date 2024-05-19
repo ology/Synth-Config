@@ -57,10 +57,7 @@ for my $patch ($config->{patches}->@*) {
         node   => { shape => 'oval' },
         edge   => { color => 'grey' },
     );
-
-    my %edges;
-    my %sets;
-    my %labels;
+    my (%edges, %sets, %labels);
 
     # collect settings by group
     for my $s (@$settings) {
