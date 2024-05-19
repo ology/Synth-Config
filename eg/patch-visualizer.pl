@@ -32,12 +32,12 @@ my $patches = $synth->import_yaml(
     defined $opt{patch} ? (patches => $opt{patch}) : (),
 );
 
-for my $patch (@$patches) {
-    my $settings = $synth->search_settings(name => $patch);
+for my $patch_name (@$patches) {
+    my $settings = $synth->search_settings(name => $patch_name);
     $synth->graphviz(
         settings   => $settings,
         model_name => $model,
-        patch_name => $patch,
+        patch_name => $patch_name,
         render     => 1,
     );
 }
