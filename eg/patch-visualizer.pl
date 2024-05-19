@@ -28,8 +28,8 @@ die "Invalid model config\n" unless -e $opt{config};
 my $synth = Synth::Config->new(model => $model_name);
 
 my $patches = $synth->import_yaml(
-    file  => $opt{config},
-    patch => $opt{patch},
+    file    => $opt{config},
+    patches => [ $opt{patch} ],
 );
 
 for my $patch (@$patches) {
