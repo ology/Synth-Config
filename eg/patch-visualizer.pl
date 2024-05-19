@@ -6,10 +6,10 @@ use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config); # local author lib
 use Synth::Config ();
 use Getopt::Long qw(GetOptions);
 
-my %opt = ( # defaults:
-    model     => undef, # e.g. 'Modular'
-    config    => undef, # n.b. set below if not given
-    patch     => undef, # e.g. 'Simple 001'
+my %opt = (
+    model  => undef, # e.g. 'Modular'
+    config => undef, # n.b. set below if not given
+    patch  => undef, # e.g. 'Simple 001'
 );
 GetOptions(\%opt,
     'model=s',
