@@ -10,6 +10,7 @@ use Carp qw(croak);
 use GraphViz2 ();
 use Mojo::JSON qw(from_json to_json);
 use Mojo::SQLite ();
+use YAML qw(Load LoadFile);
 use namespace::clean;
 
 =head1 SYNOPSIS
@@ -529,11 +530,65 @@ sub remove_spec {
   );
 }
 
+=head1 import_yaml
+
+Add the settings in a L<YAML> file or string, to the database.
+
+Import a specific B<patch> in the settings, by providing it in the
+B<options>.
+
+Option defaults:
+
+  file   = undef
+  string = undef
+  patch  = undef
+
+=cut
+
+sub import_yaml {
+  my ($self, %options) = @_;
+
+  die 'Invalid settings file'
+    if $options{file} && !-e $options{file};
+
+  my $config = $options{file}
+    ? LoadFile($options{file})
+    : Load($options{string});
+
+  for my $patch (@{ $config->{patches} }) {
+    my $patch_name = $patch->{patch};
+
+    next if $options{patch} && $patch_name ne $options{patch};
+
+    my $settings = $self->search_settings(name => $patch_name);
+
+    if ($settings && @$settings) {
+      print "Removing $patch_name setting from ", $self->model, "\n";
+      $self->remove_settings(name => $patch_name);
+    }
+
+    for my $setting (@{ $patch->{settings} }) {
+      print "Adding $patch_name setting to ", $self->model, "\n";
+      $self->make_setting(name => $patch_name, %$setting);
+    }
+  }
+}
+
 =head2 graphviz
 
-  $synth->graphviz(\@settings);
+  $g = $synth->graphviz(%options);
 
 Visualize a patch of B<settings> with the L<GraphViz2> module.
+
+Option defaults:
+
+  render     = 0
+  path       = .
+  model_name = model
+  patch_name = patch
+  extension  = png
+  shape      = oval
+  color      = grey
 
 =cut
 
