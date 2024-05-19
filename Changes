@@ -1,6 +1,8 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+
+0.0052 2024-05-19 12:35:14
     - Improve documentation.
     - Improve the eg/patch-visualizer.pl program.
     - The patch_name is no longer a necessary graphviz() argument.
