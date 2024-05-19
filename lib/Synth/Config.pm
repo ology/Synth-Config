@@ -531,7 +531,7 @@ sub remove_spec {
   );
 }
 
-=head1 import_yaml
+=head2 import_yaml
 
 Add the settings in a L<YAML> file or string, to the database and
 return the setting (patch) name.
