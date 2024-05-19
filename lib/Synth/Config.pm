@@ -23,7 +23,7 @@ use namespace::clean;
 
   # populate the database with patch settings from a YAML file or string
   my $patches = $synth->import_yaml(
-      file    => "$model.yaml",
+      file    => "$model.yaml", # or string => ...
       patches => ['Simple 001', 'Simple 002' ],
   );
 
