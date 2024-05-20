@@ -491,14 +491,13 @@ sub recall_specs {
     . " where model = '" . $self->model . "'"
     . ' order by model,mygroup';
   my $results = $self->_sqlite->query($sql);
-  my @specs;
+  my $set;
   while (my $next = $results->hash) {
-    my $set = from_json($next->{spec});
+    $set = from_json($next->{spec});
     $set->{id} = $next->{id};
     $set->{model} = $next->{model};
-    push @specs, $set;
   }
-  return \@specs;
+  return $set;
 }
 
 =head2 recall_spec
