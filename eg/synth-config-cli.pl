@@ -19,10 +19,12 @@ pod2usage(1) unless @ARGV;
 my %opts = (
     model => undef, # e.g. 'Modular'
     patch => undef, # e.g. 'Simple 001'
+    specs => undef, # e.g. modular.set
 );
 GetOptions( \%opts,
     'model=s',
     'patch=s',
+    'specs=s',
 ) or pod2usage(2);
 
 pod2usage(1) if $opts{help};
@@ -33,13 +35,25 @@ die "Usage: perl $0 --model='Modular'\n"
 
 my $name = $opts{patch};
 unless ($name) {
-    $name = prompt('What is the name of this setting?', 'required');
+    $name = prompt('What is the name of the new setting?', 'required');
 }
 die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
 
-my $specs = $synth->recall_specs()->[0];
+my $spec_id;
+if ($opts{specs}) {
+    die 'Specs file does not exist' unless -e $opts{specs};
+    my $specs = {};
+    unless ($specs = do $opts{specs}) {
+        die "Couldn't parse $opts{specs}: $@" if $@;
+        die "Couldn't do $opts{specs}: $!"    unless defined $specs;
+    }
+    $spec_id = $synth->make_spec(%$specs);
+    print "Added $opts{specs} ($spec_id) to the database\n"
+        if $spec_id;
+}
+my $specs = $synth->recall_spec(id => $spec_id);
 
 # instantiate a chooser if needed
 my $tc = $specs ? Term::Choose->new : undef;
