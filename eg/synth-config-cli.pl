@@ -41,7 +41,7 @@ die 'No name given' if $name eq 'required';
 
 my $synth = Synth::Config->new(model => $opts{model});
 
-my $spec_id;
+my ($spec_id, $specs);
 if ($opts{specs}) {
     die 'Specs file does not exist' unless -e $opts{specs};
     my $specs = {};
@@ -52,8 +52,13 @@ if ($opts{specs}) {
     $spec_id = $synth->make_spec(%$specs);
     print "Added $opts{specs} ($spec_id) to the database\n"
         if $spec_id;
+    $specs = $synth->recall_spec(id => $spec_id);
 }
-my $specs = $synth->recall_spec(id => $spec_id);
+else {
+   $specs = $synth->recall_specs; 
+}
+die "Specifications not found for the $opts{model} model\n"
+    unless $specs;
 
 # instantiate a chooser if needed
 my $tc = $specs ? Term::Choose->new : undef;
