@@ -151,7 +151,7 @@ synth-config.pl - Save synth settings
 
 =head1 SYNOPSIS
 
-  synth-config.pl --model=Modular
+  $ perl synth-config.pl --model=Modular
 
 =head1 OPTIONS
 
