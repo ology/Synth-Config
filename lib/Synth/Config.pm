@@ -640,7 +640,7 @@ sub graphviz {
   # accumulate parameter = value lines
   for my $from (keys %sets) {
     my @label = ($from);
-    for my $group ($sets{$from}->@*) {
+    for my $group (@( $sets{$from} }) {
       next if $group->{control} eq 'patch';
       my $label = "$group->{parameter} = $group->{value}$group->{unit}";
       push @label, $label;
