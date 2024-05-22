@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Make recall_specs() return a hashref, not an array ref.
+    - No post-derefs please.
 
 0.0052 2024-05-19 12:35:14
     - Improve documentation.
