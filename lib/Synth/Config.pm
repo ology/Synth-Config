@@ -2,7 +2,7 @@ package Synth::Config;
 
 # ABSTRACT: Synthesizer settings librarian
 
-our $VERSION = '0.0052';
+our $VERSION = '0.0053';
 
 use Moo;
 use strictures 2;
