@@ -399,19 +399,21 @@ sub remove_setting {
 
 =head2 remove_settings
 
+  $synth->remove_settings; # all settings
   $synth->remove_settings(name => $name);
 
-Remove all settings for a given B<name>.
+Remove all settings of the current model, or for given B<name>d
+setting.
 
 =cut
 
 sub remove_settings {
   my ($self, %args) = @_;
   my $name = $args{name};
-  croak 'No name given' unless $name;
+  my $where = $name ? { name => $name } : {};
   $self->_sqlite->delete(
     $self->model,
-    { name => $name }
+    $where
   );
 }
 
