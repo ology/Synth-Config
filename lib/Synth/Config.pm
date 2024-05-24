@@ -601,9 +601,10 @@ Visualize a patch of B<settings> with the L<GraphViz2> module.
 
 Option defaults:
 
+  model_name = undef (required)
+  settings   = undef (required)
   render     = 0
   path       = .
-  model_name = model
   extension  = png
   shape      = oval
   color      = grey
