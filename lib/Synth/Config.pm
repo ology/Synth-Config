@@ -399,7 +399,7 @@ sub remove_setting {
 
 =head2 remove_settings
 
-  $synth->remove_settings; # all settings
+  $synth->remove_settings; # all model settings
   $synth->remove_settings(name => $name);
 
 Remove all settings of the current model, or for given B<name>d
