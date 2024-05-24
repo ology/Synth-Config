@@ -363,7 +363,7 @@ sub recall_models {
 
   my $names = $synth->recall_names;
 
-Return all the setting names.
+Return all the setting names for the current model.
 
 =cut
 
