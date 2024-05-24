@@ -112,11 +112,23 @@ subtest settings => sub {
   # recall all for model
   $settings = $obj->recall_all;
   is_deeply $settings, [ @$initial, $setting, $setting2 ], 'recall_all';
+  # make a third setting
+  $expect = {
+    name       => 'Foo',
+    group      => 'foo',
+    parameter  => 'output',
+    control    => 'patch',
+    group_to   => 'modulation',
+    param_to   => 'bar',
+  };
+  my $id3 = $obj->make_setting(%$expect);
+  is $id3, $id2 + 1, "make_setting (id: $id3)";
   # remove settings
   $obj->remove_setting(id => $id1);
   $settings = $obj->search_settings(name => $name);
   is_deeply $settings, [ $setting2 ], 'remove_setting';
   $obj->remove_settings(name => $name);
+  $obj->remove_settings;
   $settings = $obj->search_settings(name => $name);
   is_deeply $settings, [], 'remove_settings';
 };
