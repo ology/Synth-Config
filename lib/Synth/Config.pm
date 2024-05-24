@@ -262,7 +262,7 @@ Return the parameters of a setting for the given B<id>.
 
 sub recall_setting {
   my ($self, %args) = @_;
-  my $id = delete $args{id};
+  my $id = $args{id};
   croak 'No id given' unless $id;
   my $result = $self->_sqlite->select(
     $self->model,
@@ -278,8 +278,8 @@ sub recall_setting {
 =head2 search_settings
 
   my $settings = $synth->search_settings(
-    some_setting    => $valu2,
-    another_setting => $value2,
+    some_setting    => $val1,
+    another_setting => $val2,
   );
 
 Return all the settings given a search query.
@@ -389,7 +389,7 @@ Remove a setting given an B<id>.
 
 sub remove_setting {
   my ($self, %args) = @_;
-  my $id = delete $args{id};
+  my $id = $args{id};
   croak 'No id given' unless $id;
   $self->_sqlite->delete(
     $self->model,
@@ -407,7 +407,7 @@ Remove all settings for a given B<name>.
 
 sub remove_settings {
   my ($self, %args) = @_;
-  my $name = delete $args{name};
+  my $name = $args{name};
   croak 'No name given' unless $name;
   $self->_sqlite->delete(
     $self->model,
