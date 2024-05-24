@@ -361,7 +361,7 @@ sub recall_models {
 
 =head2 recall_names
 
-  my $names = $synth->recall_names;
+  my $settings = $synth->recall_names;
 
 Return all the setting names for the current model.
 
