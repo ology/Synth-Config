@@ -604,7 +604,6 @@ Option defaults:
   render     = 0
   path       = .
   model_name = model
-  patch_name = patch
   extension  = png
   shape      = oval
   color      = grey
