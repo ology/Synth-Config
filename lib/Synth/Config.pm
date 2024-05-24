@@ -24,7 +24,7 @@ use namespace::clean;
   # populate the database with patch settings from a YAML file or string
   my $patches = $synth->import_yaml(
       file    => "$model.yaml", # or string => ...
-      patches => ['Simple 001', 'Simple 002' ],
+      patches => ['Simple 001', 'Simple 002' ], # optional
   );
 
   # populate the database with individual settings
@@ -81,7 +81,7 @@ use namespace::clean;
   # { order => [ ... ], etc => ... }
 
   # remove stuff!
-  $synth->remove_spec;
+  $synth->remove_spec;                     # remove the current model specification
   $synth->remove_setting(id => $id1);      # remove a particular setting
   $synth->remove_settings(name => $patch); # remove all settings sharing the same name
   $synth->remove_model(model => $model);   # remove the entire model
