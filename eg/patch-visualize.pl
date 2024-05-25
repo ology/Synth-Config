@@ -30,8 +30,7 @@ my $patches = $opt{patch} ? $opt{patch}->@* : $synth->recall_names;
 for my $patch_name (@$patches) {
     my $settings = $synth->search_settings(name => $patch_name);
     $synth->graphviz(
-        settings   => $settings,
-        model_name => $model,
-        render     => 1,
+        settings => $settings,
+        render   => 1,
     );
 }

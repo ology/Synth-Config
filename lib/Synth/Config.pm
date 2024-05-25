@@ -44,15 +44,11 @@ use namespace::clean;
   $settings = $synth->search_settings(group => 'sequencer');
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
-  my $g = $synth->graphviz(
-    settings   => $settings,
-    model_name => $model,
-  );
+  my $g = $synth->graphviz(settings => $settings);
   # or
   $synth->graphviz(
-    settings   => $settings,
-    model_name => $model,
-    render     => 1,
+    settings => $settings,
+    render   => 1,
   );
 
   my $models = $synth->recall_models;
@@ -603,20 +599,17 @@ Visualize a patch of B<settings> with the L<GraphViz2> module.
 
 Option defaults:
 
-  model_name = undef (required)
-  settings   = undef (required)
-  render     = 0
-  path       = .
-  extension  = png
-  shape      = oval
-  color      = grey
+  settings  = undef (required)
+  render    = 0
+  path      = .
+  extension = png
+  shape     = oval
+  color     = grey
 
 =cut
 
 sub graphviz {
   my ($self, %options) = @_;
-
-  die 'Model not given' unless $options{model_name};
 
   $options{render}    ||= 0;
   $options{path}      ||= '.';
@@ -665,10 +658,11 @@ sub graphviz {
     ) unless $edges{$key}++;
   }
 
+  # save a file
   if ($options{render}) {
-    # save the file
-    (my $model = $options{model_name}) =~ s/\W/_/g;
+    my $model = $self->model;
     (my $patch = $patch_name) =~ s/\W/_/g;
+    # TODO render to data
     my $filename = "$options{path}/$model-$patch.$options{extension}";
     $g->run(format => $options{extension}, output_file => $filename);
   }
