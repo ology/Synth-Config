@@ -633,12 +633,13 @@ sub graphviz {
   }
 
   # accumulate parameter = value lines
+  my %seen;
   for my $from (keys %sets) {
     my @label = ($from);
     for my $group (@{ $sets{$from} }) {
       next if $group->{control} eq 'patch';
       my $label = "$group->{parameter} = $group->{value}$group->{unit}";
-      push @label, $label;
+      push @label, $label unless $seen{ "$from $label" }++;
     }
     $labels{$from} = join "\n", @label;
   }
