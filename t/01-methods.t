@@ -128,9 +128,10 @@ subtest settings => sub {
   $settings = $obj->search_settings(name => $name);
   is_deeply $settings, [ $setting2 ], 'remove_setting';
   $obj->remove_settings(name => $name);
+  is_deeply $settings, [ $setting2 ], 'already removed';
   $obj->remove_settings;
-  $settings = $obj->search_settings(name => $name);
-  is_deeply $settings, [], 'remove_settings';
+  $settings = $obj->recall_names;
+  is_deeply $settings, [], 'recall_names';
 };
 
 subtest graphviz => sub {
