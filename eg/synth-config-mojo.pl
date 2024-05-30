@@ -9,7 +9,7 @@ use Mojo::JSON qw(to_json);
 use Mojo::File ();
 use Mojo::Util qw(trim);
 
-use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config); # local author library
+use lib map { "$ENV{HOME}/repos/gene-at-github/$_/lib" } qw(Synth-Config); # local author library
 use Synth::Config ();
 
 use constant SETTINGS => './eg/public/settings/';
@@ -28,7 +28,7 @@ get '/' => sub ($c) {
     # get a specs config for the synth model
     my $specs = $synth->recall_specs;
     # get the known groups if there are specs
-    $groups = $specs && @$specs ? $specs->{group} : undef;
+    $groups = $specs && keys %$specs ? $specs->{group} : undef;
     # fetch the things!
     if ($group || $name || $fields) {
       my %parameters;
