@@ -682,10 +682,14 @@ The F<t/01-methods.t> and the F<eg/*.pl> files in this distribution
 
 L<GraphViz2>
 
+L<List::Util>
+
 L<Moo>
 
 L<Mojo::JSON>
 
 L<Mojo::SQLite>
+
+L<YAML>
 
 =cut
