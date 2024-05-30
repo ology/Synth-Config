@@ -106,9 +106,9 @@ subtest settings => sub {
   # search the settings for two keys
   $settings = $obj->search_settings(group => $expect->{group}, name => $name);
   is_deeply $settings, [ $setting2 ], 'search_settings';
-  # recall names
-  my $names = $obj->recall_names;
-  is_deeply $names, [ $first, $name ], 'recall_names';
+  # recall setting names
+  my $setting_names = $obj->recall_settings;
+  is_deeply $setting_names, [ $first, $name ], 'recall_settings';
   # recall all for model
   $settings = $obj->recall_all;
   is_deeply $settings, [ @$initial, $setting, $setting2 ], 'recall_all';
@@ -130,8 +130,8 @@ subtest settings => sub {
   $obj->remove_settings(name => $name);
   is_deeply $settings, [ $setting2 ], 'already removed';
   $obj->remove_settings;
-  $settings = $obj->recall_names;
-  is_deeply $settings, [], 'recall_names';
+  $settings = $obj->recall_settings;
+  is_deeply $settings, [], 'recall_settings';
 };
 
 subtest graphviz => sub {

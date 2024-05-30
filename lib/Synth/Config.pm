@@ -54,7 +54,7 @@ use namespace::clean;
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
 
-  my $names = $synth->recall_names;
+  my $setting_names = $synth->recall_settings;
   # [ 'My favorite setting' ]
 
   # declare the possible settings
@@ -355,24 +355,24 @@ sub recall_models {
   return \@models;
 }
 
-=head2 recall_names
+=head2 recall_settings
 
-  my $settings = $synth->recall_names;
+  my $settings = $synth->recall_settings;
 
-Return all the setting names for the current model.
+Return all the settings for the current model.
 
 =cut
 
-sub recall_names {
+sub recall_settings {
   my ($self) = @_;
-  my @names;
+  my @settings;
   my $results = $self->_sqlite->query(
     'select distinct name from ' . $self->model
   );
   while (my $next = $results->array) {
-    push @names, $next->[0];
+    push @settings, $next->[0];
   }
-  return \@names;
+  return \@settings;
 }
 
 =head2 remove_setting
