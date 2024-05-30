@@ -24,7 +24,7 @@ use namespace::clean;
   # populate the database with patch settings from a YAML file or string
   my $patches = $synth->import_yaml(
       file    => "$model.yaml", # or string => '...' # one or the other is required
-      patches => ['Simple 001', 'Simple 002' ],      # optional
+      patches => ['Simple 001', 'Simple 002'],       # optional
   );
 
   # populate the database with individual settings
