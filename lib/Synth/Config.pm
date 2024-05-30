@@ -611,6 +611,8 @@ Option defaults:
 sub graphviz {
   my ($self, %options) = @_;
 
+  croak 'No settings given' unless $options{settings};
+
   $options{render}    ||= 0;
   $options{path}      ||= '.';
   $options{extension} ||= 'png';
