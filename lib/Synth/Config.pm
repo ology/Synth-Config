@@ -556,7 +556,7 @@ Option defaults:
 sub import_yaml {
   my ($self, %options) = @_;
 
-  die 'Invalid settings file'
+  croak 'Invalid settings file'
     if $options{file} && !-e $options{file};
 
   my $config = $options{file}
