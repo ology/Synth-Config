@@ -2,7 +2,7 @@ package Synth::Config;
 
 # ABSTRACT: Synthesizer settings librarian
 
-our $VERSION = '0.0056';
+our $VERSION = '0.0057';
 
 use Moo;
 use strictures 2;
@@ -32,29 +32,32 @@ use namespace::clean;
   my $id1 = $synth->make_setting(name => $patch, group => 'filter', etc => '...');
   my $id2 = $synth->make_setting(name => $patch, group => 'sequencer', etc => '...');
 
-  my $setting = $synth->recall_setting(id => $id1);
-  # { id => 1, group => 'filter', etc => '...' }
+  my $settings = $synth->recall_settings;
+  # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
 
   # update the group key
   $synth->make_setting(id => $id1, group => 'envelope');
 
-  my $settings = $synth->search_settings(name => $patch);
+  $settings = $synth->search_settings(name => $patch);
   # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
 
   $settings = $synth->search_settings(group => 'sequencer');
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
-  my $g = $synth->graphviz(settings => $settings);
+  my $setting = $synth->recall_setting(id => $id1);
+  # { id => 1, group => 'filter', etc => '...' }
+
+  my $g = $synth->graphviz(settings => $setting);
   # or
   $synth->graphviz(
-    settings => $settings,
+    settings => $setting,
     render   => 1,
   );
 
   my $models = $synth->recall_models;
   # [ 'moog_matriarch' ]
 
-  my $setting_names = $synth->recall_settings;
+  my $setting_names = $synth->recall_setting_names;
   # [ 'My favorite setting' ]
 
   # declare the possible settings
@@ -309,15 +312,15 @@ sub search_settings {
   return \@settings;
 }
 
-=head2 recall_all
+=head2 recall_settings
 
-  my $settings = $synth->recall_all;
+  my $settings = $synth->recall_settings;
 
 Return all the settings for the synth model.
 
 =cut
 
-sub recall_all {
+sub recall_settings {
   my ($self) = @_;
   my $sql = q/select id,name,settings,json_extract(settings, '$.group') as mygroup from /
     . $self->model
@@ -355,15 +358,15 @@ sub recall_models {
   return \@models;
 }
 
-=head2 recall_settings
+=head2 recall_setting_names
 
-  my $settings = $synth->recall_settings;
+  my $setting_names = $synth->recall_setting_names;
 
-Return all the settings for the current model.
+Return all the setting names for the current model.
 
 =cut
 
-sub recall_settings {
+sub recall_setting_names {
   my ($self) = @_;
   my @settings;
   my $results = $self->_sqlite->query(
