@@ -87,8 +87,8 @@ use namespace::clean;
 
 =head1 DESCRIPTION
 
-C<Synth::Config> provides a way to save and recall synthesizer control
-settings in a database.
+C<Synth::Config> provides a way to import, save, recall, and visualize
+synthesizer control settings in a database.
 
 This does B<not> control the synth. It is simply a way to manually
 record the parameters defined by knob, slider, switch, or patch
