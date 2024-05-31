@@ -214,7 +214,7 @@ Example:
   name: 'My Other Best Setting!'
   settings:
     group parameter control group_to param_to is_default
-    mixer output    patch   filters  vcf-1-in 0
+    mixer output    patch   filters  vcf-in   0
 
 =cut
 
