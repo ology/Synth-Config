@@ -88,7 +88,7 @@ use namespace::clean;
 =head1 DESCRIPTION
 
 C<Synth::Config> provides a way to import, save, recall, and visualize
-synthesizer control settings in a database.
+synthesizer control settings in a database, and with L<GraphViz2>.
 
 This does B<not> control the synth. It is simply a way to manually
 record the parameters defined by knob, slider, switch, or patch
