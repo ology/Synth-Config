@@ -39,8 +39,8 @@ subtest yaml => sub {
     patches => [ $first ],
   );
   is @$got, 1, 'import_yaml';
-  $initial = $obj->recall_all;
-  is @$initial, 4, 'recall_all';
+  $initial = $obj->recall_setting_names;
+  is @$initial, 1, 'recall_setting_names';
 };
 
 subtest settings => sub {
@@ -107,11 +107,11 @@ subtest settings => sub {
   $settings = $obj->search_settings(group => $expect->{group}, name => $name);
   is_deeply $settings, [ $setting2 ], 'search_settings';
   # recall setting names
-  my $setting_names = $obj->recall_settings;
-  is_deeply $setting_names, [ $first, $name ], 'recall_settings';
+  my $setting_names = $obj->recall_setting_names;
+  is_deeply $setting_names, [ $first, $name ], 'recall_setting_names';
   # recall all for model
-  $settings = $obj->recall_all;
-  is_deeply $settings, [ @$initial, $setting, $setting2 ], 'recall_all';
+  $settings = $obj->recall_settings;
+  isa_ok $settings->[0], 'HASH', 'recall_settings';
   # make a third setting
   $expect = {
     name       => 'Foo',
@@ -135,8 +135,9 @@ subtest settings => sub {
 };
 
 subtest graphviz => sub {
+  my $settings = $obj->search_settings(name => $initial);
   my $got = $obj->graphviz(
-    settings   => $initial,
+    settings   => $settings,
     patch_name => $first,
   );
   isa_ok $got, 'GraphViz2';
@@ -169,6 +170,6 @@ subtest specs => sub {
 subtest cleanup => sub {
   # remove the model
   $obj->remove_model(model => $model);
-  my $settings = eval { $obj->recall_all };
+  my $settings = eval { $obj->recall_setting_names };
   is $settings, undef, 'remove_model';
 };
