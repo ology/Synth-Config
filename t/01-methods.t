@@ -4,8 +4,11 @@ use warnings;
 
 use Test::More;
 
+use_ok 'Synth::Config';
+
+my $db_file = 'test.db';
+
 END {
-    my $db_file = 'test.db';
     ok -e $db_file, 'db exists';
     if (-e $db_file) {
         unlink $db_file;
@@ -16,15 +19,13 @@ END {
     done_testing();
 }
 
-use_ok 'Synth::Config';
-
 my $model = 'Moog Matriarch';
 my $first = 'Simple 001';
 my $initial;
 
 my $obj = new_ok 'Synth::Config' => [
   model  => $model,
-  dbname => 'test.db',
+  dbname => $db_file,
 #  verbose => 1,
 ];
 
