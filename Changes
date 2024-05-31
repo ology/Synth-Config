@@ -1,7 +1,9 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
-    - Fix dumb method name.
+    - Fix dumb method names.
+    - And fix tests.
+    - Improve documentation.
 
 0.0056 2024-05-26 22:15:55
     - Remove model_name from graphviz() required arguments.
