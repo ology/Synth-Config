@@ -44,9 +44,9 @@ get '/' => sub ($c) {
       $settings = $synth->search_settings(%parameters);
     }
     elsif ($synth->model) {
-      $settings = $synth->recall_all;
+      $settings = $synth->recall_settings;
     }
-    $names = $synth->recall_names;
+    $names = $synth->recall_setting_names;
   }
   $models = $synth->recall_models;
   for my $m (@$models) {
