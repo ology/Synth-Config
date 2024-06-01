@@ -668,7 +668,6 @@ sub graphviz {
   if ($options{render}) {
     my $model = $self->model;
     (my $patch = $patch_name) =~ s/\W/_/g;
-    # TODO render to data
     my $filename = "$options{path}/$model-$patch.$options{extension}";
     $g->run(format => $options{extension}, output_file => $filename);
   }
