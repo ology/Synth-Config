@@ -2,6 +2,7 @@ Revision history for Synth-Config
 
 {{$NEXT}}
     - Rename import patches method.
+    - Add an import specs method.
 
 0.0058 2024-05-31 18:56:58
     - Fix method names in eg/ programs.
