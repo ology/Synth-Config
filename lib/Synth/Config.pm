@@ -22,7 +22,7 @@ use namespace::clean;
   my $synth = Synth::Config->new(model => $model, verbose => 1);
 
   # populate the database with patch settings from a YAML file or string
-  my $patches = $synth->import_yaml(
+  my $patches = $synth->import_yaml_patches(
       file    => "$model.yaml", # or string => '...' # one or the other is required
       patches => ['Simple 001', 'Simple 002'],       # optional
   );
@@ -540,7 +540,7 @@ sub remove_spec {
   );
 }
 
-=head2 import_yaml
+=head2 import_yaml_patches
 
 Add the settings in a L<YAML> file or string, to the database and
 return the setting (patch) name.
@@ -556,7 +556,7 @@ Option defaults:
 
 =cut
 
-sub import_yaml {
+sub import_yaml_patches {
   my ($self, %options) = @_;
 
   croak 'Invalid settings file'
