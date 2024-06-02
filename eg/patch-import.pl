@@ -30,7 +30,7 @@ my $synth = Synth::Config->new(
 #    verbose => 1,
 );
 
-my $patches = $synth->import_yaml_patches(
+my $patches = $synth->import_patches(
     file => $opt{config},
     defined $opt{patch} ? (patches => $opt{patch}) : (),
 );
