@@ -21,7 +21,7 @@ use namespace::clean;
   my $model = 'Modular';
   my $synth = Synth::Config->new(model => $model, verbose => 1);
 
-  # populate the database with patch settings from a YAML file or string
+  # populate the database with patch settings
   my $patches = $synth->import_patches(
       file    => "$model.yaml", # or string => '...' # one or the other is required
       patches => ['Simple 001', 'Simple 002'],       # optional
@@ -60,7 +60,7 @@ use namespace::clean;
   my $setting_names = $synth->recall_setting_names;
   # [ 'My favorite setting' ]
 
-  # populate the database with model specification from a YAML file or string
+  # populate the database with the model specification
   my $specs = $synth->import_specs(
       file => "$model.yaml",
       # or string => '...' # one or the other is required
