@@ -66,7 +66,7 @@ use namespace::clean;
       # or string => '...' # one or the other is required
   );
 
-  # declare the possible settings
+  # declare the possible setting specificatiions
   my %spec = (
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
     group      => [],
