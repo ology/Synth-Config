@@ -22,7 +22,7 @@ use namespace::clean;
   my $synth = Synth::Config->new(model => $model, verbose => 1);
 
   # populate the database with patch settings from a YAML file or string
-  my $patches = $synth->import_yaml_patches(
+  my $patches = $synth->import_patches(
       file    => "$model.yaml", # or string => '...' # one or the other is required
       patches => ['Simple 001', 'Simple 002'],       # optional
   );
@@ -60,6 +60,12 @@ use namespace::clean;
   my $setting_names = $synth->recall_setting_names;
   # [ 'My favorite setting' ]
 
+  # populate the database with model specification from a YAML file or string
+  my $specs = $synth->import_specs(
+      file => "$model.yaml",
+      # or string => '...' # one or the other is required
+  );
+
   # declare the possible settings
   my %spec = (
     order      => [qw(group parameter control group_to param_to bottom top value unit is_default)],
@@ -76,7 +82,7 @@ use namespace::clean;
   );
   my $spec_id = $synth->make_spec(%spec);
   my $spec = $synth->recall_spec(id => $spec_id);
-  my $specs = $synth->recall_specs;
+  $specs = $synth->recall_specs;
   # { order => [ ... ], etc => ... }
 
   # remove stuff!
@@ -540,13 +546,56 @@ sub remove_spec {
   );
 }
 
-=head2 import_yaml_patches
+=head2 import_specs
 
-Add the settings in a L<YAML> file or string, to the database and
-return the setting (patch) name.
+Add the specifications defined in a L<YAML> file or string, to the
+database and return the spec name.
 
-Import a specific set of B<patches> in the settings, by providing them
-in the B<options>.
+Option defaults:
+
+  file   = undef
+  string = undef
+
+=cut
+
+sub import_specs {
+  my ($self, %options) = @_;
+
+  croak 'Invalid specs file'
+    if $options{file} && !-e $options{file};
+
+  my $config = $options{file}
+    ? LoadFile($options{file})
+    : Load($options{string});
+
+  my $specs = $self->recall_specs;
+
+  if ($specs && @$specs) {
+    print 'Removing spec from ', $self->model, "\n"
+        if $self->verbose;
+    $self->remove_spec;
+  }
+
+  my @list = @{ $config->{specs} };;
+
+  for my $name (@list) {
+      for my $spec (@{ $config->{$name} }) {
+        print "Adding $name spec to ", $self->model, "\n"
+          if $self->verbose;
+        $self->make_spec(name => $name, %$spec);
+      }
+  }
+
+  return \@list;
+}
+
+=head2 import_patches
+
+Add the settings defined in a L<YAML> file or string, to the database
+and return the setting (patch) name.
+
+A specific subset of B<patches> can be imported, by providing their
+names in the B<options>.
 
 Option defaults:
 
@@ -556,7 +605,7 @@ Option defaults:
 
 =cut
 
-sub import_yaml_patches {
+sub import_patches {
   my ($self, %options) = @_;
 
   croak 'Invalid settings file'
