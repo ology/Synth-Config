@@ -35,11 +35,11 @@ subtest defaults => sub {
 };
 
 subtest yaml => sub {
-  my $got = $obj->import_yaml_patches(
+  my $got = $obj->import_patches(
     file    => 'eg/Modular.yaml',
     patches => [ $first ],
   );
-  is @$got, 1, 'import_yaml_patches';
+  is @$got, 1, 'import_patches';
   $initial = $obj->recall_setting_names;
   is @$initial, 1, 'recall_setting_names';
 };
