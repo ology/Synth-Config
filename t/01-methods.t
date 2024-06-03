@@ -34,7 +34,7 @@ subtest defaults => sub {
   is $obj->verbose, 0, 'verbose';
 };
 
-subtest yaml => sub {
+subtest import => sub {
   my $got = $obj->import_patches(
     file    => 'eg/Modular.yaml',
     patches => [ $first ],
