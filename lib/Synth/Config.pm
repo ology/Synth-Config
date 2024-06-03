@@ -597,6 +597,28 @@ and return the setting (patch) name.
 A specific subset of B<patches> can be imported, by providing their
 names in the B<options>.
 
+YAML format:
+
+  model: "Model name"
+  patches:
+    - patch: "Setting name"
+      settings:
+        - group: "Group name"
+          parameters:
+            - param: "Patch parameter name"
+              control: 'patch'
+              group_to: "Connect to group"
+              param_to: "Connected group parameter"
+            - param: "Control parameter name"
+              control: "Named physical control"
+              value: "Parameter value"
+              unit: "Parameter unit of measure"
+    - patch: "Another parameter name"
+      ...
+
+Please see the L</"SEE ALSO"> section for examples of configuration
+files.
+
 Option defaults:
 
   file    = undef
