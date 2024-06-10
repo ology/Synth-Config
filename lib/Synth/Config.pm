@@ -680,6 +680,25 @@ Option defaults:
   shape     = oval
   color     = grey
 
+  model => 'Modular',
+  patches => [
+    {
+      patch => 'Simple 000',
+      settings => [
+        {
+          group => 'oscillator',
+          parameters => [
+            { control => 'patch', group_to => 'mixer', param => 'out', param_to => 'in' },
+            { control => 'knob', param => 'range', unit => "'", value => 8 },
+            { control => 'switch', param => 'waveform', unit => '', value => 'square' },
+          ],
+        }, {
+          group => 'mixer',
+          parameters => [ { control => 'patch', group_to => 'audio', param => 'stereo-out', param_to => 'stereo-in' } ],
+        },
+      ],
+    }
+
 =cut
 
 sub graphviz {
@@ -698,41 +717,46 @@ sub graphviz {
     node   => { shape => $options{shape} },
     edge   => { color => $options{color} },
   );
-  my (%edges, %sets, %labels);
+  my (%edges, %sets, %labels, %seen, $patch_name);
 
-  my $patch_name = '';
   # collect settings by group
   for my $set (@{ $options{settings} }) {
-    my $from = $set->{group};
     $patch_name = $set->{name};
-    push @{ $sets{$from} }, $set;
+    my $from = $set->{group};
+    push @{ $sets{$from} }, $_ for @{ $set->{parameters} };
   }
 
-  # accumulate parameter = value lines
-  my %seen;
+  # accumulate non-patch parameter = value labels
   for my $from (keys %sets) {
-    my @label = ($from);
-    for my $group (@{ $sets{$from} }) {
-      next if $group->{control} eq 'patch';
-      my $label = "$group->{parameter} = $group->{value}$group->{unit}";
-      push @label, $label unless $seen{ "$from $label" }++;
+    my @labels;
+    for my $parameter (@{ $sets{$from} }) {
+      next if $parameter->{control} eq 'patch';
+      my $label = "$parameter->{param} = $parameter->{value}$parameter->{unit}";
+      push @labels, $label unless $seen{$label}++;
     }
-    $labels{$from} = join "\n", @label;
+    $labels{$from} = join "\n", $from, @labels;
   }
 
   # add patch edges
-  for my $set (@{ $options{settings} }) {
-    next if $set->{control} ne 'patch';
-    my ($from, $to, $param, $param_to) = @$set{qw(group group_to parameter param_to)};
-    my $key = "$from $param to $to $param_to";
-    my $label = "$param to $param_to";
-    $from = $labels{$from};
-    $to = $labels{$to} if exists $labels{$to};
-    $g->add_edge(
-      from  => $from,
-      to    => $to,
-      label => $label,
-    ) unless $edges{$key}++;
+  for my $from (keys %sets) {
+    for my $parameter (@{ $sets{$from} }) {
+      next if $parameter->{control} ne 'patch';
+      my $to         = $parameter->{group_to};
+      my $param      = $parameter->{param};
+      my $param_to   = $parameter->{param_to};
+      my $key        = "$from $param to $to $param_to";
+      my $label      = "$param to $param_to";
+      my $from_label = $labels{$from};
+      my $to_label   = exists $labels{$to}
+        ? $labels{$to}
+        : ucfirst lc $to;
+      $g->add_node(name => $to_label);
+      $g->add_edge(
+        from  => $from_label,
+        to    => $to_label,
+        label => $label,
+      ) unless $edges{$key}++;
+    }
   }
 
   # save a file
