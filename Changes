@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Major change: Restructure the settings yaml and parsing in the graphviz method.
     - Rename import patches method.
     - Add an import specs method.
 
