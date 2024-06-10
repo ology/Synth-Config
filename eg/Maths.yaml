@@ -136,8 +136,8 @@ patches:
         parameters:
           - param: 'out'
             control: 'patch'
-            group_to: 'MIX'
-            param_to: 'left-in'
+            group_to: 'VCA 1'
+            param_to: 'sig-in'
           - param: 'cutoff'
             control: 'slider'
             value: 4
@@ -150,8 +150,8 @@ patches:
         parameters:
           - param: 'out'
             control: 'patch'
-            group_to: 'MIX'
-            param_to: 'right-in'
+            group_to: 'VCA 2'
+            param_to: 'sig-in'
           - param: 'cutoff'
             control: 'slider'
             value: 4.5
@@ -164,12 +164,30 @@ patches:
         parameters:
           - param: 'out-1'
             control: 'patch'
-            group_to: 'MIX'
-            param_to: 'middle-in'
+            group_to: 'VCA 3'
+            param_to: 'sig-in'
           - param: 'setting'
             control: 'knob'
             value: 'ByteBeats'
             unit: ''
+      - group: 'VCA 1'
+        parameters:
+          - param: 'out'
+            control: 'patch'
+            group_to: 'MIX'
+            param_to: 'in 1'
+      - group: 'VCA 2'
+        parameters:
+          - param: 'out'
+            control: 'patch'
+            group_to: 'MIX'
+            param_to: 'in 2'
+      - group: 'VCA 3'
+        parameters:
+          - param: 'out'
+            control: 'patch'
+            group_to: 'MIX'
+            param_to: 'in 3'
       - group: 'MIX'
         parameters:
           - param: 'stereo-out'
@@ -268,8 +286,8 @@ patches:
         parameters:
           - param: 'out'
             control: 'patch'
-            group_to: 'MIX'
-            param_to: 'left-in'
+            group_to: 'VCA 1'
+            param_to: 'sig-in'
           - param: 'cutoff'
             control: 'slider'
             value: 2.9
@@ -282,8 +300,8 @@ patches:
         parameters:
           - param: 'out'
             control: 'patch'
-            group_to: 'MIX'
-            param_to: 'right-in'
+            group_to: 'VCA 2'
+            param_to: 'sig-in'
           - param: 'cutoff'
             control: 'slider'
             value: 2.5
@@ -292,6 +310,18 @@ patches:
             control: 'slider'
             value: 2.5
             unit: ''
+      - group: 'VCA 1'
+        parameters:
+          - param: 'out'
+            control: 'patch'
+            group_to: 'MIX'
+            param_to: 'in 1'
+      - group: 'VCA 2'
+        parameters:
+          - param: 'out'
+            control: 'patch'
+            group_to: 'MIX'
+            param_to: 'in 2'
       - group: 'MIX'
         parameters:
           - param: 'stereo-out'
