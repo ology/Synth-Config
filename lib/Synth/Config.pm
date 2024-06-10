@@ -732,7 +732,8 @@ sub graphviz {
     for my $parameter (@{ $sets{$from} }) {
       next if $parameter->{control} eq 'patch';
       my $label = "$parameter->{param} = $parameter->{value}$parameter->{unit}";
-      push @labels, $label unless $seen{$label}++;
+      my $key   = "$from $label";
+      push @labels, $label unless $seen{$key}++;
     }
     $labels{$from} = join "\n", $from, @labels;
   }
