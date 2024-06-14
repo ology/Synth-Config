@@ -45,7 +45,7 @@ use namespace::clean;
   # [ { id => 2, group => 'sequencer', etc => '...' } ]
 
   my $setting = $synth->recall_setting(id => $id1);
-  # { id => 1, group => 'filter', etc => '...' }
+  # { id => 1, group => 'envelope', etc => '...' }
 
   my $g = $synth->graphviz(settings => $setting);
   # or
