@@ -32,11 +32,11 @@ use namespace::clean;
   my $id1 = $synth->make_setting(name => $patch, group => 'filter', etc => '...');
   my $id2 = $synth->make_setting(name => $patch, group => 'sequencer', etc => '...');
 
-  my $settings = $synth->recall_settings;
-  # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
-
   # update the group key
   $synth->make_setting(id => $id1, group => 'envelope');
+
+  my $settings = $synth->recall_settings;
+  # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
 
   $settings = $synth->search_settings(name => $patch);
   # [ { id => 1, group => 'envelope', etc => '...' }, { id => 2, group => 'sequencer', etc => '...' } ]
