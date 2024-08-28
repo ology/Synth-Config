@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 
-use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Synth-Config); # local author libs
 use Synth::Config ();
 use Getopt::Long qw(GetOptions);
 
