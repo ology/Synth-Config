@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Fix syntax error in the visualizer script.
 
 0.0062 2024-06-13 21:36:53
     - Fix synopsis.
