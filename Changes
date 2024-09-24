@@ -1,6 +1,7 @@
 Revision history for Synth-Config
 
 {{$NEXT}}
+    - Improve the vidualization edge labels.
 
 0.0063 2024-09-24 12:50:51
     - Fix syntax error in the visualizer script.
