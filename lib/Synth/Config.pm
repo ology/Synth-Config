@@ -746,7 +746,7 @@ sub graphviz {
       my $param      = $parameter->{param};
       my $param_to   = $parameter->{param_to};
       my $key        = "$from $param to $to $param_to";
-      my $label      = "$param to $param_to";
+      my $label      = "$param to\n$param_to";
       my $from_label = $labels{$from};
       my $to_label   = exists $labels{$to}
         ? $labels{$to}
