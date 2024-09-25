@@ -2,7 +2,7 @@ model: 'Behringer'
 patches:
   - patch: 'Basic'
     settings:
-      - group: 'MIDI-cv'
+      - group: 'MIDI-CV'
         parameters:
           - param : 'trig-out 1'
             control: 'patch'
@@ -10,7 +10,7 @@ patches:
             param_to: 'gate-in'
           - param : 'cv-out 1'
             control: 'patch'
-            group_to: 'OSC 1'
+            group_to: 'VCO 1'
             param_to: 'mod-in'
           - param : 'trig-out 2'
             control: 'patch'
@@ -18,7 +18,7 @@ patches:
             param_to: 'gate-in'
           - param : 'cv-out 2'
             control: 'patch'
-            group_to: 'OSC 2'
+            group_to: 'VCO 2'
             param_to: 'mod-in'
       - group: 'ENV 1'
         parameters:
@@ -32,13 +32,13 @@ patches:
             control: 'patch'
             group_to: 'VCA 2'
             param_to: 'mod-in'
-      - group: 'OSC 1'
+      - group: 'VCO 1'
         parameters:
           - param : 'out'
             control: 'patch'
             group_to: 'VCF 1'
             param_to: 'sig-in'
-      - group: 'OSC 2'
+      - group: 'VCO 2'
         parameters:
           - param : 'out'
             control: 'patch'
